@@ -15,7 +15,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { login } from "../../redux/Actions/UserActions";
 import { useDispatch, useSelector } from "react-redux";
 import {  useHistory } from "react-router-dom";
-import Swal from "sweetalert2";
 
 function Copyright() {
   return (

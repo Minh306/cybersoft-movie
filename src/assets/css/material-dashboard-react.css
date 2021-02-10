@@ -509,3 +509,6 @@ footer ul li a:hover {
 * {
   letter-spacing: normal !important;
 }
+.swal2-container {
+  z-index: 100000;
+}

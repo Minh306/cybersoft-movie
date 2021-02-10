@@ -1,5 +1,5 @@
 import {
-  primaryColor,
+  // primaryColor,
   whiteColor,
   primaryBoxShadow,
   defaultFont,

@@ -8,7 +8,6 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
-import { FETCH_DETAIL_USER } from "redux/Constants/UserConstants";
 import createAction from "redux/Actions";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_DETAIL } from "redux/Constants/UserConstants";
@@ -67,36 +66,11 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-  root: {
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
-}))(TableRow);
-
-const useStyles = makeStyles({
-  table: {
-    minWidth: 700,
-  },
-});
-
 export default function DetailUser() {
   const isDetail = useSelector((state) => state.userReducers.isDetail);
   const DetailUser = useSelector((state) => state.userReducers.detailUser);
   const dispatch = useDispatch();
   const dateFormat = require("dateformat");
-  const [open, setOpen] = React.useState(false);
   const handleClosePopup = () => {
     dispatch(createAction(SET_DETAIL, false));
   };

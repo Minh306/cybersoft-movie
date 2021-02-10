@@ -18,25 +18,25 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
-import BubbleChart from "@material-ui/icons/BubbleChart";
-import LocationOn from "@material-ui/icons/LocationOn";
-import Notifications from "@material-ui/icons/Notifications";
-import Unarchive from "@material-ui/icons/Unarchive";
-import Language from "@material-ui/icons/Language";
+// import LibraryBooks from "@material-ui/icons/LibraryBooks";
+// import BubbleChart from "@material-ui/icons/BubbleChart";
+// import LocationOn from "@material-ui/icons/LocationOn";
+// import Notifications from "@material-ui/icons/Notifications";
+// import Unarchive from "@material-ui/icons/Unarchive";
+// import Language from "@material-ui/icons/Language";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TheatersIcon from '@material-ui/icons/Theaters';
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
-import TableList from "views/TableList/TableList.js";
+// import TableList from "views/TableList/TableList.js";
 import UserManager from "views/UserManager/";
 import MovieManager from "views/MovieManager/";
-import Icons from "views/Icons/Icons.js";
-import Maps from "views/Maps/Maps.js";
-import NotificationsPage from "views/Notifications/Notifications.js";
+// import Icons from "views/Icons/Icons.js";
+// import Maps from "views/Maps/Maps.js";
+// import NotificationsPage from "views/Notifications/Notifications.js";
 // core components/views for RTL layout
-import RTLPage from "views/RTLPage/RTLPage.js";
+// import RTLPage from "views/RTLPage/RTLPage.js";
 
 const dashboardRoutes = [
   {

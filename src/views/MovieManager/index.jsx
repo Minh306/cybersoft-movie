@@ -12,41 +12,13 @@ import MovieTable from "components/Table/MovieTable.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import { Box, Button, Grid, Paper } from "@material-ui/core";
+import { Box, Button, Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovieInfo } from "redux/Actions/MovieActions";
 import { green } from "@material-ui/core/colors";
 import Pagination from "@material-ui/lab/Pagination";
+import PopupMovie from "components/Popup/CUMovie";
 
-const styles = {
-  cardCategoryWhite: {
-    "&,& a,& a:hover,& a:focus": {
-      color: "rgba(255,255,255,.62)",
-      margin: "0",
-      fontSize: "14px",
-      marginTop: "0",
-      marginBottom: "0",
-    },
-    "& a,& a:hover,& a:focus": {
-      color: "#FFFFFF",
-    },
-  },
-  cardTitleWhite: {
-    color: "#FFFFFF",
-    marginTop: "0px",
-    minHeight: "auto",
-    fontWeight: "300",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    marginBottom: "3px",
-    textDecoration: "none",
-    "& small": {
-      color: "#777",
-      fontSize: "65%",
-      fontWeight: "400",
-      lineHeight: "1",
-    },
-  },
-};
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -67,18 +39,14 @@ export default function TableList() {
   const dispatch = useDispatch();
   const classes = useStyles();
   const movieInfor = useSelector((state) => state.movieReducers.movieInfor);
-  // Converting {} to [[]]
-  // const finalArr = [];
-  // const convertArr = userInfo.items?.map((item)=>{
-  //   return finalArr.push(Object.values(item))
-  // })
+  const isEdited = useSelector((state) => state.movieReducers.isEdited);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   useEffect(() => {
     dispatch(fetchMovieInfo(page, pageSize));
-  }, [page, pageSize]);
+  }, [page, pageSize, dispatch, isEdited]);
 
   return (
     <GridContainer>
@@ -115,6 +83,7 @@ export default function TableList() {
               ]}
               tableData={movieInfor}
             />
+            <PopupMovie />
             <div className={classes.root}>
               <Box display="flex" justifyContent="center" mt={3}>
                 <Pagination

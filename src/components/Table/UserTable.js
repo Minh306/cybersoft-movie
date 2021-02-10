@@ -12,14 +12,11 @@ import styles from "assets/jss/material-dashboard-react/components/tableStyle.js
 import { Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import createAction from "redux/Actions";
-import { SET_CREATED } from "redux/Constants/UserConstants";
-import { CREATE_USER } from "redux/Constants/UserConstants";
 import { EDIT_USER } from "redux/Constants/UserConstants";
 import { SET_EDITED } from "redux/Constants/UserConstants";
 import Swal from "sweetalert2";
 import { SET_DELETED } from "redux/Constants/UserConstants";
 import { deleteUser } from "redux/Actions/UserActions";
-import { FETCH_DETAIL_USER } from "redux/Constants/UserConstants";
 import { fetchDetailUser } from "redux/Actions/UserActions";
 
 const useStyles = makeStyles(styles);
@@ -59,7 +56,6 @@ export default function UserTable(props) {
   const handleDeleteUser = (taiKhoan) => () => {
     let userSelected = {};
     let haveUser = false;
-    let process = false;
     for (let user of userInfo.items) {
       if (taiKhoan === user.taiKhoan) {
         userSelected = user.taiKhoan;

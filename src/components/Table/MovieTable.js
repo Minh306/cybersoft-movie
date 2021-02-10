@@ -9,8 +9,11 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
-import Styles from "./Styles";
 import { Button } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import createAction from "redux/Actions";
+import { EDIT_MOVIE } from "redux/Constants/MovieConstants";
+import { SET_EDITED } from "redux/Constants/UserConstants";
 
 const useStyles = makeStyles(styles);
 
@@ -18,7 +21,30 @@ export default function MovieTable(props) {
   const classes = useStyles();
   const dateFormat = require("dateformat");
   const { tableHead, tableData, tableHeaderColor } = props;
-  // const { poster } = this.props.classes;
+  const movieInfor = useSelector((state) => state.movieReducers.movieInfor);
+  const dispatch = useDispatch();
+
+  const handleEditMovie = (maPhim) => () => {
+    let movieSelected = {};
+    let haveMovie = false;
+    for (let movie of movieInfor.items) {
+      if (maPhim === movie.maPhim) {
+        movieSelected = { ...movie };
+        haveMovie = true;
+      }
+    }
+    if (haveMovie) {
+      dispatch(
+        createAction(EDIT_MOVIE, {
+          selectedMovie: { ...movieSelected },
+          isPopUp: true,
+          typePopUp: "Cập Nhật Thông Tin",
+        })
+      );
+      dispatch(createAction(SET_EDITED, false));
+    }
+  };
+
   return (
     <div className={classes.tableResponsive}>
       <Table className={classes.table}>
@@ -61,7 +87,7 @@ export default function MovieTable(props) {
                   {dateFormat(ngayKhoiChieu, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
                 </TableCell>
                 <TableCell className={classes.tableCell}>
-                  <Button variant="outlined" color="primary">
+                  <Button onClick={handleEditMovie(prop.maPhim)} variant="outlined" color="primary">
                     Edit
                 </Button>
                   <Button variant="outlined" color="secondary">

@@ -1,6 +1,6 @@
 // import { Dialog } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { Router, Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
+import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
 import "assets/css/material-dashboard-react.css?v=1.9.0";
 
 // core components

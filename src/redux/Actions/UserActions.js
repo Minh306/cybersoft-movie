@@ -27,6 +27,13 @@ export const fetchUserInfo = (page, pageSize) => {
 export const login = (form) => {
     return async (dispatch) => {
         try {
+            Swal.fire({
+                title: "Waiting ...",
+                text: "Đang xử lý ...",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false
+            })
             await axios({
                 url: 'https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap',
                 method: "POST",
@@ -74,7 +81,6 @@ export const editUser = (form) => {
                 showConfirmButton: false,
                 allowOutsideClick: false
             })
-            dispatch(createAction(SET_POPUP, false));
             axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
@@ -93,15 +99,14 @@ export const editUser = (form) => {
                         icon: 'success',
                         allowOutsideClick: false
                     })
+                    dispatch(createAction(SET_POPUP, false));
                 }
-                // dispatch(fetchUserInfo())
             }).catch(err => {
-                console.log(err);
-                Swal.fire('Oops !!!', 'Thông tin nhập chưa hợp lệ, xin hãy kiểm tra lại !!!', 'error')
+                Swal.fire('Oops !!!', `${err.response.data}`, 'error')
             })
 
         } catch (err) {
-            console.log(err);
+            Swal.fire('Oops !!!', 'Có lỗi trong quá trình chỉnh sửa, xin hãy kiểm tra lại !!!', 'error')
         }
     };
 };
@@ -154,7 +159,6 @@ export const createUser = (form) => {
                 showConfirmButton: false,
                 allowOutsideClick: false
             })
-            dispatch(createAction(SET_POPUP, false));
             axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/ThemNguoiDung`,
@@ -172,6 +176,7 @@ export const createUser = (form) => {
                         icon: 'success',
                         allowOutsideClick: false
                     })
+                    dispatch(createAction(SET_POPUP, false));
                     dispatch(createAction(SET_CREATED, true));
                 }
             }).catch(err => {

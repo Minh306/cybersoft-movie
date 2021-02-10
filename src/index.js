@@ -23,6 +23,7 @@ import { Provider } from 'react-redux';
 import { store } from './redux/storeCofigs';
 import theme from './theme';
 import { ThemeProvider } from '@material-ui/core';
+import '../src/index.css';
 
 ReactDOM.render(
   <React.StrictMode>
