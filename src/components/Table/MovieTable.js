@@ -66,7 +66,6 @@ export default function MovieTable(props) {
         ) : null}
         <TableBody>
           {tableData.items?.map((prop, key) => {
-            console.log(prop);
             const ngayKhoiChieu = prop.ngayKhoiChieu
 
             return (

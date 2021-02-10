@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,6 +13,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import moment from "moment";
+import dayjs from "dayjs";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
@@ -25,8 +26,12 @@ import {
   InputAdornment,
   makeStyles,
   TextField,
+  Tooltip,
 } from "@material-ui/core";
 import { editMovie } from "../../redux/Actions/MovieActions";
+import Input from "@material-ui/core/Input";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { PhotoCamera } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,6 +112,7 @@ export default function PopupMovie() {
   );
   const typeOfPopUp = useSelector((state) => state.movieReducers);
   useEffect(() => {
+    console.log(form);
     setForm({
       maPhim: selectedMovie.maPhim,
       tenPhim: selectedMovie.tenPhim,
@@ -123,7 +129,12 @@ export default function PopupMovie() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (typeOfPopUp.typePopUp === "Cập Nhật Thông Tin") {
-      dispatch(editMovie(form));
+      var formData = new FormData();
+      for(var key in form){
+        formData.append(key, form[key])
+        console.log(key, form[key]);
+      }
+      dispatch(editMovie(formData));
     }
   };
 
@@ -135,18 +146,21 @@ export default function PopupMovie() {
     event.preventDefault();
     setForm({ ...form, [event.target.name]: event.target.value });
   };
-  // const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
-
-  // const handleDateChange = (date) => {
-  //   console.log(date);
-  //   setSelectedDate(date);
-  // };
+  // Change Date Time
   const handleDateChange = (date) => {
     console.log(form);
     setForm({
       ...form,
-      ngayKhoiChieu: moment(date).format("DD-MM-YYYY"),
+      ngayKhoiChieu: dayjs(date).format('DD/MM/YYYY'),
     });
+  };
+  // Change Poster
+  const handlePosterChange = (event) => {
+    setForm({
+      ...form,
+      hinhAnh: event.target.files[0],
+    });
+    console.log(event.target.files[0]);
   };
 
   return (
@@ -174,6 +188,35 @@ export default function PopupMovie() {
                   image={form.hinhAnh}
                   alt="movie-img"
                 />
+              </Grid>
+            </Grid>
+            <Grid
+              direction="row"
+              justify="center"
+              alignItems="center"
+              container
+              spacing={3}
+            >
+              <Grid item>
+                <input
+                  style={{ display: "none" }}
+                  className={classes.input}
+                  id="icon-button-file"
+                  type="file"
+                  name="hinhAnh"
+                  onChange={handlePosterChange}
+                />
+                <Tooltip title="Chọn Ảnh">
+                  <label htmlFor="icon-button-file">
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                    >
+                      <PhotoCamera />
+                    </IconButton>
+                  </label>
+                </Tooltip>
               </Grid>
             </Grid>
             <Grid container spacing={3}>

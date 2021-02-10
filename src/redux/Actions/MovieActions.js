@@ -1,5 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import dayjs from "dayjs";
+
 import createAction from ".";
 import { FETCH_MOVIE_LIST, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
 
@@ -11,6 +13,7 @@ export const fetchMovieInfo = (page, pageSize) => {
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP01&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
                 method: "GET",
             }).then(res => {
+                res.data.ngayKhoiChieu = dayjs(res.data.ngayKhoiChieu).format("DD/MM/YYYY")
                 console.log(res.data);
                 dispatch(createAction(FETCH_MOVIE_LIST, res.data))
             }).catch(err => {
@@ -25,6 +28,7 @@ export const fetchMovieInfo = (page, pageSize) => {
 
 export const editMovie = (form) => {
     return (dispatch) => {
+        console.log("haha", form);
         try {
             const accessToken = localStorage.getItem("accessToken")
             Swal.fire({
@@ -37,7 +41,7 @@ export const editMovie = (form) => {
             dispatch(createAction(SET_POPUP, false));
             axios({
                 url:
-                    `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhim`,
+                    `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhimUpload`,
                 method: "POST",
                 data: form,
                 headers: {
@@ -49,14 +53,13 @@ export const editMovie = (form) => {
                     dispatch(createAction(SET_EDITED, true));
                     Swal.fire({
                         title: 'Yeah !!!',
-                        text: 'Chỉnh Sửa Thông Tin Phim  Thành Công !!!',
+                        text: 'Chỉnh Sửa Thông Tin Phim Thành Công !!!',
                         icon: 'success',
                         allowOutsideClick: false
                     })
                 }
-                // dispatch(fetchUserInfo())
             }).catch(err => {
-                console.log(err);
+                console.log(err.response?.data);
                 Swal.fire('Oops !!!', 'Thông tin nhập chưa hợp lệ, xin hãy kiểm tra lại !!!', 'error')
             })
 
