@@ -1,6 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import dayjs from "dayjs";
+import dayjs from "dayjs"; 
 
 import createAction from ".";
 import { FETCH_MOVIE_LIST, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
@@ -19,7 +19,7 @@ export const fetchMovieInfo = (page, pageSize) => {
             }).catch(err => {
                 console.log(err);
             })
-
+ 
         } catch (err) {
             console.log(err);
         }
@@ -60,7 +60,7 @@ export const editMovie = (form) => {
                 }
             }).catch(err => {
                 console.log(err.response?.data);
-                Swal.fire('Oops !!!', 'Thông tin nhập chưa hợp lệ, xin hãy kiểm tra lại !!!', 'error')
+                Swal.fire('Oops !!!', 'Dữ liệu chưa hợp lệ, xin hãy kiểm tra lại !!!', 'error')
             })
 
         } catch (err) {

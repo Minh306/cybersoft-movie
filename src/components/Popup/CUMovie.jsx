@@ -105,7 +105,7 @@ export default function PopupMovie() {
     maNhom: "GP01",
     hinhAnh: {},
     ngayKhoiChieu: "",
-    danhGia: "",
+    danhGia: 0,
   });
   const selectedMovie = useSelector(
     (state) => state.movieReducers.selectedMovie
@@ -129,10 +129,15 @@ export default function PopupMovie() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (typeOfPopUp.typePopUp === "Cập Nhật Thông Tin") {
-      var formData = new FormData();
-      for(var key in form){
-        formData.append(key, form[key])
-        console.log(key, form[key]);
+      const formData = new FormData();
+      for (const key in form) {
+        formData.append(key, form[key]);
+        formData.set(
+          "ngayKhoiChieu",
+          moment(form.ngayKhoiChieu).format("DD/MM/YYYY")
+        );
+        formData.set("danhGia", parseInt(form.danhGia));
+        console.log("test", formData.get(key));
       }
       dispatch(editMovie(formData));
     }
@@ -145,13 +150,14 @@ export default function PopupMovie() {
   const handleChange = (event) => {
     event.preventDefault();
     setForm({ ...form, [event.target.name]: event.target.value });
+    console.log(form);
   };
   // Change Date Time
   const handleDateChange = (date) => {
     console.log(form);
     setForm({
       ...form,
-      ngayKhoiChieu: dayjs(date).format('DD/MM/YYYY'),
+      ngayKhoiChieu: date,
     });
   };
   // Change Poster
@@ -160,7 +166,21 @@ export default function PopupMovie() {
       ...form,
       hinhAnh: event.target.files[0],
     });
-    console.log(event.target.files[0]);
+    console.log(form.hinhAnh);
+  };
+  // Fake Poster Change
+  const handleFakePosterChange = (event) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setForm({
+          ...form,
+          hinhAnh: reader.result,
+        });
+      }
+    };
+    reader.readAsDataURL(event.target.files[0]);
+    console.log(form);
   };
 
   return (
@@ -199,12 +219,13 @@ export default function PopupMovie() {
             >
               <Grid item>
                 <input
+                  accept="image/*"
                   style={{ display: "none" }}
                   className={classes.input}
                   id="icon-button-file"
                   type="file"
                   name="hinhAnh"
-                  onChange={handlePosterChange}
+                  onChange={handleFakePosterChange}
                 />
                 <Tooltip title="Chọn Ảnh">
                   <label htmlFor="icon-button-file">
@@ -280,6 +301,7 @@ export default function PopupMovie() {
               <Grid item xs={4}>
                 <TextField
                   multiline
+                  type="number"
                   rowsMax={4}
                   name="danhGia"
                   label="Đánh Giá"
