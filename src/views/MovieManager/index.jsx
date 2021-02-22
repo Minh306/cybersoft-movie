@@ -18,6 +18,9 @@ import { fetchMovieInfo } from "redux/Actions/MovieActions";
 import { green } from "@material-ui/core/colors";
 import Pagination from "@material-ui/lab/Pagination";
 import PopupMovie from "components/Popup/CUMovie";
+import createAction from "redux/Actions";
+import { SET_CREATED } from "redux/Constants/MovieConstants";
+import { CREATE_MOVIE } from "redux/Constants/MovieConstants";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,13 +43,26 @@ export default function TableList() {
   const classes = useStyles();
   const movieInfor = useSelector((state) => state.movieReducers.movieInfor);
   const isEdited = useSelector((state) => state.movieReducers.isEdited);
+  const isCreated = useSelector((state) => state.movieReducers.isCreated);
+  const isDeleted = useSelector((state) => state.movieReducers.isDeleted);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   useEffect(() => {
     dispatch(fetchMovieInfo(page, pageSize));
-  }, [page, pageSize, dispatch, isEdited]);
+  }, [page, pageSize, dispatch, isEdited, isCreated, isDeleted]);
+
+  const handleCreateMovie = () => {
+    dispatch(
+      createAction(CREATE_MOVIE, {
+        selectedMovie: {},
+        isPopUp: true,
+        typePopUp: "Thêm Phim",
+      })
+    );
+    dispatch(createAction(SET_CREATED, false));
+  };
 
   return (
     <GridContainer>
@@ -66,7 +82,12 @@ export default function TableList() {
               alignItems="center"
             >
               <ThemeProvider theme={theme}>
-                <Button fullWidth variant="outlined" color="primary">
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleCreateMovie}
+                >
                   Create
                 </Button>
               </ThemeProvider>

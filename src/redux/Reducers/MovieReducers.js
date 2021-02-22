@@ -1,4 +1,5 @@
-import { SET_EDITED, FETCH_MOVIE_LIST, EDIT_MOVIE, SET_POPUP } from "redux/Constants/MovieConstants";
+import { SET_EDITED, FETCH_MOVIE_LIST, EDIT_MOVIE, SET_POPUP, SET_CREATED, CREATE_MOVIE, SET_DELETED
+ } from "redux/Constants/MovieConstants";
 
 const initialState = {
     movieInfor: {},
@@ -6,6 +7,8 @@ const initialState = {
     isPopUp: false,
     typePopUp: '',
     isEdited: false,
+    isCreated: false,
+    isDeleted: false,
 }
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -16,8 +19,17 @@ const reducer = (state = initialState, { type, payload }) => {
         case EDIT_MOVIE:
             state = { ...state, ...payload };
             return { ...state };
+        case CREATE_MOVIE:
+            state = { ...state, ...payload };
+            return { ...state };
         case SET_EDITED:
             state = { ...state, isEdited: payload };
+            return { ...state };
+        case SET_DELETED:
+            state = { ...state, isDeleted: payload };
+            return { ...state };
+        case SET_CREATED:
+            state = { ...state, isCreated: payload };
             return { ...state };
         case SET_POPUP:
             state = { ...state, isPopUp: payload };

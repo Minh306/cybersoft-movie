@@ -12,7 +12,7 @@ import UserTable from "components/Table/UserTable.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import { Box, Button, Grid } from "@material-ui/core";
+import { Box, Button, Grid, TextField } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "redux/Actions/UserActions";
 import { green } from "@material-ui/core/colors";
@@ -22,6 +22,12 @@ import { CREATE_USER } from "redux/Constants/UserConstants";
 import createAction from "redux/Actions";
 import { SET_CREATED } from "redux/Constants/UserConstants";
 import DetailUser from "components/Popup/DetailUser";
+import CustomInput from "components/CustomInput/CustomInput.js";
+import Search from "@material-ui/icons/Search";
+import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import Buttonn from "components/CustomButtons/Button.js";
+
+const useStyless = makeStyles(styles);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,12 +44,14 @@ const theme = createMuiTheme({
 });
 
 export default function TableList() {
+  const [keyword, setKeyword] = useState(null);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(10);
   const isEdited = useSelector((state) => state.userReducers.isEdited);
   const isDeleted = useSelector((state) => state.userReducers.isDeleted);
   const isCreated = useSelector((state) => state.userReducers.isCreated);
   const dispatch = useDispatch();
+  const classess = useStyless();
   const classes = useStyles();
   const userInfo = useSelector((state) => state.userReducers.userInfo);
   // Converting {} to [[]]
@@ -55,7 +63,18 @@ export default function TableList() {
     setPage(newPage);
   };
 
-  const handleCreateUser = () => () => {
+  const handleChange = (event) => {
+    event.preventDefault();
+    setKeyword(event.target.value);
+    console.log(keyword);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    console.log(keyword);
+  };
+
+  const handleCreateUser = () => {
     dispatch(
       createAction(CREATE_USER, {
         selectedUser: {},
@@ -83,20 +102,50 @@ export default function TableList() {
             <Grid
               container
               direction="row"
-              justify="flex-end"
+              justify="center"
               alignItems="center"
+              spacing={3}
             >
-              <ThemeProvider theme={theme}>
-                <Button
-                  onClick={handleCreateUser()}
-                  fullWidth
-                  variant="outlined"
-                  color="primary"
-                >
-                  Create
-                </Button>
-              </ThemeProvider>
+              <Grid item xs={6}>
+                <ThemeProvider theme={theme}>
+                  <Button
+                    onClick={handleCreateUser}
+                    fullWidth
+                    variant="outlined"
+                    color="primary"
+                  >
+                    Create
+                  </Button>
+                </ThemeProvider>
+              </Grid>
+              <Grid
+                container
+                direction="row"
+                justify="flex-end"
+                alignItems="center"
+                xs={6}
+              >
+                <div className={classess.searchWrapper}>
+                  <CustomInput
+                    formControlProps={{
+                      className: classess.margin + " " + classess.search,
+                    }}
+                    inputProps={{
+                      placeholder: "Search",
+                      inputProps: {
+                        "aria-label": "Search",
+                      },
+                      name:"keyWord",
+                      onChange: handleChange
+                    }}
+                  />
+                  <Buttonn onClick={handleSearch} color="white" aria-label="edit" justIcon round>
+                    <Search />
+                  </Buttonn>
+                </div>
+              </Grid>
             </Grid>
+
             <UserTable
               tableHeaderColor="info"
               tableHead={[

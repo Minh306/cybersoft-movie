@@ -14,6 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 import createAction from "redux/Actions";
 import { EDIT_MOVIE } from "redux/Constants/MovieConstants";
 import { SET_EDITED } from "redux/Constants/UserConstants";
+import Swal from "sweetalert2";
+import { deleteMovie } from "redux/Actions/MovieActions";
+import { SET_DELETED } from "redux/Constants/MovieConstants";
 
 const useStyles = makeStyles(styles);
 
@@ -42,6 +45,43 @@ export default function MovieTable(props) {
         })
       );
       dispatch(createAction(SET_EDITED, false));
+    }
+  };
+
+  const handleDeleteMovie = (maPhim) => () => {
+    let movieSelected = {};
+    let haveMovie = false;
+    for (let movie of movieInfor.items) {
+      if (maPhim === movie.maPhim) {
+        movieSelected = movie.maPhim;
+        haveMovie = true;
+      }
+    }
+    if (haveMovie) {
+      Swal.fire({
+        title: "Xác nhận xóa ?",
+        text: "Bạn xem không thể hoàn tác lại tác vụ này !!!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+        reverseButtons: true,
+      }).then((result) => {
+        if (result.isConfirmed) {
+            dispatch(deleteMovie(movieSelected));
+            dispatch(createAction(SET_DELETED, false));
+          // });
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          Swal.fire(
+            "Oh !!!",
+            "Bạn đã hủy tác vụ này !!!",
+            "warning"
+          );
+        }
+      });
     }
   };
 
@@ -89,7 +129,7 @@ export default function MovieTable(props) {
                   <Button onClick={handleEditMovie(prop.maPhim)} variant="outlined" color="primary">
                     Edit
                 </Button>
-                  <Button variant="outlined" color="secondary">
+                  <Button onClick={handleDeleteMovie(prop.maPhim)} variant="outlined" color="secondary">
                     Delete
                 </Button>
                 </TableCell>

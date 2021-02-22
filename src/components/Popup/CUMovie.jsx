@@ -28,9 +28,7 @@ import {
   TextField,
   Tooltip,
 } from "@material-ui/core";
-import { editMovie } from "../../redux/Actions/MovieActions";
-import Input from "@material-ui/core/Input";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { addMovie, editMovie } from "../../redux/Actions/MovieActions";
 import { PhotoCamera } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
@@ -96,6 +94,7 @@ export default function PopupMovie() {
   const dispatch = useDispatch();
   const isPopUp = useSelector((state) => state.movieReducers.isPopUp);
   const classes = useStyles();
+  const [posterUrl, setPosterUrl] = useState(null);
   const [form, setForm] = useState({
     maPhim: "",
     tenPhim: "",
@@ -119,7 +118,7 @@ export default function PopupMovie() {
       biDanh: selectedMovie.biDanh,
       trailer: selectedMovie.trailer,
       moTa: selectedMovie.moTa,
-      maNhom: selectedMovie.maNhom,
+      maNhom: "GP01",
       hinhAnh: selectedMovie.hinhAnh,
       ngayKhoiChieu: selectedMovie.ngayKhoiChieu,
       danhGia: selectedMovie.danhGia,
@@ -136,10 +135,24 @@ export default function PopupMovie() {
           "ngayKhoiChieu",
           moment(form.ngayKhoiChieu).format("DD/MM/YYYY")
         );
+        formData.set("hinhAnh", posterUrl);
         formData.set("danhGia", parseInt(form.danhGia));
         console.log("test", formData.get(key));
       }
       dispatch(editMovie(formData));
+    } else if (typeOfPopUp.typePopUp === "Thêm Phim") {
+      const formData = new FormData();
+      for (const key in form) {
+        formData.append(key, form[key]);
+        formData.set(
+          "ngayKhoiChieu",
+          moment(form.ngayKhoiChieu).format("DD/MM/YYYY")
+        );
+        formData.set("hinhAnh", posterUrl);
+        formData.set("danhGia", parseInt(form.danhGia));
+        console.log(`${key}`, formData.get(key));
+      }
+      dispatch(addMovie(formData));
     }
   };
 
@@ -162,27 +175,13 @@ export default function PopupMovie() {
   };
   // Change Poster
   const handlePosterChange = (event) => {
+    setPosterUrl(event.target.files[0]);
     setForm({
       ...form,
-      hinhAnh: event.target.files[0],
+      hinhAnh: URL.createObjectURL(event.target.files[0]),
     });
     console.log(form.hinhAnh);
   };
-  // Fake Poster Change
-  const handleFakePosterChange = (event) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        setForm({
-          ...form,
-          hinhAnh: reader.result,
-        });
-      }
-    };
-    reader.readAsDataURL(event.target.files[0]);
-    console.log(form);
-  };
-
   return (
     <div className={classes.root}>
       <Dialog
@@ -219,13 +218,12 @@ export default function PopupMovie() {
             >
               <Grid item>
                 <input
-                  accept="image/*"
                   style={{ display: "none" }}
                   className={classes.input}
                   id="icon-button-file"
                   type="file"
                   name="hinhAnh"
-                  onChange={handleFakePosterChange}
+                  onChange={handlePosterChange}
                 />
                 <Tooltip title="Chọn Ảnh">
                   <label htmlFor="icon-button-file">
@@ -302,7 +300,6 @@ export default function PopupMovie() {
                 <TextField
                   multiline
                   type="number"
-                  rowsMax={4}
                   name="danhGia"
                   label="Đánh Giá"
                   id="outlined-start-adornment"
