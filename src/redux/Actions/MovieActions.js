@@ -85,7 +85,7 @@ export const addMovie = (form) => {
                 showConfirmButton: false,
                 allowOutsideClick: false
             })
-            dispatch(createAction(SET_POPUP, false));
+           
             axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhimUploadHinh`,
@@ -133,7 +133,7 @@ export const deleteMovie = (maPhim) => {
                 showConfirmButton: false,
                 allowOutsideClick: false
             })
-            dispatch(createAction(SET_POPUP, false));
+
             axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${maPhim}`,

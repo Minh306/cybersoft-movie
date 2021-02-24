@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -31,6 +31,9 @@ export default function UserTable(props) {
     dispatch(fetchDetailUser(taiKhoan));
   };
 
+  useEffect(() => {
+      console.log("AAqweqweA");
+  }, [tableData]);
 
   const handleEditUser = (taiKhoan) => () => {
     let userSelected = {};
@@ -73,8 +76,8 @@ export default function UserTable(props) {
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
-            dispatch(deleteUser(userSelected));
-            dispatch(createAction(SET_DELETED, false));
+          dispatch(deleteUser(userSelected));
+          dispatch(createAction(SET_DELETED, false));
           // });
         } else if (
           /* Read more about handling dismissals below */
@@ -89,6 +92,7 @@ export default function UserTable(props) {
       });
     }
   };
+
 
   return (
     <div className={classes.tableResponsive}>
@@ -111,7 +115,6 @@ export default function UserTable(props) {
         ) : null}
         <TableBody>
           {tableData.items?.map((prop, key) => {
-            console.log(prop);
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
                 <TableCell className={classes.tableCell}>

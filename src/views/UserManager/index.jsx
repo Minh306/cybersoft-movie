@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 // @material-ui/core components
 import {
   createMuiTheme,
@@ -54,26 +54,18 @@ export default function TableList() {
   const classess = useStyless();
   const classes = useStyles();
   const userInfo = useSelector((state) => state.userReducers.userInfo);
-  // Converting {} to [[]]
-  // const finalArr = [];
-  // const convertArr = userInfo.items?.map((item)=>{
-  //   return finalArr.push(Object.values(item))
-  // })
+  const refContainer = useRef(React.createRef());
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const handleChange = (event) => {
-    event.preventDefault();
-    setKeyword(event.target.value);
-    console.log(keyword);
-  };
-
   const handleSearch = (event) => {
     event.preventDefault();
-    console.log(keyword);
+    setKeyword(refContainer.current.value)
+   
   };
-
+  console.log(keyword);
   const handleCreateUser = () => {
     dispatch(
       createAction(CREATE_USER, {
@@ -126,17 +118,18 @@ export default function TableList() {
                 xs={6}
               >
                 <div className={classess.searchWrapper}>
+                  {/* <input ref={refContainer}></input> */}
                   <CustomInput
                     formControlProps={{
                       className: classess.margin + " " + classess.search,
                     }}
                     inputProps={{
-                      placeholder: "Search",
+                      placeholder: "Tìm Kiếm",
                       inputProps: {
                         "aria-label": "Search",
                       },
                       name:"keyWord",
-                      onChange: handleChange
+                      inputRef: refContainer
                     }}
                   />
                   <Buttonn onClick={handleSearch} color="white" aria-label="edit" justIcon round>

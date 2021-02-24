@@ -96,7 +96,6 @@ export default function PopupMovie() {
   const classes = useStyles();
   const [posterUrl, setPosterUrl] = useState(null);
   const [form, setForm] = useState({
-    maPhim: "",
     tenPhim: "",
     biDanh: "",
     trailer: "",
@@ -113,7 +112,6 @@ export default function PopupMovie() {
   useEffect(() => {
     console.log(form);
     setForm({
-      maPhim: selectedMovie.maPhim,
       tenPhim: selectedMovie.tenPhim,
       biDanh: selectedMovie.biDanh,
       trailer: selectedMovie.trailer,
@@ -198,15 +196,27 @@ export default function PopupMovie() {
           <form onSubmit={handleSubmit} className={classes.form}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <CardMedia
-                  style={{
-                    width: "100%",
-                    height: 600,
-                    backgroundSize: "contain",
-                  }}
-                  image={form.hinhAnh}
-                  alt="movie-img"
-                />
+                {form.hinhAnh ? (
+                  <CardMedia
+                    style={{
+                      width: "100%",
+                      height: 600,
+                      backgroundSize: "contain",
+                    }}
+                    image={form.hinhAnh}
+                    alt="movie-img"
+                  />
+                ) : (
+                  <CardMedia
+                    style={{
+                      width: "100%",
+                      height: 600,
+                      backgroundSize: "contain",
+                    }}
+                    image="https://skillz4kidzmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"
+                    alt="movie-img"
+                  />
+                )}
               </Grid>
             </Grid>
             <Grid
