@@ -17,6 +17,11 @@ import { SET_EDITED } from "redux/Constants/UserConstants";
 import Swal from "sweetalert2";
 import { deleteMovie } from "redux/Actions/MovieActions";
 import { SET_DELETED } from "redux/Constants/MovieConstants";
+import { useHistory } from "react-router-dom";
+import { FETCH_MOVIE_SHOWTIME } from "redux/Constants/MovieConstants";
+import { fetchMovieShowtime } from "redux/Actions/MovieActions";
+import dayjs from "dayjs";
+import { TimeFormat, DateFormat } from "redux/Constants/TimeConstants";
 
 const useStyles = makeStyles(styles);
 
@@ -26,6 +31,12 @@ export default function MovieTable(props) {
   const { tableHead, tableData, tableHeaderColor } = props;
   const movieInfor = useSelector((state) => state.movieReducers.movieInfor);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const handleShowtimeMovie = (maPhim) => () => {
+    history.push(`/admin/showtime/${maPhim}`)
+    dispatch(createAction(FETCH_MOVIE_SHOWTIME, {}))
+    dispatch(fetchMovieShowtime(maPhim));
+  }
 
   const handleEditMovie = (maPhim) => () => {
     let movieSelected = {};
@@ -49,7 +60,7 @@ export default function MovieTable(props) {
   };
 
   const handleDeleteMovie = (maPhim) => () => {
-    let movieSelected = {};
+    let movieSelected = 0;
     let haveMovie = false;
     for (let movie of movieInfor.items) {
       if (maPhim === movie.maPhim) {
@@ -68,8 +79,8 @@ export default function MovieTable(props) {
         reverseButtons: true,
       }).then((result) => {
         if (result.isConfirmed) {
-            dispatch(deleteMovie(movieSelected));
-            dispatch(createAction(SET_DELETED, false));
+          dispatch(deleteMovie(movieSelected));
+          dispatch(createAction(SET_DELETED, false));
           // });
         } else if (
           /* Read more about handling dismissals below */
@@ -123,11 +134,14 @@ export default function MovieTable(props) {
                   {prop.danhGia}/10
                 </TableCell>
                 <TableCell className={classes.tableCell}>
-                  {dateFormat(ngayKhoiChieu, "dddd, mmmm dS, yyyy, h:MM:ss TT")}
+                  {dayjs(prop.ngayKhoiChieu).format(`${DateFormat} ${TimeFormat}`)}
                 </TableCell>
                 <TableCell className={classes.tableCell}>
                   <Button onClick={handleEditMovie(prop.maPhim)} variant="outlined" color="primary">
                     Edit
+                </Button>
+                  <Button onClick={handleShowtimeMovie(prop.maPhim)} variant="outlined" color="default">
+                    Showtimes
                 </Button>
                   <Button onClick={handleDeleteMovie(prop.maPhim)} variant="outlined" color="secondary">
                     Delete

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import createAction from ".";
-import { FETCH_DETAIL_USER, FETCH_USER_LIST, SET_CREATED, SET_DELETED, SET_EDITED, SET_LOGIN, SET_POPUP } from '../Constants/UserConstants'
+import { FETCH_DETAIL_USER, FETCH_USER_LIST, SEARCH_USER, SET_CREATED, SET_DELETED, SET_EDITED, SET_LOGIN, SET_POPUP, SET_SEARCH } from '../Constants/UserConstants'
 
 export const fetchUserInfo = (page, pageSize) => {
     return async (dispatch) => {
@@ -140,8 +140,12 @@ export const deleteUser = (taiKhoan) => {
                     dispatch(createAction(SET_DELETED, true));
                 }
             }).catch(err => {
-                console.log(err);
-                Swal.fire('Oops !!!', 'Có lỗi trong việc xóa user này !!!', 'error')
+                Swal.fire({
+                    title: 'Oops !!!',
+                    text: `${err.response?.data} !!!`,
+                    icon: 'error',
+                    allowOutsideClick: false
+                })
             })
         } catch (err) {
             console.log(err);
@@ -183,7 +187,7 @@ export const createUser = (form) => {
                 console.log(err);
                 Swal.fire({
                     title: 'Oops !!!',
-                    text: 'Có Lỗi Trong Việc Tạo Tài Khoản !!!',
+                    text: `${err.response?.data} !!!`,
                     icon: 'error',
                     allowOutsideClick: false
                 })
@@ -223,3 +227,27 @@ export const fetchDetailUser = (taiKhoan) => {
     }
 }
 
+export const searchUser = (keyword, page, pageSize) => {
+    return async (dispatch) => {
+        try {
+            await axios({
+                url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDungPhanTrang?MaNhom=GP01&tuKhoa=${keyword}&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
+                method: 'GET'
+            }).then(({ data, status }) => {
+                console.log('status', status);
+                if (status === 200) {
+                    dispatch(createAction(SEARCH_USER, data))
+                }
+            }).catch(err => {
+                Swal.fire({
+                    title: 'Oops !!!',
+                    text: `${err.response?.data} !!!`,
+                    icon: 'error',
+                    allowOutsideClick: false
+                })
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+}

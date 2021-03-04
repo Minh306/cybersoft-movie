@@ -30,6 +30,7 @@ import {
 } from "@material-ui/core";
 import { addMovie, editMovie } from "../../redux/Actions/MovieActions";
 import { PhotoCamera } from "@material-ui/icons";
+import DefaultImage from "../../assets/img/default-image.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -96,6 +97,7 @@ export default function PopupMovie() {
   const classes = useStyles();
   const [posterUrl, setPosterUrl] = useState(null);
   const [form, setForm] = useState({
+    maPhim: 0,
     tenPhim: "",
     biDanh: "",
     trailer: "",
@@ -112,6 +114,7 @@ export default function PopupMovie() {
   useEffect(() => {
     console.log(form);
     setForm({
+      maPhim: selectedMovie.maPhim,
       tenPhim: selectedMovie.tenPhim,
       biDanh: selectedMovie.biDanh,
       trailer: selectedMovie.trailer,
@@ -135,7 +138,7 @@ export default function PopupMovie() {
         );
         formData.set("hinhAnh", posterUrl);
         formData.set("danhGia", parseInt(form.danhGia));
-        console.log("test", formData.get(key));
+        console.log(key, formData.get(key));
       }
       dispatch(editMovie(formData));
     } else if (typeOfPopUp.typePopUp === "Thêm Phim") {
@@ -213,7 +216,7 @@ export default function PopupMovie() {
                       height: 600,
                       backgroundSize: "contain",
                     }}
-                    image="https://skillz4kidzmartialarts.com/wp-content/uploads/2017/04/default-image.jpg"
+                    image={DefaultImage}
                     alt="movie-img"
                   />
                 )}

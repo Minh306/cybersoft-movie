@@ -15,7 +15,7 @@ import routes from "routes.js";
 
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
-import bgImage from "assets/img/sidebar-2.jpg";
+import bgImage from "assets/img/sidebar-4.jpg";
 import logo from "assets/img/reactlogo.png";
 import { useSelector } from "react-redux";
 
@@ -102,12 +102,12 @@ export default function Admin({ ...rest }) {
       return history.push("/login");
     }
   }, [isLogin, history]);
-  
+
   return (
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"Creative Tim"}
+        logoText={"Cyper Movie"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

@@ -11,8 +11,16 @@ import Typography from "@material-ui/core/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import createAction from "../../redux/Actions";
 import { SET_POPUP } from "../../redux/Constants/UserConstants";
-import { Grid, makeStyles, TextField } from "@material-ui/core";
+import {
+  Grid,
+  InputLabel,
+  makeStyles,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import { createUser, editUser } from "../../redux/Actions/UserActions";
+import FormControl from "@material-ui/core/FormControl";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -71,7 +79,6 @@ const DialogContent = withStyles((theme) => ({
   },
 }))(MuiDialogContent);
 
-
 export default function PopupUser() {
   const dispatch = useDispatch();
   const isPopUp = useSelector((state) => state.userReducers.isPopUp);
@@ -81,7 +88,7 @@ export default function PopupUser() {
     matKhau: "",
     email: "",
     hoTen: "",
-    maLoaiNguoiDung: "KhachHang",
+    maLoaiNguoiDung: "",
     soDt: "",
     maNhom: "GP01",
   });
@@ -95,9 +102,9 @@ export default function PopupUser() {
       hoTen: selectedUser.hoTen,
       soDt: selectedUser.soDt,
       maNhom: "GP01",
-      maLoaiNguoiDung: form.maLoaiNguoiDung,
+      maLoaiNguoiDung: selectedUser.maLoaiNguoiDung,
     });
-  }, [selectedUser, form.maLoaiNguoiDung]);
+  }, [selectedUser]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -115,6 +122,14 @@ export default function PopupUser() {
   const handleChange = (event) => {
     event.preventDefault();
     setForm({ ...form, [event.target.name]: event.target.value });
+  };
+
+  const handleChangeRole = (event) => {
+    event.preventDefault();
+    setForm({
+      ...form,
+      maLoaiNguoiDung: event.target.value,
+    });
   };
 
   return (
@@ -157,7 +172,7 @@ export default function PopupUser() {
                   onChange={handleChange}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
                 {typeOfPopUp.typePopUp === "Tạo Người Dùng" && (
                   <TextField
                     variant="outlined"
@@ -171,6 +186,58 @@ export default function PopupUser() {
                   />
                 )}
               </Grid>
+              {typeOfPopUp.typePopUp === "Tạo Người Dùng" ? (
+                <Grid item xs={6}>
+                  <FormControl
+                    variant="outlined"
+                    fullWidth
+                    className={classes.formControl}
+                  >
+                    <InputLabel htmlFor="outlined-age-native-simple">
+                      Chọn Loại Tài Khoản
+                    </InputLabel>
+                    <Select
+                      native
+                      value={form.maLoaiNguoiDung}
+                      required
+                      defaultValue="KhachHang"
+                      fullWidth
+                      name="maLoaiNguoiDung"
+                      label="Chọn Loại Tài Khoản"
+                      onChange={handleChangeRole}
+                    >
+                      <option value="KhachHang">Khách Hàng</option>
+                      <option value="QuanTri">Quản Trị</option>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              ) : (
+                <Grid item xs={12}>
+                  <FormControl
+                    variant="outlined"
+                    fullWidth
+                    className={classes.formControl}
+                  >
+                    <InputLabel htmlFor="outlined-age-native-simple">
+                      Chọn Loại Tài Khoản
+                    </InputLabel>
+                    <Select
+                      native
+                      value={form.maLoaiNguoiDung}
+                      required
+                      defaultValue="KhachHang"
+                      fullWidth
+                      name="maLoaiNguoiDung"
+                      label="Chọn Loại Tài Khoản"
+                      onChange={handleChangeRole}
+                    >
+                      <option value="KhachHang">Khách Hàng</option>
+                      <option value="QuanTri">Quản Trị</option>
+                    </Select>
+                  </FormControl>
+                </Grid>
+              )}
+
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"

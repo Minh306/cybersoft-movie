@@ -32,7 +32,7 @@ export default function UserTable(props) {
   };
 
   useEffect(() => {
-      console.log("AAqweqweA");
+    console.log("AAqweqweA");
   }, [tableData]);
 
   const handleEditUser = (taiKhoan) => () => {
@@ -92,7 +92,6 @@ export default function UserTable(props) {
       });
     }
   };
-
 
   return (
     <div className={classes.tableResponsive}>

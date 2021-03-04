@@ -6,11 +6,12 @@ import "assets/css/material-dashboard-react.css?v=1.9.0";
 // core components
 import Admin from "layouts/Admin.js";
 import Login from "./views/Login"
-import RTL from "layouts/RTL.js";
+// import RTL from "layouts/RTL.js";
 //
 import { IS_LOGIN, SET_LOGIN } from "./redux/Constants/UserConstants";
 import { useDispatch } from "react-redux";
 import createAction from "redux/Actions";
+
 
 function App() {
     const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function App() {
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/admin" component={Admin} />
-                <Route path="/rtl" component={RTL} />
+                {/* <Route path="/rtl" component={RTL} /> */}
                 <Redirect from="/" to="/admin/dashboard" />
             </Switch>
         </BrowserRouter>

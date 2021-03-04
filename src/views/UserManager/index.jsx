@@ -24,8 +24,12 @@ import { SET_CREATED } from "redux/Constants/UserConstants";
 import DetailUser from "components/Popup/DetailUser";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Search from "@material-ui/icons/Search";
+import ClearIcon from "@material-ui/icons/Clear";
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import Buttonn from "components/CustomButtons/Button.js";
+import { searchUser } from "redux/Actions/UserActions";
+import { SET_SEARCH } from "redux/Constants/UserConstants";
+import Swal from "sweetalert2";
 
 const useStyless = makeStyles(styles);
 
@@ -50,20 +54,35 @@ export default function TableList() {
   const isEdited = useSelector((state) => state.userReducers.isEdited);
   const isDeleted = useSelector((state) => state.userReducers.isDeleted);
   const isCreated = useSelector((state) => state.userReducers.isCreated);
+  const isSearch = useSelector((state) => state.userReducers.isSearch);
   const dispatch = useDispatch();
   const classess = useStyless();
   const classes = useStyles();
   const userInfo = useSelector((state) => state.userReducers.userInfo);
+
   const refContainer = useRef(React.createRef());
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  const handleCancelSearch = (event) => {
+    event.preventDefault();
+    dispatch(createAction(SET_SEARCH, false));
+    dispatch(fetchUserInfo(page, pageSize));
+    refContainer.current.value = null;
+  };
+
   const handleSearch = (event) => {
     event.preventDefault();
-    setKeyword(refContainer.current.value)
-   
+    setKeyword(refContainer.current.value);
+    if (refContainer.current.value) {
+      dispatch(searchUser(refContainer.current.value, page, pageSize));
+      dispatch(createAction(SET_SEARCH, true));
+    } else {
+      dispatch(fetchUserInfo(page, pageSize));
+      dispatch(createAction(SET_SEARCH, false));
+    }
   };
   console.log(keyword);
   const handleCreateUser = () => {
@@ -78,7 +97,11 @@ export default function TableList() {
   };
 
   useEffect(() => {
-    dispatch(fetchUserInfo(page, pageSize));
+    if (isSearch) {
+      dispatch(searchUser(refContainer.current.value, page, pageSize));
+    } else {
+      dispatch(fetchUserInfo(page, pageSize));
+    }
   }, [page, pageSize, isEdited, isDeleted, isCreated, dispatch]);
   return (
     <GridContainer>
@@ -111,10 +134,8 @@ export default function TableList() {
                 </ThemeProvider>
               </Grid>
               <Grid
-                container
-                direction="row"
-                justify="flex-end"
-                alignItems="center"
+                item
+                style={{textAlign: "end"}}
                 xs={6}
               >
                 <div className={classess.searchWrapper}>
@@ -128,13 +149,30 @@ export default function TableList() {
                       inputProps: {
                         "aria-label": "Search",
                       },
-                      name:"keyWord",
-                      inputRef: refContainer
+                      name: "keyword",
+                      inputRef: refContainer,
                     }}
                   />
-                  <Buttonn onClick={handleSearch} color="white" aria-label="edit" justIcon round>
+                  <Buttonn
+                    onClick={handleSearch}
+                    color="info"
+                    aria-label="edit"
+                    justIcon
+                    round
+                  >
                     <Search />
                   </Buttonn>
+                  {isSearch ? (
+                    <Buttonn
+                      onClick={handleCancelSearch}
+                      color="rose"
+                      aria-label="edit"
+                      justIcon
+                      round
+                    >
+                      <ClearIcon />
+                    </Buttonn>
+                  ) : null}
                 </div>
               </Grid>
             </Grid>

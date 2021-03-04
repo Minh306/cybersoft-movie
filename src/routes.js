@@ -32,6 +32,7 @@ import UserProfile from "views/UserProfile/UserProfile.js";
 // import TableList from "views/TableList/TableList.js";
 import UserManager from "views/UserManager/";
 import MovieManager from "views/MovieManager/";
+import ShowtimeManager from "views/ShowTimeManager";
 // import Icons from "views/Icons/Icons.js";
 // import Maps from "views/Maps/Maps.js";
 // import NotificationsPage from "views/Notifications/Notifications.js";
@@ -47,13 +48,21 @@ const dashboardRoutes = [
     component: DashboardPage,
     layout: "/admin"
   },
+  // {
+  //   path: "/user",
+  //   name: "User Profile",
+  //   rtlName: "ملف تعريفي للمستخدم",
+  //   icon: AccountCircleIcon,
+  //   component: UserProfile,
+  //   layout: "/admin"
+  // },
   {
-    path: "/user",
-    name: "User Profile",
+    path: "/showtime/:id",
+    name: "Showtime",
     rtlName: "ملف تعريفي للمستخدم",
     icon: AccountCircleIcon,
-    component: UserProfile,
-    layout: "/admin"
+    component: ShowtimeManager,
+    layout: "/admin",
   },
   // {
   //   path: "/table",
@@ -64,7 +73,7 @@ const dashboardRoutes = [
   //   layout: "/admin"
   // },
   {
-    path: "/manager/user",
+    path: "/user",
     name: "User Manager",
     rtlName: "طباعة",
     icon: Person,
@@ -72,7 +81,7 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/manager/movie",
+    path: "/movie",
     name: "Movie Manager",
     rtlName: "الرموز",
     icon: TheatersIcon,
