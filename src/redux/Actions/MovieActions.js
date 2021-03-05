@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import dayjs from "dayjs";
 
 import createAction from ".";
-import { SET_LOADED, SET_CREATED, FETCH_MOVIE_LIST, FETCH_MOVIE_SHOWTIME, SEARCH_MOVIE, SET_DELETED, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
+import { SET_LOADED, SET_CREATED, FETCH_MOVIE_LIST, FETCH_MOVIE_SHOWTIME, SET_DELETED, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
 import { DateFormat, TimeFormat } from "redux/Constants/TimeConstants";
 
 export const fetchMovieInfo = (page, pageSize) => {
@@ -15,14 +15,13 @@ export const fetchMovieInfo = (page, pageSize) => {
                 method: "GET",
             }).then(res => {
                 res.data.ngayKhoiChieu = dayjs(res.data.ngayKhoiChieu).format("DD/MM/YYYY")
-                console.log(res.data);
                 dispatch(createAction(FETCH_MOVIE_LIST, res.data))
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
 
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 };
@@ -38,11 +37,11 @@ export const fetchMovieShowtime = (maPhim) => {
                 dispatch(createAction(SET_LOADED, false))
                 dispatch(createAction(FETCH_MOVIE_SHOWTIME, res.data))
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
 
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 };
@@ -77,7 +76,7 @@ export const editMovie = (form) => {
                 dispatch(createAction(SET_POPUP, false));
                 dispatch(createAction(SET_EDITED, true));
             }).catch(err => {
-                console.log(err.response?.data);
+                // console.log(err.response?.data);
                 Swal.fire({
                     title: 'Oops !!!',
                     text: `${err.response?.data} !!!`,
@@ -87,7 +86,7 @@ export const editMovie = (form) => {
             })
 
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 };
@@ -121,7 +120,7 @@ export const addMovie = (form) => {
                 dispatch(createAction(SET_POPUP, false));
                 dispatch(createAction(SET_CREATED, true));
             }).catch(err => {
-                console.log(err.response?.data);
+                // console.log(err.response?.data);
                 Swal.fire({
                     title: 'Oops !!!',
                     text: `${err.response?.data} !!!`,
@@ -130,7 +129,7 @@ export const addMovie = (form) => {
                 })
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }
@@ -163,7 +162,7 @@ export const deleteMovie = (maPhim) => {
                 dispatch(createAction(SET_POPUP, false));
                 dispatch(createAction(SET_DELETED, true));
             }).catch(err => {
-                console.log(err.response?.data);
+                // console.log(err.response?.data);
                 Swal.fire({
                     title: 'Oops !!!',
                     text: `${err.response?.data} !!!`,
@@ -172,7 +171,7 @@ export const deleteMovie = (maPhim) => {
                 })
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }
@@ -210,7 +209,7 @@ export const addShowtimeMovie = (form) => {
                 dispatch(createAction(SET_CREATED, true));
                 dispatch(createAction(SET_POPUP, false));
             }).catch(err => {
-                console.log(err.response?.data);
+                // console.log(err.response?.data);
                 Swal.fire({
                     title: 'Oops !!!',
                     text: `Giá Vé Phải Từ 75.000VND đến 200.000VND !!!`,
@@ -219,7 +218,7 @@ export const addShowtimeMovie = (form) => {
                 })
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }

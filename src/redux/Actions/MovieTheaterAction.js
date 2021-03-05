@@ -1,7 +1,4 @@
 import axios from "axios";
-import Swal from "sweetalert2";
-import dayjs from "dayjs";
-
 import createAction from ".";
 import { FETCH_CINEMA_SYSTEM_LIST } from "redux/Constants/MovieTheaterConstants";
 import { FETCH_THEATERS_LIST } from "redux/Constants/MovieTheaterConstants";
@@ -16,7 +13,7 @@ export const fetchCinemaSystemList = () => {
                 dispatch(createAction(FETCH_CINEMA_SYSTEM_LIST, res.data))
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }
@@ -31,7 +28,7 @@ export const fetchTheaterList = (maHeThongRap) => {
                 dispatch(createAction(FETCH_THEATERS_LIST, res.data))
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }

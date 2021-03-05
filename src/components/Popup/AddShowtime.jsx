@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import MuiDialogContent from "@material-ui/core/DialogContent";
-import MuiDialogActions from "@material-ui/core/DialogActions";
+// import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import AlarmIcon from "@material-ui/icons/AddAlarm";
@@ -24,18 +24,16 @@ import {
 } from "@material-ui/core";
 import {
   DateTimePicker,
-  KeyboardDatePicker,
-  KeyboardDateTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import clsx from "clsx";
 import DateFnsUtils from "@date-io/date-fns";
-import { Label } from "@material-ui/icons";
+// import { Label } from "@material-ui/icons";
 import { fetchCinemaSystemList } from "redux/Actions/MovieTheaterAction";
 import { fetchTheaterList } from "redux/Actions/MovieTheaterAction";
 import { FETCH_ROOM_LIST } from "redux/Constants/MovieTheaterConstants";
 import { FETCH_THEATERS_LIST } from "redux/Constants/MovieTheaterConstants";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import { addShowtimeMovie } from "redux/Actions/MovieActions";
 import FormControl from "@material-ui/core/FormControl";
 
@@ -98,12 +96,12 @@ const DialogContent = withStyles((theme) => ({
   },
 }))(MuiDialogContent);
 
-const DialogActions = withStyles((theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
+// const DialogActions = withStyles((theme) => ({
+//   root: {
+//     margin: 0,
+//     padding: theme.spacing(1),
+//   },
+// }))(MuiDialogActions);
 
 export default function AddShowtime(props) {
   const { data } = props;
@@ -122,11 +120,7 @@ export default function AddShowtime(props) {
   const theatersList = useSelector(
     (state) => state.movieTheaterReducers.theatersList
   );
-
   const roomList = useSelector((state) => state.movieTheaterReducers.roomList);
-
-  console.log(cinemaSystemList);
-
   const [form2, setForm2] = useState({
     heThongRap: "",
     rap: "",
@@ -164,7 +158,6 @@ export default function AddShowtime(props) {
       roomList.push({
         danhSachRap: theatersList[index].danhSachRap,
       });
-      console.log(theatersList[index]);
       dispatch(createAction(FETCH_ROOM_LIST, roomList));
       setForm2({
         ...form2,
@@ -193,20 +186,15 @@ export default function AddShowtime(props) {
   };
 
   const handleDateChange = (date) => {
-    console.log(date);
     setForm({
       ...form,
       ngayChieuGioChieu: date,
     });
   };
 
-  console.log(form);
-
   const handleClose = () => {
     dispatch(createAction(SET_POPUP, false));
   };
-
-  console.log(error, error1, error2);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -235,7 +223,7 @@ export default function AddShowtime(props) {
 
   useEffect(() => {
     dispatch(fetchCinemaSystemList());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={classes.root}>

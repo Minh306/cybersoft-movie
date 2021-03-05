@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -13,7 +13,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import moment from "moment";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
@@ -112,7 +112,6 @@ export default function PopupMovie() {
   );
   const typeOfPopUp = useSelector((state) => state.movieReducers);
   useEffect(() => {
-    console.log(form);
     setForm({
       maPhim: selectedMovie.maPhim,
       tenPhim: selectedMovie.tenPhim,
@@ -138,7 +137,6 @@ export default function PopupMovie() {
         );
         formData.set("hinhAnh", posterUrl);
         formData.set("danhGia", parseInt(form.danhGia));
-        console.log(key, formData.get(key));
       }
       dispatch(editMovie(formData));
     } else if (typeOfPopUp.typePopUp === "Thêm Phim") {
@@ -151,7 +149,6 @@ export default function PopupMovie() {
         );
         formData.set("hinhAnh", posterUrl);
         formData.set("danhGia", parseInt(form.danhGia));
-        console.log(`${key}`, formData.get(key));
       }
       dispatch(addMovie(formData));
     }
@@ -164,11 +161,9 @@ export default function PopupMovie() {
   const handleChange = (event) => {
     event.preventDefault();
     setForm({ ...form, [event.target.name]: event.target.value });
-    console.log(form);
   };
   // Change Date Time
   const handleDateChange = (date) => {
-    console.log(form);
     setForm({
       ...form,
       ngayKhoiChieu: date,
@@ -181,7 +176,6 @@ export default function PopupMovie() {
       ...form,
       hinhAnh: URL.createObjectURL(event.target.files[0]),
     });
-    console.log(form.hinhAnh);
   };
   return (
     <div className={classes.root}>

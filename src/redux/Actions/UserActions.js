@@ -1,12 +1,11 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import createAction from ".";
-import { FETCH_DETAIL_USER, FETCH_USER_LIST, SEARCH_USER, SET_CREATED, SET_DELETED, SET_EDITED, SET_LOGIN, SET_POPUP, SET_SEARCH } from '../Constants/UserConstants'
+import { FETCH_DETAIL_USER, FETCH_USER_LIST, SEARCH_USER, SET_CREATED, SET_DELETED, SET_EDITED, SET_LOGIN, SET_POPUP } from '../Constants/UserConstants'
 
 export const fetchUserInfo = (page, pageSize) => {
     return async (dispatch) => {
         try {
-            console.log(page);
             await axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=GP01&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
@@ -15,11 +14,11 @@ export const fetchUserInfo = (page, pageSize) => {
                 console.log(res.data);
                 dispatch(createAction(FETCH_USER_LIST, res.data))
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
 
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 };
@@ -51,7 +50,7 @@ export const login = (form) => {
                 // let error = res.status;
                 localStorage.setItem("accessToken", res.data.accessToken);
                 localStorage.setItem("currentUser", JSON.stringify(res.data));
-                console.log(res.data);
+                // console.log(res.data);
                 dispatch(createAction(SET_LOGIN, res.data));
                 Swal.fire(
                     'Yeah !!!',
@@ -59,12 +58,12 @@ export const login = (form) => {
                     'success'
                 )
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
                 Swal.fire('Opps !!!', 'Tài khoản hoặc mật khẩu không hợp lệ, hãy thử lại !!!', 'error')
             })
 
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     };
 };
@@ -141,7 +140,7 @@ export const deleteUser = (taiKhoan) => {
                 })
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }
@@ -174,7 +173,7 @@ export const createUser = (form) => {
                 dispatch(createAction(SET_POPUP, false));
                 dispatch(createAction(SET_CREATED, true));
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
                 Swal.fire({
                     title: 'Oops !!!',
                     text: `${err.response?.data} !!!`,
@@ -183,12 +182,11 @@ export const createUser = (form) => {
                 })
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }
 export const fetchDetailUser = (taiKhoan) => {
-    console.log(taiKhoan);
     return (dispatch) => {
         try {
             Swal.fire({
@@ -209,10 +207,10 @@ export const fetchDetailUser = (taiKhoan) => {
                 Swal.close()
                 dispatch(createAction(FETCH_DETAIL_USER, res.data))
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }
@@ -234,7 +232,7 @@ export const searchUser = (keyword, page, pageSize) => {
                 })
             })
         } catch (err) {
-            console.log(err);
+            // console.log(err);
         }
     }
 }

@@ -12,7 +12,7 @@ import UserTable from "components/Table/UserTable.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
-import { Box, Button, Grid, TextField } from "@material-ui/core";
+import { Box, Button, Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "redux/Actions/UserActions";
 import { green } from "@material-ui/core/colors";
@@ -29,7 +29,7 @@ import styles from "assets/jss/material-dashboard-react/components/headerLinksSt
 import Buttonn from "components/CustomButtons/Button.js";
 import { searchUser } from "redux/Actions/UserActions";
 import { SET_SEARCH } from "redux/Constants/UserConstants";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 
 const useStyless = makeStyles(styles);
 
@@ -84,7 +84,7 @@ export default function TableList() {
       dispatch(createAction(SET_SEARCH, false));
     }
   };
-  console.log(keyword);
+
   const handleCreateUser = () => {
     dispatch(
       createAction(CREATE_USER, {
@@ -102,7 +102,7 @@ export default function TableList() {
     } else {
       dispatch(fetchUserInfo(page, pageSize));
     }
-  }, [page, pageSize, isEdited, isDeleted, isCreated, dispatch]);
+  }, [page, pageSize, isEdited, isDeleted, isCreated, dispatch, isSearch]);
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
@@ -133,11 +133,7 @@ export default function TableList() {
                   </Button>
                 </ThemeProvider>
               </Grid>
-              <Grid
-                item
-                style={{textAlign: "end"}}
-                xs={6}
-              >
+              <Grid item style={{ textAlign: "end" }} xs={6}>
                 <div className={classess.searchWrapper}>
                   {/* <input ref={refContainer}></input> */}
                   <CustomInput

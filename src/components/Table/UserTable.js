@@ -31,10 +31,6 @@ export default function UserTable(props) {
     dispatch(fetchDetailUser(taiKhoan));
   };
 
-  useEffect(() => {
-    console.log("AAqweqweA");
-  }, [tableData]);
-
   const handleEditUser = (taiKhoan) => () => {
     let userSelected = {};
     let haveUser = false;
