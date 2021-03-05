@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMovieShowtime } from "redux/Actions/MovieActions";
 import {
   Button,
+  CircularProgress,
   Grid,
   Paper,
   Table,
@@ -35,9 +36,10 @@ import {
 import { CREATE_MOVIE, SET_CREATED } from "redux/Constants/MovieConstants";
 import createAction from "redux/Actions";
 import AddShowtime from "components/Popup/AddShowtime";
+import dayjs from "dayjs";
+import { TimeFormat, DateFormat } from "redux/Constants/TimeConstants";
 
 const useStyles = makeStyles(styles);
-
 const columns = [
   { id: "name", label: "Mã Lịch Chiếu", minWidth: 170 },
   { id: "code", label: "Tên Cụm Rạp", minWidth: 100 },
@@ -86,6 +88,7 @@ export default function ShowtimeMovie(props) {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
   const isCreated = useSelector((state) => state.movieReducers.isCreated);
+  const isLoaded = useSelector((state) => state.movieReducers.isLoaded);
   const data = movieDetail;
   console.log(data);
 
@@ -117,7 +120,7 @@ export default function ShowtimeMovie(props) {
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
-          <CardHeader plain color="primary">
+          <CardHeader plain color="info">
             <h4 className={classes.cardTitleWhite}>Lịch Chiếu</h4>
             <p className={classes.cardCategoryWhite}>
               Thông tin lịch chiếu và rạp của "{data.tenPhim}"
@@ -141,62 +144,81 @@ export default function ShowtimeMovie(props) {
                 </Button>
               </ThemeProvider>
             </Grid>
-            <Paper className={classes.root}>
-              <TableContainer className={classes.container}>
-                <Table stickyHeader aria-label="sticky table">
-                  <TableHead>
-                    <TableRow>
-                      {columns.map((column) => (
-                        <TableCell
-                          key={column.id}
-                          align={column.align}
-                          style={{ minWidth: column.minWidth }}
-                        >
-                          {column.label}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data.lichChieu
-                      ?.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
-                      .map((lichChieu, index) => {
-                        return (
-                          <TableRow
-                            hover
-                            role="checkbox"
-                            tabIndex={-1}
-                            key={index}
+            {isLoaded ? (
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+              >
+                <Grid
+                  style={{ textAlign: "center", marginTop: 20 }}
+                  item
+                  xs={12}
+                >
+                  <CircularProgress />
+                </Grid>
+              </Grid>
+            ) : (
+              <Paper className={classes.root}>
+                <TableContainer className={classes.container}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow>
+                        {columns.map((column) => (
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            style={{ minWidth: column.minWidth }}
                           >
-                            <TableCell>{lichChieu.maLichChieu}</TableCell>
-                            <TableCell>
-                              {lichChieu.thongTinRap.tenCumRap}
-                            </TableCell>
-                            <TableCell>
-                              {lichChieu.thongTinRap.tenRap}
-                            </TableCell>
-                            <TableCell>{lichChieu.ngayChieuGioChieu}</TableCell>
-                            <TableCell>{lichChieu.giaVe}</TableCell>
-                          </TableRow>
-                        );
-                      })}
-                  </TableBody>
-                </Table>
-                <AddShowtime data={props.match.params.id}/>
-              </TableContainer>
-              <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={data.lichChieu?.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-              />
-            </Paper>
+                            {column.label}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {data.lichChieu
+                        ?.slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((lichChieu, index) => {
+                          return (
+                            <TableRow
+                              hover
+                              role="checkbox"
+                              tabIndex={-1}
+                              key={index}
+                            >
+                              <TableCell>{lichChieu.maLichChieu}</TableCell>
+                              <TableCell>
+                                {lichChieu.thongTinRap.tenCumRap}
+                              </TableCell>
+                              <TableCell>
+                                {lichChieu.thongTinRap.tenRap}
+                              </TableCell>
+                              <TableCell>
+                                {dayjs(lichChieu.ngayChieuGioChieu).format(`${DateFormat} ${TimeFormat}`)}
+                              </TableCell>
+                              <TableCell>{lichChieu.giaVe} VND</TableCell>
+                            </TableRow>
+                          );
+                        })}
+                    </TableBody>
+                  </Table>
+                  <AddShowtime data={props.match.params.id} />
+                </TableContainer>
+                <TablePagination
+                  rowsPerPageOptions={[10, 25, 100]}
+                  component="div"
+                  count={data.lichChieu?.length}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  onChangePage={handleChangePage}
+                  onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+              </Paper>
+            )}
           </CardBody>
         </Card>
       </GridItem>

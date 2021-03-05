@@ -8,4 +8,6 @@ export const SET_DETAIL = "SET_DETAIL"
 export const SET_POPUP = "SET_POPUP"
 export const SET_CREATED = "SET_CREATED"
 export const SEARCH_MOVIE = "SEARCH_MOVIE"
+export const SET_LOADED = "SET_LOADED"
+
 

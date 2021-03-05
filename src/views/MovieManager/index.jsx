@@ -68,7 +68,7 @@ export default function TableList() {
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card>
-          <CardHeader color="rose">
+          <CardHeader color="info">
             <h4 className={classes.cardTitleWhite}>MOVIE LIST</h4>
             <p className={classes.cardCategoryWhite}>
               List of movies currently in the system

@@ -22,12 +22,12 @@ import { FETCH_MOVIE_SHOWTIME } from "redux/Constants/MovieConstants";
 import { fetchMovieShowtime } from "redux/Actions/MovieActions";
 import dayjs from "dayjs";
 import { TimeFormat, DateFormat } from "redux/Constants/TimeConstants";
+import { SET_LOADED } from "redux/Constants/MovieConstants";
 
 const useStyles = makeStyles(styles);
 
 export default function MovieTable(props) {
   const classes = useStyles();
-  const dateFormat = require("dateformat");
   const { tableHead, tableData, tableHeaderColor } = props;
   const movieInfor = useSelector((state) => state.movieReducers.movieInfor);
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ export default function MovieTable(props) {
     history.push(`/admin/showtime/${maPhim}`)
     dispatch(createAction(FETCH_MOVIE_SHOWTIME, {}))
     dispatch(fetchMovieShowtime(maPhim));
+    dispatch(createAction(SET_LOADED, true))
   }
 
   const handleEditMovie = (maPhim) => () => {
@@ -60,40 +61,31 @@ export default function MovieTable(props) {
   };
 
   const handleDeleteMovie = (maPhim) => () => {
-    let movieSelected = 0;
-    let haveMovie = false;
-    for (let movie of movieInfor.items) {
-      if (maPhim === movie.maPhim) {
-        movieSelected = movie.maPhim;
-        haveMovie = true;
+    Swal.fire({
+      title: "Xác nhận xóa ?",
+      text: "Bạn xem không thể hoàn tác lại tác vụ này !!!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Xóa",
+      cancelButtonText: "Hủy",
+      reverseButtons: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMovie(maPhim));
+        dispatch(createAction(SET_DELETED, false));
+        // });
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          "Oh !!!",
+          "Bạn đã hủy tác vụ này !!!",
+          "warning"
+        );
       }
-    }
-    if (haveMovie) {
-      Swal.fire({
-        title: "Xác nhận xóa ?",
-        text: "Bạn xem không thể hoàn tác lại tác vụ này !!!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Xóa",
-        cancelButtonText: "Hủy",
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(deleteMovie(movieSelected));
-          dispatch(createAction(SET_DELETED, false));
-          // });
-        } else if (
-          /* Read more about handling dismissals below */
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          Swal.fire(
-            "Oh !!!",
-            "Bạn đã hủy tác vụ này !!!",
-            "warning"
-          );
-        }
-      });
-    }
+    });
+    // }
   };
 
   return (
@@ -117,8 +109,6 @@ export default function MovieTable(props) {
         ) : null}
         <TableBody>
           {tableData.items?.map((prop, key) => {
-            const ngayKhoiChieu = prop.ngayKhoiChieu
-
             return (
               <TableRow key={key} className={classes.tableBodyRow}>
                 <TableCell className={classes.tableCell}>

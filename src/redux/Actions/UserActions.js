@@ -39,7 +39,6 @@ export const login = (form) => {
                 method: "POST",
                 data: form,
             }).then(res => {
-                console.log(res.status);
                 let maNguoiDung = res.data.maLoaiNguoiDung;
                 if (maNguoiDung !== "QuanTri") {
                     Swal.fire(
@@ -89,18 +88,15 @@ export const editUser = (form) => {
                 headers: {
                     Authorization: `Bearer ` + accessToken,
                 }
-            }).then(({ status }) => {
-                console.log('status', status);
-                if (status === 200) {
-                    dispatch(createAction(SET_EDITED, true));
-                    Swal.fire({
-                        title: 'Yeah !!!',
-                        text: 'Chỉnh Sửa Người Dùng Thành Công !!!',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    })
-                    dispatch(createAction(SET_POPUP, false));
-                }
+            }).then((res) => {
+                dispatch(createAction(SET_EDITED, true));
+                Swal.fire({
+                    title: 'Yeah !!!',
+                    text: 'Chỉnh Sửa Người Dùng Thành Công !!!',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                dispatch(createAction(SET_POPUP, false));
             }).catch(err => {
                 Swal.fire('Oops !!!', `${err.response.data}`, 'error')
             })
@@ -128,17 +124,14 @@ export const deleteUser = (taiKhoan) => {
                 headers: {
                     Authorization: `Bearer ` + accessToken,
                 }
-            }).then(({ data, status }) => {
-                if (status === 200) {
-                    // console.log(data);
-                    Swal.fire({
-                        title: 'Yeah !!!',
-                        text: 'Xóa Người Dùng Thành Công !!!',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    })
-                    dispatch(createAction(SET_DELETED, true));
-                }
+            }).then((res) => {
+                Swal.fire({
+                    title: 'Yeah !!!',
+                    text: 'Xóa Người Dùng Thành Công !!!',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                dispatch(createAction(SET_DELETED, true));
             }).catch(err => {
                 Swal.fire({
                     title: 'Oops !!!',
@@ -171,18 +164,15 @@ export const createUser = (form) => {
                 headers: {
                     Authorization: `Bearer ` + accessToken,
                 }
-            }).then(({ data, status }) => {
-                if (status === 200) {
-                    console.log(data);
-                    Swal.fire({
-                        title: 'Yeah !!!',
-                        text: 'Tạo Người Dùng Thành Công !!!',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    })
-                    dispatch(createAction(SET_POPUP, false));
-                    dispatch(createAction(SET_CREATED, true));
-                }
+            }).then((res) => {
+                Swal.fire({
+                    title: 'Yeah !!!',
+                    text: 'Tạo Người Dùng Thành Công !!!',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                dispatch(createAction(SET_POPUP, false));
+                dispatch(createAction(SET_CREATED, true));
             }).catch(err => {
                 console.log(err);
                 Swal.fire({
@@ -233,11 +223,8 @@ export const searchUser = (keyword, page, pageSize) => {
             await axios({
                 url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDungPhanTrang?MaNhom=GP01&tuKhoa=${keyword}&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
                 method: 'GET'
-            }).then(({ data, status }) => {
-                console.log('status', status);
-                if (status === 200) {
-                    dispatch(createAction(SEARCH_USER, data))
-                }
+            }).then((res) => {
+                dispatch(createAction(SEARCH_USER, res))
             }).catch(err => {
                 Swal.fire({
                     title: 'Oops !!!',

@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import dayjs from "dayjs";
 
 import createAction from ".";
-import { SET_CREATED, FETCH_MOVIE_LIST, FETCH_MOVIE_SHOWTIME, SEARCH_MOVIE, SET_DELETED, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
+import { SET_LOADED, SET_CREATED, FETCH_MOVIE_LIST, FETCH_MOVIE_SHOWTIME, SEARCH_MOVIE, SET_DELETED, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
 import { DateFormat, TimeFormat } from "redux/Constants/TimeConstants";
 
 export const fetchMovieInfo = (page, pageSize) => {
@@ -35,6 +35,7 @@ export const fetchMovieShowtime = (maPhim) => {
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`,
                 method: "GET",
             }).then(res => {
+                dispatch(createAction(SET_LOADED, false))
                 dispatch(createAction(FETCH_MOVIE_SHOWTIME, res.data))
             }).catch(err => {
                 console.log(err);
@@ -47,7 +48,7 @@ export const fetchMovieShowtime = (maPhim) => {
 };
 
 export const editMovie = (form) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         try {
             const accessToken = localStorage.getItem("accessToken")
             Swal.fire({
@@ -57,7 +58,7 @@ export const editMovie = (form) => {
                 showConfirmButton: false,
                 allowOutsideClick: false
             })
-            axios({
+            await axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/CapNhatPhimUpload`,
                 method: "POST",
@@ -65,19 +66,16 @@ export const editMovie = (form) => {
                 headers: {
                     Authorization: `Bearer ` + accessToken,
                 }
-            }).then(({ status }) => {
-                console.log('status', status);
-                if (status === 200) {
-                    Swal.fire({
-                        title: 'Yeah !!!',
-                        text: 'Chỉnh Sửa Thông Tin Phim Thành Công !!!',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    })
-                    dispatch(createAction(SET_POPUP, false));
-                    dispatch(createAction(SET_EDITED, true));
+            }).then((res) => {
 
-                }
+                Swal.fire({
+                    title: 'Yeah !!!',
+                    text: 'Chỉnh Sửa Thông Tin Phim Thành Công !!!',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                dispatch(createAction(SET_POPUP, false));
+                dispatch(createAction(SET_EDITED, true));
             }).catch(err => {
                 console.log(err.response?.data);
                 Swal.fire({
@@ -105,7 +103,6 @@ export const addMovie = (form) => {
                 showConfirmButton: false,
                 allowOutsideClick: false
             })
-
             axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/ThemPhimUploadHinh`,
@@ -114,18 +111,15 @@ export const addMovie = (form) => {
                 headers: {
                     Authorization: `Bearer ` + accessToken,
                 }
-            }).then(({ status }) => {
-                console.log('status', status);
-                if (status === 200) {
-                    Swal.fire({
-                        title: 'Yeah !!!',
-                        text: 'Thêm Phim Thành Công !!!',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    })
-                    dispatch(createAction(SET_POPUP, false));
-                    dispatch(createAction(SET_CREATED, true));
-                }
+            }).then((res) => {
+                Swal.fire({
+                    title: 'Yeah !!!',
+                    text: 'Thêm Phim Thành Công !!!',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                dispatch(createAction(SET_POPUP, false));
+                dispatch(createAction(SET_CREATED, true));
             }).catch(err => {
                 console.log(err.response?.data);
                 Swal.fire({
@@ -152,7 +146,6 @@ export const deleteMovie = (maPhim) => {
                 showConfirmButton: false,
                 allowOutsideClick: false
             })
-
             axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/XoaPhim?MaPhim=${maPhim}`,
@@ -160,18 +153,15 @@ export const deleteMovie = (maPhim) => {
                 headers: {
                     Authorization: `Bearer ` + accessToken,
                 }
-            }).then(({ status }) => {
-                console.log('status', status);
-                if (status === 200) {
-                    Swal.fire({
-                        title: 'Yeah !!!',
-                        text: 'Xoá Phim Thành Công !!!',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    })
-                    dispatch(createAction(SET_POPUP, false));
-                    dispatch(createAction(SET_DELETED, true));
-                }
+            }).then((res) => {
+                Swal.fire({
+                    title: 'Yeah !!!',
+                    text: 'Xoá Phim Thành Công !!!',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                dispatch(createAction(SET_POPUP, false));
+                dispatch(createAction(SET_DELETED, true));
             }).catch(err => {
                 console.log(err.response?.data);
                 Swal.fire({
@@ -199,7 +189,6 @@ export const addShowtimeMovie = (form) => {
                 showConfirmButton: false,
                 allowOutsideClick: false
             })
-
             axios({
                 url:
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyDatVe/TaoLichChieu`,
@@ -211,23 +200,20 @@ export const addShowtimeMovie = (form) => {
                 headers: {
                     Authorization: `Bearer ` + accessToken,
                 }
-            }).then(({ status }) => {
-                console.log('status', status);
-                if (status === 200) {
-                    Swal.fire({
-                        title: 'Yeah !!!',
-                        text: 'Tạo Lịch Chiếu Thành Công !!!',
-                        icon: 'success',
-                        allowOutsideClick: false
-                    })
-                    dispatch(createAction(SET_CREATED, true));
-                    dispatch(createAction(SET_POPUP, false));
-                }
+            }).then((res) => {
+                Swal.fire({
+                    title: 'Yeah !!!',
+                    text: 'Tạo Lịch Chiếu Thành Công !!!',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                dispatch(createAction(SET_CREATED, true));
+                dispatch(createAction(SET_POPUP, false));
             }).catch(err => {
                 console.log(err.response?.data);
                 Swal.fire({
                     title: 'Oops !!!',
-                    text: `${err.response?.data} !!!`,
+                    text: `Giá Vé Phải Từ 75.000VND đến 200.000VND !!!`,
                     icon: 'error',
                     allowOutsideClick: false
                 })

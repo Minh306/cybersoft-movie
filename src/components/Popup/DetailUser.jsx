@@ -21,6 +21,8 @@ import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import { Box, Collapse } from "@material-ui/core";
+import dayjs from "dayjs";
+import { TimeFormat, DateFormat } from "redux/Constants/TimeConstants";
 
 const styles = (theme) => ({
   root: {
@@ -70,7 +72,6 @@ export default function DetailUser() {
   const isDetail = useSelector((state) => state.userReducers.isDetail);
   const DetailUser = useSelector((state) => state.userReducers.detailUser);
   const dispatch = useDispatch();
-  const dateFormat = require("dateformat");
   const handleClosePopup = () => {
     dispatch(createAction(SET_DETAIL, false));
   };
@@ -108,7 +109,7 @@ export default function DetailUser() {
           <TableCell align="right">{item.tenPhim}</TableCell>
           <TableCell align="right">{item.thoiLuongPhim}</TableCell>
           <TableCell align="right">{item.giaVe}</TableCell>
-          <TableCell align="right">{dateFormat(ngayDat, "dddd, mmmm dS, yyyy, h:MM:ss TT")}</TableCell>
+          <TableCell align="right">{dayjs(ngayDat).format(`${DateFormat} ${TimeFormat}`)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -152,7 +153,7 @@ export default function DetailUser() {
   return (
     <div>
       <Dialog
-        onClose={handleClosePopup}
+        // onClose={handleClosePopup}
         aria-labelledby="customized-dialog-title"
         open={isDetail}
         fullWidth

@@ -40,14 +40,14 @@ import ShowtimeManager from "views/ShowTimeManager";
 // import RTLPage from "views/RTLPage/RTLPage.js";
 
 const dashboardRoutes = [
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    rtlName: "لوحة القيادة",
-    icon: Dashboard,
-    component: DashboardPage,
-    layout: "/admin"
-  },
+  // {
+  //   path: "/dashboard",
+  //   name: "Dashboard",
+  //   rtlName: "لوحة القيادة",
+  //   icon: Dashboard,
+  //   component: DashboardPage,
+  //   layout: "/admin"
+  // },
   // {
   //   path: "/user",
   //   name: "User Profile",
