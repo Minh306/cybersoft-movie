@@ -48,7 +48,6 @@ const theme = createMuiTheme({
 });
 
 export default function TableList() {
-  const [keyword, setKeyword] = useState(null);
   const [page, setPage] = useState(1);
   const [pageSize] = useState(10);
   const isEdited = useSelector((state) => state.userReducers.isEdited);
@@ -75,7 +74,6 @@ export default function TableList() {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    setKeyword(refContainer.current.value);
     if (refContainer.current.value) {
       dispatch(searchUser(refContainer.current.value, page, pageSize));
       dispatch(createAction(SET_SEARCH, true));
