@@ -11,7 +11,6 @@ export const fetchUserInfo = (page, pageSize) => {
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=GP01&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
                 method: "GET",
             }).then(res => {
-                console.log(res.data);
                 dispatch(createAction(FETCH_USER_LIST, res.data))
             }).catch(err => {
                 // console.log(err);

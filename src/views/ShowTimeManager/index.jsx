@@ -78,10 +78,6 @@ const theme = createMuiTheme({
 });
 
 export default function ShowtimeMovie(props) {
-  // console.log(rows);
-  // const wapper = createRef();
-  const typeOfPopUp = useSelector((state) => state.movieReducers);
-  const isPopUp = useSelector((state) => state.movieReducers.isPopUp);
   const classes = useStyles();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
@@ -90,7 +86,6 @@ export default function ShowtimeMovie(props) {
   const isCreated = useSelector((state) => state.movieReducers.isCreated);
   const isLoaded = useSelector((state) => state.movieReducers.isLoaded);
   const data = movieDetail;
-  console.log(data);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
