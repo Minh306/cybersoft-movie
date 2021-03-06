@@ -22,10 +22,7 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import {
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import clsx from "clsx";
 import DateFnsUtils from "@date-io/date-fns";
 // import { Label } from "@material-ui/icons";
@@ -114,6 +111,7 @@ export default function AddShowtime(props) {
   const isPopUp = useSelector((state) => state.movieReducers.isPopUp);
   const typeOfPopUp = useSelector((state) => state.movieReducers);
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
+  const isCreated = useSelector((state) => state.movieReducers.isCreated);
   const cinemaSystemList = useSelector(
     (state) => state.movieTheaterReducers.cinemaSystemList
   );
@@ -204,26 +202,37 @@ export default function AddShowtime(props) {
     setError3(false);
     if (!form2.heThongRap) {
       setError(true);
-      return;
+      // return;
     }
     if (!form2.rap) {
       setError1(true);
-      return;
+      // return;
     }
     if (!form.maRap) {
       setError2(true);
-      return;
+      // return;
     }
     if (!form.giaVe) {
       setError3(true);
-      return;
+      // return;
     }
-    dispatch(addShowtimeMovie(form));
+    if (!form2.heThongRap || !form2.rap || !form.maRap || !form.giaVe) {
+      return;
+    } else {
+      dispatch(addShowtimeMovie(form));
+    }
   };
 
   useEffect(() => {
     dispatch(fetchCinemaSystemList());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isCreated) {
+      setForm((prevState) => ({ ...prevState, maRap: "", giaVe: "" }));
+      setForm2((prevState) => ({ ...prevState, heThongRap: "", rap: "" }));
+    }
+  }, [isCreated]);
 
   return (
     <div className={classes.root}>
@@ -336,7 +345,9 @@ export default function AddShowtime(props) {
                     {roomList?.map((roomList) => {
                       return roomList.danhSachRap?.map((list) => {
                         return (
-                          <MenuItem value={list.maRap}>{form2.tenRap} - {list.tenRap}</MenuItem>
+                          <MenuItem value={list.maRap}>
+                            {form2.tenRap} - {list.tenRap}
+                          </MenuItem>
                         );
                       });
                     })}
