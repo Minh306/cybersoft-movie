@@ -5,7 +5,7 @@ import "assets/css/material-dashboard-react.css?v=1.9.0";
 
 // core components
 import Admin from "layouts/Admin.js";
-import Login from "./views/Login"
+import Login from "./views/User/Login"
 // import RTL from "layouts/RTL.js";
 //
 import { IS_LOGIN, SET_LOGIN } from "./redux/Constants/UserConstants";

@@ -130,25 +130,25 @@ export default function PopupMovie() {
     if (typeOfPopUp.typePopUp === "Cập Nhật Thông Tin") {
       const formData = new FormData();
       for (const key in form) {
-        formData.append(key, form[key]);
         formData.set(
           "ngayKhoiChieu",
           moment(form.ngayKhoiChieu).format("DD/MM/YYYY")
         );
         formData.set("hinhAnh", posterUrl);
-        formData.set("danhGia", parseInt(form.danhGia));
+        formData.set("danhGia", Number(form.danhGia));
+        formData.append(key, form[key]);
       }
       dispatch(editMovie(formData));
     } else if (typeOfPopUp.typePopUp === "Thêm Phim") {
       const formData = new FormData();
       for (const key in form) {
-        formData.append(key, form[key]);
         formData.set(
           "ngayKhoiChieu",
           moment(form.ngayKhoiChieu).format("DD/MM/YYYY")
         );
         formData.set("hinhAnh", posterUrl);
-        formData.set("danhGia", parseInt(form.danhGia));
+        formData.set("danhGia", Number(form.danhGia));
+        formData.append(key, form[key]);
       }
       dispatch(addMovie(formData));
     }

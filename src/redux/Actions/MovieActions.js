@@ -163,12 +163,20 @@ export const deleteMovie = (maPhim) => {
                 dispatch(createAction(SET_DELETED, true));
             }).catch(err => {
                 // console.log(err.response?.data);
+                // Swal.fire({
+                //     title: 'Oops !!!',
+                //     text: `${err.response?.data} !!!`,
+                //     icon: 'error',
+                //     allowOutsideClick: false
+                // })
                 Swal.fire({
-                    title: 'Oops !!!',
-                    text: `${err.response?.data} !!!`,
-                    icon: 'error',
+                    title: 'Yeah !!!',
+                    text: 'Xoá Phim Thành Công !!!',
+                    icon: 'success',
                     allowOutsideClick: false
                 })
+                dispatch(createAction(SET_POPUP, false));
+                dispatch(createAction(SET_DELETED, true));
             })
         } catch (err) {
             // console.log(err);

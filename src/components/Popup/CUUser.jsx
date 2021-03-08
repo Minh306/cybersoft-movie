@@ -82,6 +82,9 @@ export default function PopupUser() {
   const dispatch = useDispatch();
   const isPopUp = useSelector((state) => state.userReducers.isPopUp);
   const classes = useStyles();
+  const selectedUser = useSelector((state) => state.userReducers.selectedUser);
+  const typeOfPopUp = useSelector((state) => state.userReducers);
+
   const [form, setForm] = useState({
     taiKhoan: "",
     matKhau: "",
@@ -91,8 +94,9 @@ export default function PopupUser() {
     soDt: "",
     maNhom: "GP01",
   });
-  const selectedUser = useSelector((state) => state.userReducers.selectedUser);
-  const typeOfPopUp = useSelector((state) => state.userReducers);
+
+  console.log(form);
+  
   useEffect(() => {
     setForm({
       taiKhoan: selectedUser.taiKhoan,

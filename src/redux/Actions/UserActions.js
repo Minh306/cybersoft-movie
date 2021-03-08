@@ -221,7 +221,7 @@ export const searchUser = (keyword, page, pageSize) => {
                 url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDungPhanTrang?MaNhom=GP01&tuKhoa=${keyword}&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
                 method: 'GET'
             }).then((res) => {
-                dispatch(createAction(SEARCH_USER, res))
+                dispatch(createAction(SEARCH_USER, res.data))
             }).catch(err => {
                 Swal.fire({
                     title: 'Oops !!!',
