@@ -1,0 +1,198 @@
+// Carousel images
+.bannerTix {
+    margin-top: 60px;
+    position: relative;
+    z-index: 2;
+    .bannerTix__wrap {
+        .tixCarrousel {
+            .owl-stage-outer {
+                padding-bottom: 43%;
+
+            }
+            .owl-stage {
+                position: absolute;
+                height: 100%;
+                .owl-item {
+                    height: 100%;
+                }
+                .item {
+                    height: 100%;
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: linear-gradient(to top, black, transparent 20%)
+                    }
+                    img {
+                        height: 100%;
+                    }
+                    .btn-play-trailer {
+                        position: absolute;
+                        background: transparent;
+                        outline: none;
+                        border: none;
+                        transition: all 0.3s;
+                        &:hover {
+                            opacity: 0.8;
+                        }
+                    }
+                    .item-trailer {
+                        display: none;
+                        iframe {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            .owl-nav {
+                button {
+                    font-size: 140px;
+                    color: #bcbcbc;
+                    opacity: 0.5;
+                    outline: none;
+                    border: none;
+                    &:hover {
+                        background: none;
+                    }
+                }
+                .owl-prev {
+                    position: absolute;
+                    top: 45%;
+                    left: 30px;
+                    transform: translateY(-50%);
+                }
+                .owl-next {
+                    position: absolute;
+                    top: 45%;
+                    right: 30px;
+                    transform: translateY(-50%);
+                }
+            }
+            .owl-dots {
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 75px;
+                .owl-dot.active {
+                    span {
+                        background: $color-bg-4;
+                    }
+                }
+                .owl-dot:hover {
+                    span {
+                        background: #D6D6D6;
+                    }
+                }
+            }
+        }
+    }
+}
+// Banner Book Dropdown
+.bannerTix {
+    .banner__book {
+        background: #fff;
+        display: flex;
+        align-items: center;
+        max-width: 940px;
+        width: 100%;
+        height: 80px;
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%,50%);
+        z-index: 1;
+        border-radius: 6px;
+        box-shadow: 0 0 5px 0px #000;
+        .dropdown {
+            // flex: 0 1 calc(70% / 4);
+            width: calc(70% / 4);
+            border-right: 1px solid $color-border-2;
+            .dropdown-menu.show {
+                box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.4);
+            }
+            button {
+                width: 100%;
+                text-align: left;
+                display: block;
+                align-items: center;
+                justify-content: space-between;
+                padding: 5px 13px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                position: relative;
+                &::after {
+                    position: absolute;
+                    right: 5px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+            .btn:focus {
+                box-shadow: none;
+            }
+            .dropdown-item {
+                span {
+                    display: block;
+                    &:last-child {
+                        color: #aaa;
+                        font-size: 11px;
+                    }
+                }
+                &:hover {
+                    background: $color-bg-8;
+                    color: #fff;
+                    span {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        #movies-dropdown {
+            // flex: 0 1 30%;
+            flex-grow: 1;
+            width: 30%;
+        }
+        .banner__btn {
+            // flex: 0 1 calc(70% / 4);
+            width: calc(70% / 4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a {
+                color: #fff;
+                background: $color-bg-2;
+                display: block;
+                text-align: center;
+                padding: 10px 20px;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 992px) {
+    .bannerTix {
+        .banner__book {
+            display: none;
+        }
+        .owl-dots{
+            display: none;
+        }
+        .owl-nav {
+            .owl-prev {
+                top: 42% !important;
+            }
+            .owl-next {
+                top: 42% !important;
+            }
+        }
+        
+    }
+}

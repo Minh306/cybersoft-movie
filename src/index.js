@@ -24,6 +24,7 @@ import { store } from './redux/storeCofigs';
 import theme from './theme';
 import { ThemeProvider } from '@material-ui/core';
 import '../src/index.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 ReactDOM.render(
   <React.StrictMode>

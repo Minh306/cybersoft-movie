@@ -11,7 +11,10 @@ import Login from "./views/User/Login"
 import { IS_LOGIN, SET_LOGIN } from "./redux/Constants/UserConstants";
 import { useDispatch } from "react-redux";
 import createAction from "redux/Actions";
-// import ShowtimeMovie from "views/ShowTimeManager";
+import Homepage from "views/User/Homepage";
+import { UserTemplate } from "layouts/User";
+
+import "./assets/sass/main.scss"
 
 
 function App() {
@@ -30,9 +33,7 @@ function App() {
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/admin" component={Admin} />
-                {/* <Route path="/admin/showtime/:id" component={ShowtimeMovie} /> */}
-                {/* <Route path="/rtl" component={RTL} /> */}
-                <Redirect from="/" to="/admin/user" />
+                <UserTemplate exact path="/" Component={Homepage} />
             </Switch>
         </BrowserRouter>
     );
