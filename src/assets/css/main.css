@@ -94,9 +94,28 @@ body {
   }
 }
 
+.scroll-to-top {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  animation: fadeIn 700ms ease-in-out 1s both;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 header {
+  padding: 0 5px 0 15px;
   background: #fff;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   opacity: 0.95;
   z-index: 50;
   top: 0;
@@ -104,23 +123,13 @@ header {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-header .navbar {
-  flex-flow: row nowrap;
-  position: fixed;
-  top: -1px;
-  width: 100%;
-  background-color: white;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  transition: all .2s;
-}
-
 .tixNav {
-  padding: 0;
-  height: 60px;
+  padding: 0 !important;
 }
 
 .tixNav .navbar-brand {
   width: 50px;
+  margin-right: 14rem;
 }
 
 .tixNav .navbar-brand img {
@@ -145,7 +154,7 @@ header .navbar {
 .tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown) .nav-link {
   font-size: 14px;
   padding: 0;
-  color: #111111;
+  color: #000;
   transition: all 0.5s;
 }
 
@@ -180,6 +189,11 @@ header .navbar {
 .tixNav #navbarTixContent .navbar-nav .nav-item.dropdown {
   padding: 0 10px 0 10px;
   width: 150px;
+  display: grid;
+}
+
+.tixNav #navbarTixContent .navbar-nav .nav-item.dropdown .location {
+  margin-right: 10px;
 }
 
 .tixNav #navbarTixContent .navbar-nav .nav-item.dropdown .nav-link.user {
@@ -244,15 +258,16 @@ header .navbar {
   color: #fff;
 }
 
-.tixNav #navbarTixContent .nav-center {
-  width: 80%;
+@media screen and (max-width: 948px) {
+  .tixNav .navbar-brand {
+    margin-right: 1rem;
+  }
 }
 
-.tixNav #navbarTixContent .nav-end {
-  width: 59%;
-}
-
-@media screen and (max-width: 792px) {
+@media screen and (max-width: 768px) {
+  .navbar-toggler {
+    z-index: 11;
+  }
   .tixNav .navbar-collapse {
     position: fixed;
     width: 100%;
@@ -289,7 +304,7 @@ header .navbar {
   }
   .tixNav #navbarTixContent.navbar-collapse .navbar-nav .nav-item .nav-link {
     font-size: 18px;
-    color: #111;
+    color: #000;
   }
   .tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown).user {
     margin-left: 0;
@@ -299,7 +314,7 @@ header .navbar {
   }
   .tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown).user .nav-link {
     font-size: 14px;
-    color: #111;
+    color: #000;
   }
   .tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown).user img {
     width: 36px;
@@ -778,7 +793,7 @@ header .navbar {
 
 .tixCarousel .owl-carousel .owl-nav button {
   position: absolute;
-  top: 41%;
+  top: 42%;
   transform: translate(0, -50%);
   font-size: 130px;
   outline: none;
@@ -1084,10 +1099,15 @@ header .navbar {
 }
 
 .tixCinema .linear {
+  float: none;
+  margin: auto;
+  clear: both;
+  max-width: 940px;
   padding-top: 120px;
   background: url(../../../assets/img/back-news.png);
   background-size: 100%;
   background-repeat: no-repeat;
+  height: 140px;
 }
 
 @media screen and (max-width: 992px) {
@@ -1124,6 +1144,10 @@ header .navbar {
     overflow-y: hidden;
     padding-left: 15px;
     border-left: 1px solid rgba(238, 238, 238, 0.88);
+  }
+  .tixCinema .cinema-row .cinema-addr .column-4 .tab-pane {
+    height: 500px;
+    overflow: auto;
   }
 }
 
@@ -1187,6 +1211,7 @@ header .navbar {
 }
 
 .tixNews .newsTabContent .news-bot .news-item .news-info .title {
+  height: 51px;
   margin-bottom: 0px;
   padding: 10px 0 5px;
 }

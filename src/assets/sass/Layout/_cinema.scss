@@ -243,10 +243,15 @@
 }
 .tixCinema {
     .linear {
+        float: none;
+        margin: auto;
+        clear: both;
+        max-width: 940px;
         padding-top: 120px;
         background: url(../../../assets/img/back-news.png);
         background-size: 100%;
         background-repeat: no-repeat;
+        height: 140px;
     }
 }
 @media screen and (max-width: 992px) {
@@ -289,6 +294,10 @@
                     overflow-y: hidden;
                     padding-left: 15px;
                     border-left: 1px solid rgba(238, 238, 238, 0.88);
+                    .tab-pane{
+                        height: 500px;
+                        overflow: auto;
+                    }
                 }
             }
         }

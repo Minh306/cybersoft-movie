@@ -3,31 +3,60 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import playVid from "assets/img/play-video.png";
-import film1 from "../../assets/img/film-1.png"
-import film2 from "../../assets/img/film-2.png"
-import film3 from "../../assets/img/film-3.png"
-import film4 from "../../assets/img/film-4.png"
-import film5 from "../../assets/img/film-5.png"
-import film6 from "../../assets/img/film-6.png"
-import film7 from "../../assets/img/film-7.png"
-import film8 from "../../assets/img/film-8.png"
-import film9 from "../../assets/img/film-9.png"
-import film10 from "../../assets/img/film-10.png"
-import film11 from "../../assets/img/film-11.png"
-import film12 from "../../assets/img/film-12.png"
-import film13 from "../../assets/img/film-13.png"
-import film14 from "../../assets/img/film-14.png"
-import film15 from "../../assets/img/film-15.png"
-import film16 from "../../assets/img/film-16.png"
-import filmStar from "../../assets/img/film-star.png"
-import filmStarHalf from "../../assets/img/film-star-half.png"
-import filmDatTruoc from "../../assets/img/film-datruoc.png"
-import filmPromo from "../../assets/img/film-promo.png"
-
+import film1 from "../../assets/img/film-1.png";
+import film2 from "../../assets/img/film-2.png";
+import film3 from "../../assets/img/film-3.png";
+import film4 from "../../assets/img/film-4.png";
+import film5 from "../../assets/img/film-5.png";
+import film6 from "../../assets/img/film-6.png";
+import film7 from "../../assets/img/film-7.png";
+import film8 from "../../assets/img/film-8.png";
+import film9 from "../../assets/img/film-9.png";
+import film10 from "../../assets/img/film-10.png";
+import film11 from "../../assets/img/film-11.png";
+import film12 from "../../assets/img/film-12.png";
+import film13 from "../../assets/img/film-13.png";
+import film14 from "../../assets/img/film-14.png";
+import film15 from "../../assets/img/film-15.png";
+import film16 from "../../assets/img/film-16.png";
+import filmStar from "../../assets/img/film-star.png";
+import filmStarHalf from "../../assets/img/film-star-half.png";
+import filmDatTruoc from "../../assets/img/film-datruoc.png";
+import filmPromo from "../../assets/img/film-promo.png";
 
 export default function Carousel() {
+  const options = {
+    margin: 30,
+    responsiveClass: true,
+    nav: true,
+    dots: false,
+    autoplay: true,
+    loop: true,
+    // navText: ["Prev", "Next"],
+    smartSpeed: 1000,
+    responsive: {
+      0: {
+        items: 1,
+        dots: true,
+      },
+      400: {
+        items: 1,
+        dots: true,
+      },
+      600: {
+        items: 2,
+        dots: true,
+      },
+      700: {
+        items: 3,
+      },
+      1000: {
+        items: 4,
+      },
+    },
+  };
   return (
-    <section className="tixCarousel">
+    <section className="tixCarousel" id="tixCarousel">
       <div className="tixCarrousel__wrap container">
         <ul
           className="nav nav-tabs tixCaroulselTab"
@@ -42,7 +71,6 @@ export default function Carousel() {
               href="#tixDangChieu"
               role="tab"
               aria-controls="home"
-              aria-selected="true"
             >
               Đang Chiếu
             </a>
@@ -55,7 +83,6 @@ export default function Carousel() {
               href="#tixSapChieu"
               role="tab"
               aria-controls="profile"
-              aria-selected="false"
             >
               Sắp Chiếu
             </a>
@@ -70,10 +97,7 @@ export default function Carousel() {
           >
             <OwlCarousel
               className="filmsOnShowCarrousel owl-carousel owl-theme"
-              loop
-              nav
-              items={4}
-              dots={false}
+              {...options}
             >
               <div className="item-wrap">
                 {/* movie item */}
@@ -1355,10 +1379,7 @@ export default function Carousel() {
           >
             <OwlCarousel
               className="filmsOnShowCarrousel owl-carousel owl-theme"
-              loop
-              nav
-              items={4}
-              dots={false}
+              {...options}
             >
               {/* Item Carousel 1 */}
               <div className="item-wrap">
@@ -1387,7 +1408,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* promo */}
@@ -1419,7 +1439,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* Starts */}
@@ -1456,7 +1475,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* promo */}
@@ -1488,7 +1506,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* promo */}
@@ -1524,7 +1541,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1552,7 +1568,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1584,7 +1599,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1612,7 +1626,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1644,7 +1657,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1672,7 +1684,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* promo */}
@@ -1708,7 +1719,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* promo */}
@@ -1740,7 +1750,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* promo */}
@@ -1775,7 +1784,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* promo */}
@@ -1807,7 +1815,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1839,7 +1846,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1867,7 +1873,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* Starts */}
@@ -1900,7 +1905,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1928,7 +1932,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1960,7 +1963,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -1988,7 +1990,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                   {/* Starts */}
@@ -2021,7 +2022,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -2049,7 +2049,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -2081,7 +2080,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">112 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>
@@ -2109,7 +2107,6 @@ export default function Carousel() {
                       </p>
                       <span className="minutes">106 phút</span>
                       {/* when hover */}
-                      
                     </div>
                   </div>
                 </div>

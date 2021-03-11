@@ -34,6 +34,7 @@ function App() {
                 <Route path="/login" component={Login} />
                 <Route path="/admin" component={Admin} />
                 <UserTemplate exact path="/" Component={Homepage} />
+                <Redirect from="/" to="/" />
             </Switch>
         </BrowserRouter>
     );

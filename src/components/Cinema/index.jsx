@@ -8,7 +8,7 @@ import LOTTE from "../../assets/img/lotte-cinema-logo.png";
 
 export default function Cinema() {
   return (
-    <section className="tixCinema">
+    <section className="tixCinema" id="tixCinema">
       <div className="linear container" />
       <div className="tixCinema-wrap container">
         <div className="row cinema-row">
@@ -27,7 +27,7 @@ export default function Cinema() {
                 href="#cinema-tab-1-addr"
                 role="tab"
                 aria-controls="v-logo-1"
-                aria-selected="true"
+                
               >
                 <img src={BHD} alt="cinema logo" />
               </a>
@@ -39,7 +39,7 @@ export default function Cinema() {
                 href="#cinema-tab-2-addr"
                 role="tab"
                 aria-controls="v-logo-2"
-                aria-selected="false"
+                
               >
                 <img src={CNS} alt="cinema logo" />
               </a>
@@ -51,7 +51,7 @@ export default function Cinema() {
                 href="#cinema-tab-3-addr"
                 role="tab"
                 aria-controls="v-logo-3"
-                aria-selected="false"
+                
               >
                 <img src={DDC} alt="cinema logo" />
               </a>
@@ -63,7 +63,7 @@ export default function Cinema() {
                 href="#cinema-tab-4-addr"
                 role="tab"
                 aria-controls="v-logo-4"
-                aria-selected="false"
+                
               >
                 <img src={MEGA} alt="cinema logo" />
               </a>
@@ -75,7 +75,7 @@ export default function Cinema() {
                 href="#cinema-tab-5-addr"
                 role="tab"
                 aria-controls="v-logo-5"
-                aria-selected="false"
+                
               >
                 <img src={DCINE} alt="cinema logo" />
               </a>
@@ -87,7 +87,7 @@ export default function Cinema() {
                 href="#cinema-tab-6-addr"
                 role="tab"
                 aria-controls="v-logo-6"
-                aria-selected="false"
+                
               >
                 <img src={LOTTE} alt="cinema logo" />
               </a>
@@ -110,7 +110,7 @@ export default function Cinema() {
                         id="cinema-addr-1"
                         data-toggle="tab"
                         href="#cinema-1-addr1"
-                        aria-selected="true"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -133,7 +133,7 @@ export default function Cinema() {
                         id="cinema-addr-2"
                         data-toggle="tab"
                         href="#cinema-1-addr2"
-                        aria-selected="false"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -156,7 +156,7 @@ export default function Cinema() {
                         id="cinema-addr-3"
                         data-toggle="tab"
                         href="#cinema-1-addr3"
-                        aria-selected="false"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -179,7 +179,7 @@ export default function Cinema() {
                         id="cinema-addr-4"
                         data-toggle="tab"
                         href="#cinema-1-addr4"
-                        aria-selected="false"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -833,7 +833,7 @@ export default function Cinema() {
                         id="cinema-addr-1"
                         data-toggle="tab"
                         href="#cinema-2-addr1"
-                        aria-selected="true"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -856,7 +856,7 @@ export default function Cinema() {
                         id="cinema-addr-2"
                         data-toggle="tab"
                         href="#cinema-2-addr2"
-                        aria-selected="false"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -1143,7 +1143,7 @@ export default function Cinema() {
                         id="cinema-addr-1"
                         data-toggle="tab"
                         href="#cinema-3-addr1"
-                        aria-selected="true"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -1345,7 +1345,7 @@ export default function Cinema() {
                         id="cinema-addr-1"
                         data-toggle="tab"
                         href="#cinema-3-addr1"
-                        aria-selected="true"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -1547,7 +1547,7 @@ export default function Cinema() {
                         id="cinema-addr-1"
                         data-toggle="tab"
                         href="#cinema-3-addr1"
-                        aria-selected="true"
+                        
                       >
                         <div className="item-addr">
                           <img
@@ -1749,7 +1749,7 @@ export default function Cinema() {
                         id="cinema-addr-1"
                         data-toggle="tab"
                         href="#cinema-3-addr1"
-                        aria-selected="true"
+                        
                       >
                         <div className="item-addr">
                           <img

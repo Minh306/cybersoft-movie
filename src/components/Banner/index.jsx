@@ -9,7 +9,7 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 
 export default function index() {
   return (
-    <section className="bannerTix">
+    <section className="bannerTix" id="bannerTix">
       <div className="bannerTix__wrap">
         <div className="banner__img">
           <OwlCarousel
@@ -21,7 +21,7 @@ export default function index() {
             autoplayTimeout={3000}
           >
             <div className="item">
-              <img src={banner1} />
+              <img src={banner1} alt="banner" />
               <button
                 type="button"
                 className="btn-play-trailer"
@@ -31,10 +31,10 @@ export default function index() {
               </button>
             </div>
             <div className="item">
-              <img src={banner2} />
+              <img src={banner2} alt="banner" />
             </div>
             <div className="item">
-              <img src={banner3} />
+              <img src={banner3} alt="banner" />
             </div>
           </OwlCarousel>
           <div className="banner__book">
