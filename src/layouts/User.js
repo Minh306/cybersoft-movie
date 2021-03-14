@@ -28,13 +28,13 @@ export const UserTemplate = ({ Component, ...restProps }) => {
 
     return <Route {...restProps} render={(propsRoute) => {
         return <Fragment>
-            <Header />
             <div className="scroll-to-top">
                 {isVisible &&
                     <div onClick={scrollToTop}>
                         <img src='https://i.postimg.cc/44Ytsk8Z/top-arrow-emoj.png' alt='Go to top' />
                     </div>}
             </div>
+            <Header />
             <Component {...propsRoute} />
             <Footer />
         </Fragment>

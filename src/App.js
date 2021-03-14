@@ -13,8 +13,9 @@ import { useDispatch } from "react-redux";
 import createAction from "redux/Actions";
 import Homepage from "views/User/Homepage";
 import { UserTemplate } from "layouts/User";
-
+import '../node_modules/react-modal-video/scss/modal-video.scss';
 import "./assets/sass/main.scss"
+import Detail from "views/User/Detail";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/admin" component={Admin} />
+                <UserTemplate exact path="/detail" Component={Detail} />
                 <UserTemplate exact path="/" Component={Homepage} />
                 <Redirect from="/" to="/" />
             </Switch>

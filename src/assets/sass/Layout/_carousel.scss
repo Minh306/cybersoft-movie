@@ -93,8 +93,10 @@
         .movie-content {
             .movie-img {
                 position: relative;
+                height: 318px;
                 img {
                     border-radius: 5px;
+                    height: 100%;
                 }
             }
             .linear {
@@ -143,6 +145,7 @@
                 -webkit-box-orient: vertical;
                 overflow: hidden;
                 margin-bottom: 0;
+                height: 50px;
                 span.age {
                     line-height: unset;
                     font-size: 14px;
@@ -163,8 +166,9 @@
                 font-size: 13px;
                 color: $color-bg-2;
                 display: inline-block;
-                padding-top: 10px;
-                padding-bottom: 5px;
+                font-weight: 500;
+                // padding-top: 10px;
+                // padding-bottom: 5px;
             }
             .bookTicket {
                 position: absolute;
@@ -179,7 +183,8 @@
                 button {
                     outline: none;
                     border: none;
-                    background: #fa5238;
+                    background: linear-gradient(to left,#fb4226,#ce3017 100%);
+                    font-weight: 600;
                     display: block;
                     width: 100%;
                     padding: 12px 0;
@@ -216,6 +221,11 @@
             }
             .owl-next {
                 right: -45px;
+            }
+        }
+        .owl-item{
+            imgP{
+                height: 100% !important;
             }
         }
     }

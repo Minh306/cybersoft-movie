@@ -96,7 +96,7 @@ export default function News() {
                   <div className="social">
                     <p className="like">
                       <img src={like} alt="like" />
-                      <span>0</span>
+                      <span>2</span>
                     </p>
                     <p className="comment">
                       <img src={comment} alt="comment" />
@@ -119,7 +119,7 @@ export default function News() {
                   <div className="social">
                     <p className="like">
                       <img src={like} alt="like" />
-                      <span>1</span>
+                      <span>2</span>
                     </p>
                     <p className="comment">
                       <span>
@@ -149,7 +149,7 @@ export default function News() {
                     <div className="social">
                       <p className="like">
                         <img src={like} alt="like" />
-                        <span>0</span>
+                        <span>2</span>
                       </p>
                       <p className="comment">
                         <img src={comment} alt="comment" />
@@ -174,7 +174,7 @@ export default function News() {
                     <div className="social">
                       <p className="like">
                         <img src={like} alt="like" />
-                        <span>1</span>
+                        <span>2</span>
                       </p>
                       <p className="comment">
                         <span>
@@ -266,7 +266,7 @@ export default function News() {
                   <div className="social">
                     <p className="like">
                       <img src={like} alt="like" />
-                      <span>1</span>
+                      <span>0</span>
                     </p>
                     <p className="comment">
                       <span>
@@ -321,7 +321,7 @@ export default function News() {
                     <div className="social">
                       <p className="like">
                         <img src={like} alt="like" />
-                        <span>1</span>
+                        <span>0</span>
                       </p>
                       <p className="comment">
                         <span>
@@ -336,7 +336,7 @@ export default function News() {
               <div className="bot-item bot-right">
                 {/* Small Items */}
                 <div className="news-small-item">
-                  <img src={news3} alt="news" />
+                  <img src={news13} alt="news" />
                   <p>Review: Spider-Man: Into The Spider-Vesre</p>
                 </div>
                 {/* Small Items */}
@@ -383,7 +383,7 @@ export default function News() {
                   <div className="social">
                     <p className="like">
                       <img src={like} alt="like" />
-                      <span>0</span>
+                      <span>1</span>
                     </p>
                     <p className="comment">
                       <img src={comment} alt="comment" />
@@ -429,7 +429,7 @@ export default function News() {
                     <div className="social">
                       <p className="like">
                         <img src={like} alt="like" />
-                        <span>0</span>
+                        <span>4</span>
                       </p>
                       <p className="comment">
                         <img src={comment} alt="comment" />
@@ -450,7 +450,7 @@ export default function News() {
                     <div className="social">
                       <p className="like">
                         <img src={like} alt="like" />
-                        <span>1</span>
+                        <span>0</span>
                       </p>
                       <p className="comment">
                         <span>

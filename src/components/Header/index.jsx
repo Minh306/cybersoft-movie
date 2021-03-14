@@ -2,19 +2,26 @@ import React, { useState } from "react";
 import webLogo from "../../assets/img/web-logo.png";
 import marc from "../../assets/img/faces/marc.jpg";
 import location from "../../assets/img/location-header.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import disableScroll from "disable-scroll";
-import * as Scroll from 'react-scroll';
-import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import * as Scroll from "react-scroll";
+import {
+  Link,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller,
+} from "react-scroll";
 
 export default function Header() {
   const [scroll, setScroll] = useState(true);
 
   const handleScroll = () => {
     setScroll(!scroll);
-    if ((scroll)) {
+    if (scroll) {
       disableScroll.on();
-    }else{
+    } else {
       disableScroll.off();
     }
   };
@@ -22,7 +29,7 @@ export default function Header() {
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-light tixNav">
-        <a className="navbar-brand" href="#logo">  
+        <a className="navbar-brand" href="#logo">
           <img src={webLogo} alt="logo" />
         </a>
         <button
@@ -40,22 +47,54 @@ export default function Header() {
         <div className="collapse navbar-collapse" id="navbarTixContent">
           <ul className="navbar-nav">
             <li className="nav-item first">
-              <Link className="nav-link" to="tixCarousel" spy={true} smooth={true} offset={0} duration={1000} delay={0}>
+              <Link
+                className="nav-link"
+                to="tixCarousel"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={1000}
+                delay={0}
+              >
                 Lịch Chiếu
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="tixCinema" spy={true} smooth={true} offset={0} duration={1000} delay={0}>
+              <Link
+                className="nav-link"
+                to="tixCinema"
+                spy={true}
+                smooth={true}
+                offset={0}
+                duration={1000}
+                delay={0}
+              >
                 Cụm rạp
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="tixNews" spy={true} smooth={true} offset={-65} duration={1000} delay={0}>
+              <Link
+                className="nav-link"
+                to="tixNews"
+                spy={true}
+                smooth={true}
+                offset={-65}
+                duration={1000}
+                delay={0}
+              >
                 Tin Tức
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="tixApp" spy={true} smooth={true} offset={-65} duration={1000} delay={0}>
+              <Link
+                className="nav-link"
+                to="tixApp"
+                spy={true}
+                smooth={true}
+                offset={-65}
+                duration={1000}
+                delay={0}
+              >
                 Ứng dụng
               </Link>
             </li>
@@ -63,6 +102,7 @@ export default function Header() {
               <a className="nav-link" href="#random">
                 <img src={marc} alt="user" /> Đăng Nhập
               </a>
+              {/* <NavLink to="/admin">Quản trị hệ thống</NavLink> */}
             </li>
             <li className="nav-item dropdown">
               <a

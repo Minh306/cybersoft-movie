@@ -42,6 +42,8 @@ export default function TixApp() {
                 nav={false}
                 items={1}
                 dots={false}
+                autoplay
+                autoplayTimeout={3000}
                 className="tixAppCarousel owl-carousel owl-theme"
               >
                 <div className="item">

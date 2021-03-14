@@ -6,6 +6,25 @@ import createAction from ".";
 import { SET_LOADED, SET_CREATED, FETCH_MOVIE_LIST, FETCH_MOVIE_SHOWTIME, SET_DELETED, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
 import { DateFormat, TimeFormat } from "redux/Constants/TimeConstants";
 
+export const fetchMovie = () => {
+    return async (dispatch) => {
+        try {
+            await axios({
+                url:
+                    `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01`,
+                method: "GET",
+            }).then(res => {
+                dispatch(createAction(FETCH_MOVIE_LIST, res.data))
+            }).catch(err => {
+                // console.log(err);
+            })
+
+        } catch (err) {
+            // console.log(err);
+        }
+    };
+}
+
 export const fetchMovieInfo = (page, pageSize) => {
     return async (dispatch) => {
         try {

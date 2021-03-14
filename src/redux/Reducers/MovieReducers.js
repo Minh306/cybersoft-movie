@@ -3,7 +3,7 @@ import {
 } from "redux/Constants/MovieConstants";
 
 const initialState = {
-    movieInfor: {},
+    movieInfor: [],
     movieSearch: {},
     selectedMovie: {},
     movieDetail: {},

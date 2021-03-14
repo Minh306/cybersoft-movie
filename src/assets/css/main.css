@@ -21,6 +21,7 @@ html {
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
+  overflow: unset !important;
 }
 
 .pop-play {
@@ -372,6 +373,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: display 2s;
 }
 
 .bannerTix .bannerTix__wrap .tixCarrousel .owl-stage .item::before {
@@ -384,20 +386,25 @@ header {
   background: linear-gradient(to top, black, transparent 20%);
 }
 
+.bannerTix .bannerTix__wrap .tixCarrousel .owl-stage .item:hover .btn-play-trailer {
+  display: block;
+}
+
 .bannerTix .bannerTix__wrap .tixCarrousel .owl-stage .item img {
   height: 100%;
 }
 
 .bannerTix .bannerTix__wrap .tixCarrousel .owl-stage .item .btn-play-trailer {
+  display: none;
   position: absolute;
   background: transparent;
   outline: none;
   border: none;
-  transition: all 0.3s;
+  transition: all .5s;
 }
 
 .bannerTix .bannerTix__wrap .tixCarrousel .owl-stage .item .btn-play-trailer:hover {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .bannerTix .bannerTix__wrap .tixCarrousel .owl-stage .item .item-trailer {
@@ -449,6 +456,30 @@ header {
   background: #D6D6D6;
 }
 
+.modal-video-close-btn {
+  position: absolute;
+  z-index: 2;
+  top: -65px;
+  right: -35px;
+  display: inline-block;
+  width: 40px;
+  height: 70px;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+}
+
+.modal-video-close-btn::before {
+  content: url(../../img/close.png) !important;
+  background: unset;
+  transform: unset !important;
+}
+
+.modal-video-close-btn::after {
+  content: unset;
+  background: unset;
+}
+
 .bannerTix .banner__book {
   background: #fff;
   display: flex;
@@ -472,6 +503,8 @@ header {
 
 .bannerTix .banner__book .dropdown .dropdown-menu.show {
   box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.4);
+  max-height: 300px;
+  overflow: auto;
 }
 
 .bannerTix .banner__book .dropdown button {
@@ -529,12 +562,28 @@ header {
 }
 
 .bannerTix .banner__book .banner__btn a {
+  text-decoration: none;
   color: #fff;
   background: #4a4a4a;
   display: block;
   text-align: center;
   padding: 10px 20px;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 1030px) {
+  .modal-video-close-btn {
+    position: absolute;
+    z-index: 2;
+    top: -70px;
+    right: 0px;
+    display: inline-block;
+    width: 40px;
+    height: 70px;
+    overflow: hidden;
+    border: none;
+    background: transparent;
+  }
 }
 
 @media screen and (max-width: 992px) {
@@ -670,11 +719,13 @@ header {
 #tixCaroulselTabContent .filmsOnShowCarrousel .movie-content .movie-img,
 #tixCaroulselTabContent .filmsOnSoonCarrousel .movie-content .movie-img {
   position: relative;
+  height: 318px;
 }
 
 #tixCaroulselTabContent .filmsOnShowCarrousel .movie-content .movie-img img,
 #tixCaroulselTabContent .filmsOnSoonCarrousel .movie-content .movie-img img {
   border-radius: 5px;
+  height: 100%;
 }
 
 #tixCaroulselTabContent .filmsOnShowCarrousel .movie-content .linear,
@@ -735,6 +786,7 @@ header {
   -webkit-line-clamp: 2;
   overflow: hidden;
   margin-bottom: 0;
+  height: 50px;
 }
 
 #tixCaroulselTabContent .filmsOnShowCarrousel .movie-detail p span.age,
@@ -761,8 +813,7 @@ header {
   font-size: 13px;
   color: #4a4a4a;
   display: inline-block;
-  padding-top: 10px;
-  padding-bottom: 5px;
+  font-weight: 500;
 }
 
 #tixCaroulselTabContent .filmsOnShowCarrousel .movie-detail .bookTicket,
@@ -782,7 +833,8 @@ header {
 #tixCaroulselTabContent .filmsOnSoonCarrousel .movie-detail .bookTicket button {
   outline: none;
   border: none;
-  background: #fa5238;
+  background: linear-gradient(to left, #fb4226, #ce3017 100%);
+  font-weight: 600;
   display: block;
   width: 100%;
   padding: 12px 0;
@@ -818,6 +870,10 @@ header {
 
 .tixCarousel .owl-carousel .owl-nav .owl-next {
   right: -45px;
+}
+
+.tixCarousel .owl-carousel .owl-item imgP {
+  height: 100% !important;
 }
 
 @media screen and (max-width: 610px) {
