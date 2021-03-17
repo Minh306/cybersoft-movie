@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import playVid from "../../../assets/img/play-video.png";
 import filmStar from "../../../assets/img/film-star.png";
 import filmStarHalf from "../../../assets/img/film-star-half.png";
 import filmDatTruoc from "../../../assets/img/film-datruoc.png";
 import filmPromo from "../../../assets/img/film-promo.png";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import createAction from "redux/Actions";
+import { MA_HE_THONG_RAP } from "redux/Constants/MovieConstants";
 export default function CardItem(props) {
   const { data } = props;
+  // const isRender = useSelector((state) => state.movieReducers.isRender);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      createAction(MA_HE_THONG_RAP, { maHeThongRap: "", isRender: false })
+    );
+  }, []);
 
   const renderMovie = () => {
     let output = [];
@@ -42,7 +54,9 @@ export default function CardItem(props) {
                 <span className="minutes">120 phút</span>
                 {/* when hover */}
                 <div className="bookTicket">
-                  <button type="button">MUA VÉ</button>
+                  <NavLink to={`/detail/${data[i]?.maPhim}`} type="button">
+                    MUA VÉ
+                  </NavLink>
                 </div>
               </div>
             </div>
@@ -122,7 +136,9 @@ export default function CardItem(props) {
                 <span className="minutes">120 phút</span>
                 {/* when hover */}
                 <div className="bookTicket">
-                  <button type="button">MUA VÉ</button>
+                  <NavLink to={`/detail/${data[i + 1]?.maPhim}`} type="button">
+                    MUA VÉ
+                  </NavLink>
                 </div>
               </div>
             </div>

@@ -147,7 +147,7 @@ export default function AddShowtime(props) {
     }
   };
 
-  const hanleChangeTheaters = (event) => {
+  const handleChangeTheaters = (event) => {
     let roomList = [];
     const { value } = event.target;
     setError1(false);
@@ -308,7 +308,7 @@ export default function AddShowtime(props) {
                     name="rap"
                     value={form2.rap}
                     defaultValue=""
-                    onChange={hanleChangeTheaters}
+                    onChange={handleChangeTheaters}
                   >
                     <MenuItem value="">Chọn Cụm Rạp</MenuItem>
                     {theatersList?.map((theatersList) => {

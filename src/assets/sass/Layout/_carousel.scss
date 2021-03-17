@@ -180,7 +180,7 @@
                 transition: all 0.3s;
                 opacity: 0;
                 visibility: hidden;
-                button {
+                a {
                     outline: none;
                     border: none;
                     background: linear-gradient(to left,#fb4226,#ce3017 100%);
@@ -191,6 +191,11 @@
                     border-radius: 5px;
                     font-size: 18px;
                     color: #fff;
+                    text-align: center;
+                    &:hover{
+                        text-decoration: none;
+                        background: #fb4226;
+                    }
                 }
             }
         }

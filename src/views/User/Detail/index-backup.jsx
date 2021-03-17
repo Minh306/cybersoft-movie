@@ -8,73 +8,72 @@ import cinema1 from "../../../assets/img/bhd-star-cinema-1.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovieDetail } from "redux/Actions/MovieActions";
 import dayjs from "dayjs";
+import { it } from "date-fns/locale";
 import createAction from "redux/Actions";
 import { MA_HE_THONG_RAP } from "redux/Constants/MovieConstants";
-import { NGAY_CHIEU_GIO_CHIEU } from "redux/Constants/MovieConstants";
 export default function Detail(props) {
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
-  const ngayChieuGioChieu = useSelector(
-    (state) => state.movieReducers.ngayChieuGioChieu
-  );
   const maHeThongRap = useSelector((state) => state.movieReducers.maHeThongRap);
+  const isRender = useSelector((state) => state.movieReducers.isRender);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchMovieDetail(props.match.params.id));
   }, []);
 
-  const [day, setDay] = useState("");
-
-  console.log(day);
   const selectTheaters = (maHeThongRap) => () => {
     dispatch(createAction(MA_HE_THONG_RAP, { maHeThongRap: maHeThongRap }));
   };
-  const renderDate = () => {
-    function renderDate(cumRapChieu) {
-      if (cumRapChieu != null) {
-        cumRapChieu.map((item, index) => {
-          let lichChieuPhim = item.lichChieuPhim;
-          lichChieuPhim.forEach((item) =>
-            data.add(dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD"))
+
+  const renderDay = () => {
+    let res = [];
+    let unique = null;
+    let output = [];
+    return movieDetail.heThongRapChieu?.map((items, index) => {
+      if (isRender === false) {
+        if (index === 0) {
+          return dispatch(
+            createAction(MA_HE_THONG_RAP, {
+              maHeThongRap: items.maHeThongRap,
+              isRender: true,
+            })
           );
-        });
-        if (data) {
-          let output = [...data];
-          dispatch(
-            createAction(NGAY_CHIEU_GIO_CHIEU, { ngayChieuGioChieu: output[0] })
-          );
-          return output.map((items, index) => {
-            let active = index === 0 ? "active" : "";
-            let x = `Thứ ${dayjs(items).day() + 1}`;
-            let y = dayjs(items).day() + 1;
-            return (
-              <a
-                className={`date-item ${active}`}
-                value={items}
-                onClick={handleChangeTime(items)}
-                key={index}
-              >
-                <p className="day">{y === 1 ? `Chủ Nhật` : x}</p>
-                <p className="date">{dayjs(items).format("DD/MM")}</p>
-              </a>
-            );
-          });
         }
       }
-    }
-    let data = new Set();
-    let cumRapChieu = [];
-    let heThongRapChieu = movieDetail.heThongRapChieu;
-    //lay ra rap dau tien
-    if (heThongRapChieu != null && maHeThongRap == "") {
-      cumRapChieu = heThongRapChieu[0].cumRapChieu;
-      return renderDate(cumRapChieu);
-      // console.log(heThongRapChieu[0].cumRapChieu);
-    } else if (heThongRapChieu) {
-      cumRapChieu = heThongRapChieu.find(
-        (cinema) => cinema.maHeThongRap == maHeThongRap
-      );
-      return renderDate(cumRapChieu.cumRapChieu);
-    }
+
+      if (maHeThongRap === items.maHeThongRap) {
+        return items?.cumRapChieu.map((items, index) => {
+          for (let i = 0; i < items.lichChieuPhim.length; i++) {
+            res.push(
+              dayjs(items.lichChieuPhim[i].ngayChieuGioChieu).format(
+                "YYYY-MM-DD"
+              )
+            );
+            console.log(res);
+          }
+          if (res) {
+            // unique = res.filter((value, index) => {
+            //   return res.indexOf(value) === index;
+            // });
+            unique = [...new Set(res)];
+          }
+          console.log(unique);
+          if (unique) {
+            output = unique.map((items, index) => {
+              let active = index === 0 ? "active" : "";
+              let x = `Thứ ${dayjs(items).day() + 1}`;
+              let y = dayjs(items).day() + 1;
+              return (
+                <a className={`date-item ${active}`} value={items} key={index}>
+                  <p className="day">{y === 1 ? `Chủ Nhật` : x}</p>
+                  <p className="date">{dayjs(items).format("DD")}</p>
+                </a>
+              );
+            });
+          }
+          return output;
+        });
+      }
+    });
   };
 
   const renderCinemaSystem = () => {
@@ -97,37 +96,8 @@ export default function Detail(props) {
       );
     });
   };
-  function getCinemaByDate() {
-    let tmp;
-    let cumRapChieu = [];
-    let dateList = [];
-    let cinemaList = new Set();
-    let heThongRapChieu = movieDetail.heThongRapChieu;
-    if (heThongRapChieu != null && maHeThongRap == "") {
-      tmp = heThongRapChieu[0];
-    } else if (heThongRapChieu) {
-      tmp = heThongRapChieu.find(
-        (cinema) => cinema.maHeThongRap == maHeThongRap
-      );
-    }
-    if (tmp) {
-      cumRapChieu = tmp.cumRapChieu;
-      if (cumRapChieu) {
-        cumRapChieu.forEach((cinema) => {
-          cinema.lichChieuPhim.forEach((item) => {
-            if (dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD") === day) {
-              cinemaList.add(cinema);
-              dateList.push(dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD"));
-            }
-          });
-        });
-      }
-    }
-    return cinemaList;
-  }
+
   const renderTheaters = () => {
-    const cinemaList = Array.from(getCinemaByDate());
-    console.log(cinemaList);
     return movieDetail.heThongRapChieu?.map((items, index) => {
       let active = index === 0 ? "active" : "";
       return (
@@ -161,37 +131,30 @@ export default function Detail(props) {
                     <h3>2D Digital</h3>
                     <div className="schedules row">
                       {items.lichChieuPhim?.map((items, index) => {
-                        if (
-                          dayjs(items.ngayChieuGioChieu).format(
-                            "YYYY-MM-DD"
-                          ) === day
-                        ) {
-                          // console.log(items);
-                          let data = dayjs(items.ngayChieuGioChieu);
-                          return (
-                            <div
-                              key={index}
-                              className="no--padding  col-6 col-sm-3"
-                            >
-                              <a className="schedule-item">
-                                <span className="start">
-                                  {data.format("HH:mm")}
-                                </span>
-                                <span className="end">
-                                  {" "}
-                                  ~{" "}
-                                  {data
-                                    .set("hours", data.get("hours") + 1)
-                                    .format("HH")}
-                                  :
-                                  {data
-                                    .set("minutes", data.get("minutes") + 30)
-                                    .format("mm")}
-                                </span>
-                              </a>
-                            </div>
-                          );
-                        }
+                        let data = dayjs(items.ngayChieuGioChieu);
+                        return (
+                          <div
+                            key={index}
+                            className="no--padding  col-6 col-sm-3"
+                          >
+                            <a className="schedule-item">
+                              <span className="start">
+                                {data.format("HH:mm")}
+                              </span>
+                              <span className="end">
+                                {" "}
+                                ~{" "}
+                                {data
+                                  .set("hours", data.get("hours") + 1)
+                                  .format("HH")}
+                                :
+                                {data
+                                  .set("minutes", data.get("minutes") + 30)
+                                  .format("mm")}
+                              </span>
+                            </a>
+                          </div>
+                        );
                       })}
                     </div>
                   </div>
@@ -202,10 +165,6 @@ export default function Detail(props) {
         </div>
       );
     });
-  };
-
-  const handleChangeTime = (dateSelected) => () => {
-    setDay(dateSelected);
   };
 
   return (
@@ -308,7 +267,7 @@ export default function Detail(props) {
                   {renderCinemaSystem()}
                 </ul>
                 <div className="film-showtimes-content-wrap">
-                  <div className="film-week-wrap">{renderDate()}</div>
+                  <div className="film-week-wrap">{renderDay()}</div>
                   <div
                     className="tab-content film-showtimes-content"
                     id="myTabContent"

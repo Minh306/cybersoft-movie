@@ -249,3 +249,21 @@ export const addShowtimeMovie = (form) => {
         }
     }
 }
+
+export const fetchMovieDetail = (maPhim) => {
+    return async (dispatch) => {
+        try {
+            await axios({
+                url:
+                    `https://movie0706.cybersoft.edu.vn/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`,
+                method: "GET",
+            }).then(res => {
+                dispatch(createAction(FETCH_MOVIE_SHOWTIME, res.data))
+            }).catch(err => {
+                // console.log(err);
+            })
+        } catch (err) {
+            // console.log(err);
+        }
+    };
+}

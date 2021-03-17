@@ -34,7 +34,7 @@ function App() {
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/admin" component={Admin} />
-                <UserTemplate exact path="/detail" Component={Detail} />
+                <UserTemplate exact path="/detail/:id" Component={Detail} />
                 <UserTemplate exact path="/" Component={Homepage} />
                 <Redirect from="/" to="/" />
             </Switch>

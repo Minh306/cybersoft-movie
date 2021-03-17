@@ -829,8 +829,8 @@ header {
   visibility: hidden;
 }
 
-#tixCaroulselTabContent .filmsOnShowCarrousel .movie-detail .bookTicket button,
-#tixCaroulselTabContent .filmsOnSoonCarrousel .movie-detail .bookTicket button {
+#tixCaroulselTabContent .filmsOnShowCarrousel .movie-detail .bookTicket a,
+#tixCaroulselTabContent .filmsOnSoonCarrousel .movie-detail .bookTicket a {
   outline: none;
   border: none;
   background: linear-gradient(to left, #fb4226, #ce3017 100%);
@@ -841,6 +841,13 @@ header {
   border-radius: 5px;
   font-size: 18px;
   color: #fff;
+  text-align: center;
+}
+
+#tixCaroulselTabContent .filmsOnShowCarrousel .movie-detail .bookTicket a:hover,
+#tixCaroulselTabContent .filmsOnSoonCarrousel .movie-detail .bookTicket a:hover {
+  text-decoration: none;
+  background: #fb4226;
 }
 
 .tixCarousel .owl-carousel .owl-nav button {

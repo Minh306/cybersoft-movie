@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import createAction from "redux/Actions";
 import { fetchMovie } from "redux/Actions/MovieActions";
-import { fetchMovieTheater } from "redux/Actions/MovieTheaterAction";
+import { fetchMovieDetail } from "redux/Actions/MovieActions";
 
 export default function Dropdown() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ export default function Dropdown() {
 
   const handleMovieName = (tenPhim, maPhim) => () => {
     setInfor({ ...infor, tenPhim: tenPhim });
-    dispatch(fetchMovieTheater(maPhim));
+    dispatch(fetchMovieDetail(maPhim));
   };
 
   const handleMovieTheater = (tenCumRap, maCumRap) => () => {
