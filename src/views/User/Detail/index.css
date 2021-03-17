@@ -725,6 +725,7 @@
   line-height: 22px;
   padding: 0 !important;
   margin: 0;
+  margin-bottom: 5px;
 }
 .film-collapse-info .film-time {
   font-size: 12px;

@@ -13,6 +13,7 @@ import { MA_HE_THONG_RAP } from "redux/Constants/MovieConstants";
 import { NGAY_CHIEU_GIO_CHIEU } from "redux/Constants/MovieConstants";
 export default function Detail(props) {
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
+  const isRender = useSelector((state) => state.movieReducers.isRender);
   const ngayChieuGioChieu = useSelector(
     (state) => state.movieReducers.ngayChieuGioChieu
   );
@@ -24,9 +25,8 @@ export default function Detail(props) {
 
   const [day, setDay] = useState("");
 
-  console.log(day);
   const selectTheaters = (maHeThongRap) => () => {
-    dispatch(createAction(MA_HE_THONG_RAP, { maHeThongRap: maHeThongRap }));
+    dispatch(createAction(MA_HE_THONG_RAP, { maHeThongRap: maHeThongRap, isRender : false }));
   };
   const renderDate = () => {
     function renderDate(cumRapChieu) {
@@ -39,9 +39,13 @@ export default function Detail(props) {
         });
         if (data) {
           let output = [...data];
-          dispatch(
-            createAction(NGAY_CHIEU_GIO_CHIEU, { ngayChieuGioChieu: output[0] })
-          );
+          if (isRender === false) {
+            dispatch(
+              createAction(NGAY_CHIEU_GIO_CHIEU, {
+                ngayChieuGioChieu: output[0],
+              })
+            );
+          }
           return output.map((items, index) => {
             let active = index === 0 ? "active" : "";
             let x = `Thứ ${dayjs(items).day() + 1}`;
@@ -54,7 +58,7 @@ export default function Detail(props) {
                 key={index}
               >
                 <p className="day">{y === 1 ? `Chủ Nhật` : x}</p>
-                <p className="date">{dayjs(items).format("DD/MM")}</p>
+                <p className="date">{dayjs(items).format("DD")}</p>
               </a>
             );
           });
@@ -115,7 +119,10 @@ export default function Detail(props) {
       if (cumRapChieu) {
         cumRapChieu.forEach((cinema) => {
           cinema.lichChieuPhim.forEach((item) => {
-            if (dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD") === day) {
+            if (
+              dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD") ===
+              ngayChieuGioChieu
+            ) {
               cinemaList.add(cinema);
               dateList.push(dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD"));
             }
@@ -164,7 +171,7 @@ export default function Detail(props) {
                         if (
                           dayjs(items.ngayChieuGioChieu).format(
                             "YYYY-MM-DD"
-                          ) === day
+                          ) === ngayChieuGioChieu
                         ) {
                           // console.log(items);
                           let data = dayjs(items.ngayChieuGioChieu);
@@ -206,6 +213,9 @@ export default function Detail(props) {
 
   const handleChangeTime = (dateSelected) => () => {
     setDay(dateSelected);
+    dispatch(
+      createAction(NGAY_CHIEU_GIO_CHIEU, { ngayChieuGioChieu: dateSelected, isRender: true })
+    );
   };
 
   return (
