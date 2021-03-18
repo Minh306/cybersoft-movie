@@ -11,6 +11,15 @@ import dayjs from "dayjs";
 import createAction from "redux/Actions";
 import { MA_HE_THONG_RAP } from "redux/Constants/MovieConstants";
 import { NGAY_CHIEU_GIO_CHIEU } from "redux/Constants/MovieConstants";
+import {
+  Link,
+  Element,
+  Events,
+  animateScroll as scroll,
+  scrollSpy,
+  scroller,
+} from "react-scroll";
+
 export default function Detail(props) {
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
   const isRender = useSelector((state) => state.movieReducers.isRender);
@@ -23,10 +32,13 @@ export default function Detail(props) {
     dispatch(fetchMovieDetail(props.match.params.id));
   }, []);
 
-  const [day, setDay] = useState("");
-
   const selectTheaters = (maHeThongRap) => () => {
-    dispatch(createAction(MA_HE_THONG_RAP, { maHeThongRap: maHeThongRap, isRender : false }));
+    dispatch(
+      createAction(MA_HE_THONG_RAP, {
+        maHeThongRap: maHeThongRap,
+        isRender: false,
+      })
+    );
   };
   const renderDate = () => {
     function renderDate(cumRapChieu) {
@@ -51,15 +63,17 @@ export default function Detail(props) {
             let x = `Thứ ${dayjs(items).day() + 1}`;
             let y = dayjs(items).day() + 1;
             return (
-              <a
-                className={`date-item ${active}`}
-                value={items}
-                onClick={handleChangeTime(items)}
-                key={index}
-              >
-                <p className="day">{y === 1 ? `Chủ Nhật` : x}</p>
-                <p className="date">{dayjs(items).format("DD")}</p>
-              </a>
+              <li key={index} className="nav-item">
+                <a
+                  className={`date-item ${active}`}
+                  value={items}
+                  data-toggle="tab"
+                  onClick={handleChangeTime(items)}
+                >
+                  <p className="day">{y === 1 ? `Chủ Nhật` : x}</p>
+                  <p className="date">{dayjs(items).format("DD")}</p>
+                </a>
+              </li>
             );
           });
         }
@@ -134,7 +148,7 @@ export default function Detail(props) {
   }
   const renderTheaters = () => {
     const cinemaList = Array.from(getCinemaByDate());
-    console.log(cinemaList);
+    // console.log(cinemaList);
     return movieDetail.heThongRapChieu?.map((items, index) => {
       let active = index === 0 ? "active" : "";
       return (
@@ -212,9 +226,11 @@ export default function Detail(props) {
   };
 
   const handleChangeTime = (dateSelected) => () => {
-    setDay(dateSelected);
     dispatch(
-      createAction(NGAY_CHIEU_GIO_CHIEU, { ngayChieuGioChieu: dateSelected, isRender: true })
+      createAction(NGAY_CHIEU_GIO_CHIEU, {
+        ngayChieuGioChieu: dateSelected,
+        isRender: true,
+      })
     );
   };
 
@@ -246,7 +262,17 @@ export default function Detail(props) {
                     {movieDetail.tenPhim}
                   </p>
                   <p className="film-time">120 phút - 0 IMDb - 2D/Digital</p>
-                  <button className="btn film-btn">MUA VÉ</button>
+                  <Link
+                    to="DatVe"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={1000}
+                    delay={0}
+                    className="btn film-btn"
+                  >
+                    MUA VÉ
+                  </Link>
                 </div>
               </div>
               <div className="film-grade">
@@ -275,7 +301,7 @@ export default function Detail(props) {
         </div>
         <div className="style-linear"></div>
         {/*  */}
-        <div className="book-film tix-container">
+        <div className="book-film tix-container" id="DatVe">
           <ul className="nav nav-tabs book-film-navs" role="tablist">
             <li className="nav-item" role="presentation">
               <a
@@ -318,7 +344,14 @@ export default function Detail(props) {
                   {renderCinemaSystem()}
                 </ul>
                 <div className="film-showtimes-content-wrap">
-                  <div className="film-week-wrap">{renderDate()}</div>
+                  <div className="film-week-wrap">
+                    <ul
+                      className="nav nav-tabs dateRender"
+                      id="film-showtimes-tabs"
+                    >
+                      {renderDate()}
+                    </ul>
+                  </div>
                   <div
                     className="tab-content film-showtimes-content"
                     id="myTabContent"

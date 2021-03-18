@@ -1,5 +1,4 @@
 import Banner from "components/Banner";
-import Carousel from "components/Carousel";
 import Cinema from "components/Cinema";
 import News from "components/News";
 import TixApp from "components/TixApp";
@@ -7,6 +6,7 @@ import Partner from "components/Partner";
 import React, { useEffect } from "react";
 import { fetchMovie } from "redux/Actions/MovieActions";
 import { useDispatch, useSelector } from "react-redux";
+import SlickMovie from "components/SlickMovie";
 
 export default function Homepage() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function Homepage() {
   return (
     <>
       <Banner />
-      <Carousel data={movieInfor}/>
+      <SlickMovie data={movieInfor}/>
       <Cinema />
       <News />
       <TixApp />

@@ -35,9 +35,11 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-scroll": "^1.8.2",
+    "react-slick": "^0.28.1",
     "react-swipeable-views": "0.13.9",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "slick-carousel": "^1.8.1",
     "sweetalert2": "^10.13.3",
     "web-vitals": "^1.1.0",
     "yup": "^0.32.9"

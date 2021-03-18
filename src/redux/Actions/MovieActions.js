@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import createAction from ".";
 import { SET_LOADED, SET_CREATED, FETCH_MOVIE_LIST, FETCH_MOVIE_SHOWTIME, SET_DELETED, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
 import { DateFormat, TimeFormat } from "redux/Constants/TimeConstants";
+import { FETCH_THEATERS_LIST } from "redux/Constants/MovieTheaterConstants";
 
 export const fetchMovie = () => {
     return async (dispatch) => {
@@ -259,6 +260,8 @@ export const fetchMovieDetail = (maPhim) => {
                 method: "GET",
             }).then(res => {
                 dispatch(createAction(FETCH_MOVIE_SHOWTIME, res.data))
+                dispatch(createAction(FETCH_THEATERS_LIST, res.data.heThongRapChieu))
+
             }).catch(err => {
                 // console.log(err);
             })
