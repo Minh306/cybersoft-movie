@@ -9,6 +9,7 @@ const initialState = {
     selectedMovie: {},
     movieDetail: {},
     maHeThongRap: '',
+    isCheck: false,
     ngayChieuGioChieu: '',
     isPopUp: false,
     isLoaded: false,

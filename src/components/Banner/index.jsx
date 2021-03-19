@@ -6,7 +6,6 @@ import playVid from "assets/img/play-video.png";
 import OwlCarousel from "react-owl-carousel";
 import ModalVideo from 'react-modal-video'
 import Dropdown from "components/Dropdown";
-
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 

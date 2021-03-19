@@ -1175,6 +1175,10 @@ header {
   font-weight: 500;
 }
 
+.tixCinema .column-4 .item-time .movieName-collapse .movieShowtimes a span:hover {
+  color: red;
+}
+
 .tixCinema .linear {
   float: none;
   margin: auto;

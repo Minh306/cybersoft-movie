@@ -19,17 +19,25 @@ import {
   scrollSpy,
   scroller,
 } from "react-scroll";
+import { fetchTheaterList1 } from "redux/Actions/MovieTheaterAction";
 
 export default function Detail(props) {
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
+  const test = useSelector((state) => state.movieTheaterReducers.test);
+  const isCheck = useSelector((state) => state.movieReducers.isCheck);
+  const theatersList = useSelector(
+    (state) => state.movieTheaterReducers.theatersList
+  );
   const isRender = useSelector((state) => state.movieReducers.isRender);
   const ngayChieuGioChieu = useSelector(
     (state) => state.movieReducers.ngayChieuGioChieu
   );
   const maHeThongRap = useSelector((state) => state.movieReducers.maHeThongRap);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchMovieDetail(props.match.params.id));
+    dispatch(createAction(MA_HE_THONG_RAP, {isCheck: false}))
   }, []);
 
   const selectTheaters = (maHeThongRap) => () => {
@@ -39,7 +47,9 @@ export default function Detail(props) {
         isRender: false,
       })
     );
+    dispatch(fetchTheaterList1(maHeThongRap));
   };
+
   const renderDate = () => {
     function renderDate(cumRapChieu) {
       if (cumRapChieu != null) {
@@ -83,10 +93,13 @@ export default function Detail(props) {
     let cumRapChieu = [];
     let heThongRapChieu = movieDetail.heThongRapChieu;
     //lay ra rap dau tien
-    if (heThongRapChieu != null && maHeThongRap == "") {
+    if (heThongRapChieu != null && maHeThongRap === "") {
+      if (isCheck === false) {
+        dispatch(fetchTheaterList1(heThongRapChieu[0].maHeThongRap));
+        dispatch(createAction(MA_HE_THONG_RAP, {isCheck: true}))
+      }
       cumRapChieu = heThongRapChieu[0].cumRapChieu;
       return renderDate(cumRapChieu);
-      // console.log(heThongRapChieu[0].cumRapChieu);
     } else if (heThongRapChieu) {
       cumRapChieu = heThongRapChieu.find(
         (cinema) => cinema.maHeThongRap == maHeThongRap
@@ -115,114 +128,94 @@ export default function Detail(props) {
       );
     });
   };
-  function getCinemaByDate() {
-    let tmp;
-    let cumRapChieu = [];
-    let dateList = [];
-    let cinemaList = new Set();
-    let heThongRapChieu = movieDetail.heThongRapChieu;
-    if (heThongRapChieu != null && maHeThongRap == "") {
-      tmp = heThongRapChieu[0];
-    } else if (heThongRapChieu) {
-      tmp = heThongRapChieu.find(
-        (cinema) => cinema.maHeThongRap == maHeThongRap
-      );
-    }
-    if (tmp) {
-      cumRapChieu = tmp.cumRapChieu;
-      if (cumRapChieu) {
-        cumRapChieu.forEach((cinema) => {
-          cinema.lichChieuPhim.forEach((item) => {
-            if (
-              dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD") ===
-              ngayChieuGioChieu
-            ) {
-              cinemaList.add(cinema);
-              dateList.push(dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD"));
-            }
-          });
-        });
-      }
-    }
-    return cinemaList;
-  }
+
   const renderTheaters = () => {
-    const cinemaList = Array.from(getCinemaByDate());
-    // console.log(cinemaList);
-    return movieDetail.heThongRapChieu?.map((items, index) => {
-      let active = index === 0 ? "active" : "";
-      return (
-        <div
-          key={index}
-          className={`tab-pane fade show ${active}`}
-          id={items.maHeThongRap}
-        >
-          {items.cumRapChieu?.map((items, index) => {
-            return (
-              <div key={index} className="cinema-film-item border--bottom">
-                <div
-                  key={index}
-                  className="film-collapse"
-                  data-toggle="collapse"
-                  data-target={`#${items.maCumRap}`}
-                >
-                  <img src={cinema1} className="img img--cinema" alt="cinema" />
-                  <div className="film-collapse-info">
-                    <p className="film-name">
-                      <span className="common-age-type">{items.tenCumRap}</span>
-                    </p>
-                    <p className="film-time">117 phút - TIX 9 - IMDb 0</p>
-                  </div>
-                </div>
-                <div
-                  className="collapse show film-schedules"
-                  id={items.maCumRap}
-                >
-                  <div className="schedules-wrap">
-                    <h3>2D Digital</h3>
-                    <div className="schedules row">
-                      {items.lichChieuPhim?.map((items, index) => {
-                        if (
-                          dayjs(items.ngayChieuGioChieu).format(
-                            "YYYY-MM-DD"
-                          ) === ngayChieuGioChieu
-                        ) {
-                          // console.log(items);
-                          let data = dayjs(items.ngayChieuGioChieu);
-                          return (
-                            <div
-                              key={index}
-                              className="no--padding  col-6 col-sm-3"
-                            >
-                              <a className="schedule-item">
-                                <span className="start">
-                                  {data.format("HH:mm")}
-                                </span>
-                                <span className="end">
-                                  {" "}
-                                  ~{" "}
-                                  {data
-                                    .set("hours", data.get("hours") + 1)
-                                    .format("HH")}
-                                  :
-                                  {data
-                                    .set("minutes", data.get("minutes") + 30)
-                                    .format("mm")}
-                                </span>
-                              </a>
-                            </div>
-                          );
+    if (movieDetail && theatersList.length > 0) {
+      return movieDetail.heThongRapChieu?.map((items, index) => {
+        let active = index === 0 ? "active" : "";
+        return (
+          <div
+            key={index}
+            className={`tab-pane fade show ${active}`}
+            id={items.maHeThongRap}
+          >
+            {items.cumRapChieu?.map((items, index) => {
+              return (
+                <div key={index} className="cinema-film-item border--bottom">
+                  <div
+                    className="film-collapse"
+                    data-toggle="collapse"
+                    data-target={`#${items.maCumRap}`}
+                  >
+                    <img
+                      src={cinema1}
+                      className="img img--cinema"
+                      alt="cinema"
+                    />
+                    <div className="film-collapse-info">
+                      <p className="film-name">
+                        <span className="common-age-type">
+                          {items.tenCumRap}
+                        </span>
+                      </p>
+                      <p className="film-time">
+                        {
+                          test.find((item) => item.maCumRap == items.maCumRap)
+                            ?.diaChi
                         }
-                      })}
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    className="collapse show film-schedules"
+                    id={items.maCumRap}
+                  >
+                    <div className="schedules-wrap">
+                      <h3>2D Digital</h3>
+                      <div className="schedules row">
+                        {items.lichChieuPhim?.map((items, index) => {
+                          if (
+                            dayjs(items.ngayChieuGioChieu).format(
+                              "YYYY-MM-DD"
+                            ) === ngayChieuGioChieu
+                          ) {
+                            // console.log(items);
+                            let data = dayjs(items.ngayChieuGioChieu);
+                            return (
+                              <div
+                                key={index}
+                                className="no--padding  col-6 col-sm-3"
+                              >
+                                <a className="schedule-item">
+                                  <span className="start">
+                                    {data.format("HH:mm")}
+                                  </span>
+                                  <span className="end">
+                                    {" "}
+                                    ~{" "}
+                                    {data
+                                      .set("hours", data.get("hours") + 1)
+                                      .format("HH")}
+                                    :
+                                    {data
+                                      .set("minutes", data.get("minutes") + 30)
+                                      .format("mm")}
+                                  </span>
+                                </a>
+                              </div>
+                            );
+                          }
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      );
-    });
+              );
+            })}
+          </div>
+        );
+      });
+    }
   };
 
   const handleChangeTime = (dateSelected) => () => {

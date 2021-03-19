@@ -1,11 +1,13 @@
 import { FETCH_ROOM_LIST } from "redux/Constants/MovieTheaterConstants";
+import { TEST } from "redux/Constants/MovieTheaterConstants";
 import { FETCH_THEATERS_LIST } from "redux/Constants/MovieTheaterConstants";
 import { FETCH_CINEMA_SYSTEM_LIST } from "redux/Constants/MovieTheaterConstants";
 
 const initialState = {
     cinemaSystemList: [],
     theatersList: [],
-    roomList: []
+    roomList: [],
+    test: []
 }
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -18,6 +20,9 @@ const reducer = (state = initialState, { type, payload }) => {
             return { ...state };
         case FETCH_ROOM_LIST:
             state = { ...state, roomList: payload }
+            return { ...state };
+        case TEST:
+            state = { ...state, test: payload }
             return { ...state };
         default:
             return state

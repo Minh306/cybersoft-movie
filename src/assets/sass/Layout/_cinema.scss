@@ -234,7 +234,11 @@
                             font-size: 18px;
                             color: #108f3e;
                             font-weight: 500;
+                            &:hover{
+                                color: red;
+                            }
                         }
+                        
                     }
                 }
             }

@@ -249,7 +249,7 @@ export default function AddShowtime(props) {
         <DialogContent dividers>
           <form onSubmit={handleSubmit} className={classes.form}>
             <Grid container spacing={3}>
-              <Grid item xs="12">
+              <Grid item xs={12}>
                 <CardMedia
                   style={{
                     width: "100%",
