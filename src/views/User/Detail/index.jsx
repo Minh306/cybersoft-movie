@@ -76,7 +76,8 @@ export default function Detail(props) {
             );
           }
           return output.map((items, index) => {
-            let active = index === 0 ? "active" : "";
+
+            let active = ngayChieuGioChieu === items ? "active" : "";
             let x = `Thứ ${dayjs(items).day() + 1}`;
             let y = dayjs(items).day() + 1;
             return (
