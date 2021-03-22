@@ -1,6 +1,6 @@
 
 import {
-    CREATE_USER, DELETE_USER, EDIT_USER, FETCH_USER_LIST, SET_DELETED, SET_EDITED, SET_POPUP, SET_CREATED, FETCH_DETAIL_USER, SET_DETAIL, SEARCH_USER, SET_SEARCH
+    CREATE_USER, DELETE_USER, EDIT_USER, FETCH_USER_LIST, SET_DELETED, SET_EDITED, SET_POPUP, SET_CREATED, FETCH_DETAIL_USER, SET_DETAIL, SEARCH_USER, SET_SEARCH, SET_REDIRECT
 } from "../Constants/UserConstants";
 
 const initialState = {
@@ -13,6 +13,7 @@ const initialState = {
     isDeleted: false,
     isDetail: false,
     isSearch: false,
+    isRedirect: false,
     typePopUp: '',
 }
 
@@ -23,6 +24,9 @@ const reducer = (state = initialState, { type, payload }) => {
             return { ...state };
         case SET_CREATED:
             state = { ...state, isCreated: payload };
+            return { ...state };
+        case SET_REDIRECT:
+            state = { ...state, isRedirect: payload };
             return { ...state };
         case SET_EDITED:
             state = { ...state, isEdited: payload };

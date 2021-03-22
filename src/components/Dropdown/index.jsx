@@ -1,13 +1,17 @@
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import createAction from "redux/Actions";
 import { fetchMovie } from "redux/Actions/MovieActions";
 import { fetchMovieDetail } from "redux/Actions/MovieActions";
+import Swal from "sweetalert2";
 
 export default function Dropdown() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const movieInfor = useSelector((state) => state.movieReducers.movieInfor);
+  const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
   const theatersList = useSelector(
     (state) => state.movieTheaterReducers.theatersList
   );
@@ -25,22 +29,48 @@ export default function Dropdown() {
   });
 
   const handleMovieName = (tenPhim, maPhim) => () => {
-    setInfor({ ...infor, tenPhim: tenPhim });
+    setInfor({ ...infor, tenPhim: tenPhim, tenCumRap: "" });
     dispatch(fetchMovieDetail(maPhim));
+  };
+
+  const handleCheckout = () => {
+    if (select.maLichChieu) {
+      return history.push(`/checkout/${select.maLichChieu}`);
+    } else {
+      Swal.fire({
+        title: "Oops !!!",
+        text: "Bạn Chưa Chọn Suất Chiếu !!!",
+        icon: "error",
+        allowOutsideClick: false,
+      });
+    }
   };
 
   const handleMovieTheater = (tenCumRap, maCumRap) => () => {
     setInfor({ ...infor, tenCumRap: tenCumRap });
-    setSelect({ ...select, maCumRap: maCumRap });
+    setSelect({ ...select, maCumRap: maCumRap, ngayChieu: "", suat: "" });
+    return movieDetail.heThongRapChieu?.find((items) => {
+      items.cumRapChieu.find((child) => {
+        if(child.maCumRap === maCumRap){
+          // console.log(items.maHeThongRap);
+          localStorage.setItem("maHeThongRap", items.maHeThongRap)
+        }
+      });
+    });
   };
 
   const handleMovieDay = (ngayChieu) => () => {
-    setSelect({ ...select, ngayChieu: ngayChieu });
+    setSelect({ ...select, ngayChieu: ngayChieu, suat: "" });
   };
 
   const handleMovieShowtime = (suat, ngayChieuGioChieu) => () => {
-    setSelect({ ...select, suat: suat });
+    setSelect({ ...select, suat: suat, maLichChieu: ngayChieuGioChieu });
   };
+
+  // const getCinemaCode = () => {
+
+  //   console.log(x);
+  // }
 
   const renderDate = () => {
     let res = [];
@@ -69,7 +99,6 @@ export default function Dropdown() {
                     className="dropdown-item"
                     value={item}
                     key={index}
-                    href="#phim"
                     onClick={handleMovieDay(item)}
                   >
                     {dayjs(item).format("DD/MM/YYYY")}
@@ -96,7 +125,6 @@ export default function Dropdown() {
                     className="dropdown-item"
                     value={item.maLichChieu}
                     key={index}
-                    href="#phim"
                     onClick={handleMovieShowtime(
                       item.ngayChieuGioChieu,
                       item.maLichChieu
@@ -139,7 +167,6 @@ export default function Dropdown() {
                 className="dropdown-item"
                 value={name.maPhim}
                 key={index}
-                href="#phim"
                 onClick={handleMovieName(name.tenPhim, name.maPhim)}
               >
                 {name.tenPhim}
@@ -169,7 +196,6 @@ export default function Dropdown() {
                   className="dropdown-item"
                   value={theater.maCumRap}
                   key={index}
-                  href="#phim"
                   onClick={handleMovieTheater(
                     theater.tenCumRap,
                     theater.maCumRap
@@ -229,7 +255,7 @@ export default function Dropdown() {
         </div>
       </div>
       <div className="banner__btn">
-        <a href="#random">MUA VÉ NGAY</a>
+        <a onClick={handleCheckout}>MUA VÉ NGAY</a>
       </div>
     </div>
   );

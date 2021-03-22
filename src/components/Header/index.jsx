@@ -13,9 +13,15 @@ import {
   scrollSpy,
   scroller,
 } from "react-scroll";
+import { useDispatch, useSelector } from "react-redux";
+import createAction from "redux/Actions";
+import { IS_LOGIN } from "redux/Constants/UserConstants";
 
 export default function Header() {
   const [scroll, setScroll] = useState(true);
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.credential.isLogin);
+  const dataLogin = useSelector((state) => state.credential.dataLogin);
 
   const handleScroll = () => {
     setScroll(!scroll);
@@ -99,9 +105,29 @@ export default function Header() {
               </Link>
             </li>
             <li className="nav-item user">
-              <a className="nav-link" href="#random">
-                <img src={marc} alt="user" /> Đăng Nhập
-              </a>
+              {isLogin ? (
+                <>
+                  <a className="nav-link">
+                    <img src={marc} alt="user" /> {dataLogin.hoTen}
+                  </a>
+                  <div className="logout">
+                    <a
+                      style={{color: "white"}}
+                      onClick={() => {
+                        localStorage.removeItem("currentUser");
+                        localStorage.removeItem("accessToken");
+                        dispatch(createAction(IS_LOGIN, false))
+                      }}
+                    >
+                      Đăng Xuất
+                    </a>
+                  </div>
+                </>
+              ) : (
+                <NavLink to="/login" className="nav-link" href="#random">
+                  <img src={marc} alt="user" /> Đăng Nhập
+                </NavLink>
+              )}
               {/* <NavLink to="/admin">Quản trị hệ thống</NavLink> */}
             </li>
             <li className="nav-item dropdown">

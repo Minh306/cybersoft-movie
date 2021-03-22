@@ -13,7 +13,7 @@ export const SET_EDITED = "SET_EDITED"
 export const SET_DELETED = "SET_DELETED"
 export const SET_DETAIL = "SET_DETAIL"
 export const SET_SEARCH = "SET_SEARCH"
-
+export const SET_REDIRECT = "SET_REDIRECT"
 //Set Login ?
 export const IS_LOGIN = "IS_LOGIN"
 

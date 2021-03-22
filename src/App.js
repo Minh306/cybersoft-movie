@@ -16,6 +16,8 @@ import { UserTemplate } from "layouts/User";
 import '../node_modules/react-modal-video/scss/modal-video.scss';
 import "./assets/sass/main.scss"
 import Detail from "views/User/Detail";
+import Signup from "views/User/Signup";
+import Checkout from "views/User/Checkout";
 
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
         <BrowserRouter>
             <Switch>
                 <Route path="/login" component={Login} />
+                <Route path="/signup" component={Signup} />
+                <Route path="/checkout/:id" component={Checkout}/>
                 <Route path="/admin" component={Admin} />
                 <UserTemplate exact path="/detail/:id" Component={Detail} />
                 <UserTemplate exact path="/" Component={Homepage} />

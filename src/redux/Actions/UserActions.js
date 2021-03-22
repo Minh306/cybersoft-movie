@@ -1,7 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import createAction from ".";
-import { FETCH_DETAIL_USER, FETCH_USER_LIST, SEARCH_USER, SET_CREATED, SET_DELETED, SET_EDITED, SET_LOGIN, SET_POPUP } from '../Constants/UserConstants'
+import { FETCH_DETAIL_USER, FETCH_USER_LIST, SEARCH_USER, SET_CREATED, SET_DELETED, SET_EDITED, SET_LOGIN, SET_POPUP, SET_REDIRECT } from '../Constants/UserConstants'
 
 export const fetchUserInfo = (page, pageSize) => {
     return async (dispatch) => {
@@ -66,6 +66,39 @@ export const login = (form) => {
         }
     };
 };
+
+export const signup = (form) => {
+    return async (dispatch) => {
+        try {
+            Swal.fire({
+                title: "Waiting ...",
+                text: "Đang xử lý ...",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false
+            })
+            await axios({
+                url: 'https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangKy',
+                method: "POST",
+                data: form,
+            }).then(res => {
+                dispatch(createAction(SET_REDIRECT, true));
+                Swal.fire(
+                    'Yeah !!!',
+                    'Đăng Kí Tài Khoản thành công !!!',
+                    'success'
+                )
+            }).catch(err => {
+                // console.log(err);
+                Swal.fire('Oops !!!', `${err.response.data}`, 'error')
+            })
+
+        } catch (err) {
+            // console.log(err);
+        }
+    };
+};
+
 
 export const editUser = (form) => {
     return (dispatch) => {

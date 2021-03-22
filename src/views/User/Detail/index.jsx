@@ -20,8 +20,12 @@ import {
   scroller,
 } from "react-scroll";
 import { fetchTheaterList1 } from "redux/Actions/MovieTheaterAction";
+import { useHistory } from "react-router";
+import { NavLink } from "react-router-dom";
+import { FETCH_SEAT_LIST } from "redux/Constants/TicketConstants";
 
 export default function Detail(props) {
+  const history = useHistory();
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
   const test = useSelector((state) => state.movieTheaterReducers.test);
   const isCheck = useSelector((state) => state.movieReducers.isCheck);
@@ -37,7 +41,10 @@ export default function Detail(props) {
 
   useEffect(() => {
     dispatch(fetchMovieDetail(props.match.params.id));
-    dispatch(createAction(MA_HE_THONG_RAP, {isCheck: false}))
+    dispatch(
+      createAction(MA_HE_THONG_RAP, { maHeThongRap: "", isCheck: false })
+    );
+    dispatch(createAction(FETCH_SEAT_LIST, { movieInfor: {}, seatList: [] }));
   }, []);
 
   const selectTheaters = (maHeThongRap) => () => {
@@ -96,7 +103,7 @@ export default function Detail(props) {
     if (heThongRapChieu != null && maHeThongRap === "") {
       if (isCheck === false) {
         dispatch(fetchTheaterList1(heThongRapChieu[0].maHeThongRap));
-        dispatch(createAction(MA_HE_THONG_RAP, {isCheck: true}))
+        dispatch(createAction(MA_HE_THONG_RAP, { isCheck: true }));
       }
       cumRapChieu = heThongRapChieu[0].cumRapChieu;
       return renderDate(cumRapChieu);
@@ -131,15 +138,15 @@ export default function Detail(props) {
 
   const renderTheaters = () => {
     if (movieDetail && theatersList.length > 0) {
-      return movieDetail.heThongRapChieu?.map((items, index) => {
+      return movieDetail.heThongRapChieu?.map((child, index) => {
         let active = index === 0 ? "active" : "";
         return (
           <div
             key={index}
             className={`tab-pane fade show ${active}`}
-            id={items.maHeThongRap}
+            id={child.maHeThongRap}
           >
-            {items.cumRapChieu?.map((items, index) => {
+            {child.cumRapChieu?.map((items, index) => {
               return (
                 <div key={index} className="cinema-film-item border--bottom">
                   <div
@@ -186,7 +193,11 @@ export default function Detail(props) {
                                 key={index}
                                 className="no--padding  col-6 col-sm-3"
                               >
-                                <a className="schedule-item">
+                                <NavLink
+                                  onClick={() => localStorage.setItem("maHeThongRap", child.maHeThongRap)}
+                                  to={`/checkout/${items.maLichChieu}`}
+                                  className="schedule-item"
+                                >
                                   <span className="start">
                                     {data.format("HH:mm")}
                                   </span>
@@ -201,7 +212,7 @@ export default function Detail(props) {
                                       .set("minutes", data.get("minutes") + 30)
                                       .format("mm")}
                                   </span>
-                                </a>
+                                </NavLink>
                               </div>
                             );
                           }

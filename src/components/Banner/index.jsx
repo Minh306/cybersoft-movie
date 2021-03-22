@@ -4,7 +4,7 @@ import banner2 from "assets/img/banner2.png";
 import banner3 from "assets/img/banner3.jpg";
 import playVid from "assets/img/play-video.png";
 import OwlCarousel from "react-owl-carousel";
-import ModalVideo from 'react-modal-video'
+import ModalVideo from "react-modal-video";
 import Dropdown from "components/Dropdown";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
@@ -29,13 +29,32 @@ export default function Banner() {
               <button
                 type="button"
                 className="btn-play-trailer"
-                data-src="https://www.youtube.com/embed/nh0BklwPN9Q"
               >
-                <img src={playVid} onClick={() => {setOpen(true); setTrailer("fNE3wgaHr18")}} alt="play trialer" />
+                <img
+                  src={playVid}
+                  onClick={() => {
+                    setOpen(true);
+                    setTrailer("fNE3wgaHr18");
+                  }}
+                  alt="play trialer"
+                />
               </button>
             </div>
             <div className="item">
               <img src={banner2} alt="banner" />
+              <button
+                type="button"
+                className="btn-play-trailer"
+              >
+                <img
+                  src={playVid}
+                  onClick={() => {
+                    setOpen(true);
+                    setTrailer("jluSu8Rw6YE");
+                  }}
+                  alt="play trialer"
+                />
+              </button>
             </div>
             <div className="item">
               <img src={banner3} alt="banner" />
@@ -44,7 +63,13 @@ export default function Banner() {
           <Dropdown />
         </div>
       </div>
-      <ModalVideo channel='youtube' autoplay isOpen={isOpen} videoId={trailer} onClose={() => setOpen(false)} />
+      <ModalVideo
+        channel="youtube"
+        autoplay
+        isOpen={isOpen}
+        videoId={trailer}
+        onClose={() => setOpen(false)}
+      />
     </section>
   );
 }

@@ -490,8 +490,9 @@
   height: 5.5em;
 }
 .film-week-wrap {
-  height: 90px;
+  height: 88px;
   padding: 20px 0;
+  border-bottom: 1px solid #dee2e6;
 }
 .film-showtimes-content {
   height: calc(100% - 90px);
@@ -566,9 +567,7 @@
     width: 100%;
     border-right: none;
   }
-  .nav-item {
-    width: 100% !important;
-  }
+  
   .film-showtimes-tabs .nav-item {
     width: 160px;
     flex-shrink: 0;
@@ -777,6 +776,7 @@
 }
 .dateRender{
   flex-wrap: inherit !important;
+  border-bottom: none !important;
 }
 @media screen and (max-width: 768px) {
   .film-img {

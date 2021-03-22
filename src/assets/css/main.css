@@ -168,6 +168,7 @@ header {
 }
 
 .tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown).user {
+  position: relative;
   margin-left: auto;
   border-right: 1px solid #e9e9e9;
 }
@@ -185,6 +186,24 @@ header {
 
 .tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown).user .nav-link:hover {
   color: #9b9b9b;
+}
+
+.tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown).user .logout {
+  position: absolute;
+  top: 30px;
+  right: 0px;
+  display: block;
+  width: 120px;
+  text-align: center;
+  background-color: #959595;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+
+.tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown).user:hover .logout {
+  display: block;
 }
 
 .tixNav #navbarTixContent .navbar-nav .nav-item.dropdown {
