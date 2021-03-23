@@ -29,6 +29,7 @@ import styles from "assets/jss/material-dashboard-react/components/headerLinksSt
 import Buttonn from "components/CustomButtons/Button.js";
 import { searchUser } from "redux/Actions/UserActions";
 import { SET_SEARCH } from "redux/Constants/UserConstants";
+import { FETCH_DETAIL_USER } from "redux/Constants/UserConstants";
 // import Swal from "sweetalert2";
 
 const useStyless = makeStyles(styles);
@@ -95,6 +96,7 @@ export default function TableList() {
   };
 
   useEffect(() => {
+    dispatch(createAction(FETCH_DETAIL_USER, {isDetail: false}));
     if (isSearch) {
       dispatch(searchUser(refContainer.current.value, page, pageSize));
     } else {

@@ -18,6 +18,7 @@ import "./assets/sass/main.scss"
 import Detail from "views/User/Detail";
 import Signup from "views/User/Signup";
 import Checkout from "views/User/Checkout";
+import Information from "views/User/Information";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/signup" component={Signup} />
                 <Route path="/checkout/:id" component={Checkout}/>
                 <Route path="/admin" component={Admin} />
+                <UserTemplate exact path="/information" Component={Information} />
                 <UserTemplate exact path="/detail/:id" Component={Detail} />
                 <UserTemplate exact path="/" Component={Homepage} />
                 <Redirect from="/" to="/" />

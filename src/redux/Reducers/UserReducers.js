@@ -50,7 +50,7 @@ const reducer = (state = initialState, { type, payload }) => {
             state = { ...state, ...payload }
             return { ...state }
         case FETCH_DETAIL_USER:
-            state = { ...state, isDetail: true, detailUser: payload }
+            state = { ...state, ...payload }
             return { ...state }
         case FETCH_USER_LIST:
             state = { ...state, userInfo: payload };

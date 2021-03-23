@@ -1,9 +1,7 @@
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import createAction from "redux/Actions";
-import { fetchMovie } from "redux/Actions/MovieActions";
 import { fetchMovieDetail } from "redux/Actions/MovieActions";
 import Swal from "sweetalert2";
 
@@ -50,10 +48,9 @@ export default function Dropdown() {
     setInfor({ ...infor, tenCumRap: tenCumRap });
     setSelect({ ...select, maCumRap: maCumRap, ngayChieu: "", suat: "" });
     return movieDetail.heThongRapChieu?.find((items) => {
-      items.cumRapChieu.find((child) => {
-        if(child.maCumRap === maCumRap){
-          // console.log(items.maHeThongRap);
-          localStorage.setItem("maHeThongRap", items.maHeThongRap)
+      return items.cumRapChieu.find((child) => {
+        if (child.maCumRap === maCumRap) {
+          return localStorage.setItem("maHeThongRap", items.maHeThongRap);
         }
       });
     });
@@ -67,18 +64,13 @@ export default function Dropdown() {
     setSelect({ ...select, suat: suat, maLichChieu: ngayChieuGioChieu });
   };
 
-  // const getCinemaCode = () => {
-
-  //   console.log(x);
-  // }
-
   const renderDate = () => {
     let res = [];
     let unique = null;
     let output = [];
     if (select.maCumRap) {
       return theatersList?.map((item) => {
-        return item?.cumRapChieu.map((item, index) => {
+        return item?.cumRapChieu.map((item) => {
           if (item.maCumRap === select.maCumRap) {
             for (let i = 0; i < item.lichChieuPhim.length; i++) {
               res.push(
@@ -96,6 +88,7 @@ export default function Dropdown() {
               output = unique.map((item, index) => {
                 return (
                   <a
+                    
                     className="dropdown-item"
                     value={item}
                     key={index}
@@ -122,6 +115,7 @@ export default function Dropdown() {
               if (item.ngayChieuGioChieu.indexOf(select.ngayChieu) !== -1) {
                 return (
                   <a
+                    
                     className="dropdown-item"
                     value={item.maLichChieu}
                     key={index}
@@ -164,6 +158,7 @@ export default function Dropdown() {
           {movieInfor?.map((name, index) => {
             return (
               <a
+                
                 className="dropdown-item"
                 value={name.maPhim}
                 key={index}
@@ -193,6 +188,7 @@ export default function Dropdown() {
             return theatersList.cumRapChieu.map((theater, index) => {
               return (
                 <a
+                
                   className="dropdown-item"
                   value={theater.maCumRap}
                   key={index}
@@ -255,7 +251,7 @@ export default function Dropdown() {
         </div>
       </div>
       <div className="banner__btn">
-        <a onClick={handleCheckout}>MUA VÉ NGAY</a>
+        <a  onClick={handleCheckout}>MUA VÉ NGAY</a>
       </div>
     </div>
   );

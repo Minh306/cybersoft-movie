@@ -30,7 +30,6 @@ const settings = {
       settings: {
         slidesToShow: 1,
         slidesPerRow: 2,
-        infinite: true,
         infinite: false,
       },
     },

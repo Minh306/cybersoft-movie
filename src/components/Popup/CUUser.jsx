@@ -18,7 +18,11 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import { createUser, editUser } from "../../redux/Actions/UserActions";
+import {
+  createUser,
+  editProfile,
+  editUser,
+} from "../../redux/Actions/UserActions";
 import FormControl from "@material-ui/core/FormControl";
 
 const useStyles = makeStyles((theme) => ({
@@ -95,8 +99,6 @@ export default function PopupUser() {
     maNhom: "GP01",
   });
 
-  console.log(form);
-  
   useEffect(() => {
     setForm({
       taiKhoan: selectedUser.taiKhoan,
@@ -115,6 +117,8 @@ export default function PopupUser() {
       dispatch(editUser(form));
     } else if (typeOfPopUp.typePopUp === "Tạo Người Dùng") {
       dispatch(createUser(form));
+    } else {
+      dispatch(editProfile(form));
     }
   };
 
@@ -137,9 +141,6 @@ export default function PopupUser() {
 
   return (
     <div>
-      {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open dialog
-      </Button> */}
       <Dialog
         onClose={handleClosePopup}
         aria-labelledby="customized-dialog-title"
@@ -189,7 +190,9 @@ export default function PopupUser() {
                   />
                 )}
               </Grid>
-              {typeOfPopUp.typePopUp === "Tạo Người Dùng" ? (
+              {typeOfPopUp.typePopUp === "Cập Nhật Thông Tin Cá Nhân" ? (
+                <></>
+              ) : typeOfPopUp.typePopUp === "Tạo Người Dùng" ? (
                 <Grid item xs={6}>
                   <FormControl
                     variant="outlined"
@@ -240,7 +243,6 @@ export default function PopupUser() {
                   </FormControl>
                 </Grid>
               )}
-
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -276,7 +278,8 @@ export default function PopupUser() {
                   color="primary"
                   className={classes.submit}
                 >
-                  {typeOfPopUp.typePopUp === "Cập Nhật Thông Tin"
+                  {typeOfPopUp.typePopUp === "Cập Nhật Thông Tin" ||
+                  "Cập Nhật Thông Tin Cá Nhân"
                     ? "Cập Nhật"
                     : "Tạo Người Dùng"}
                 </Button>

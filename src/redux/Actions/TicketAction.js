@@ -1,6 +1,5 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import dayjs from "dayjs";
 import createAction from ".";
 import { FETCH_SEAT_LIST } from "redux/Constants/TicketConstants";
 

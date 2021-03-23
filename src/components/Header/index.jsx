@@ -2,22 +2,16 @@ import React, { useState } from "react";
 import webLogo from "../../assets/img/web-logo.png";
 import marc from "../../assets/img/faces/marc.jpg";
 import location from "../../assets/img/location-header.png";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import disableScroll from "disable-scroll";
-import * as Scroll from "react-scroll";
-import {
-  Link,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller,
-} from "react-scroll";
+// import * as Scroll from "react-scroll";
+import { Link } from "react-scroll";
 import { useDispatch, useSelector } from "react-redux";
 import createAction from "redux/Actions";
 import { IS_LOGIN } from "redux/Constants/UserConstants";
 
 export default function Header() {
+  const history = useHistory();
   const [scroll, setScroll] = useState(true);
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.credential.isLogin);
@@ -111,12 +105,18 @@ export default function Header() {
                     <img src={marc} alt="user" /> {dataLogin.hoTen}
                   </a>
                   <div className="logout">
+                    <NavLink to="/information" style={{ color: "white" }}>
+                      Profile
+                    </NavLink>
+                    <NavLink to="/admin/user" style={{ color: "white" }}>
+                      System Admin
+                    </NavLink>
                     <a
-                      style={{color: "white"}}
+                      style={{ color: "white" }}
                       onClick={() => {
                         localStorage.removeItem("currentUser");
                         localStorage.removeItem("accessToken");
-                        dispatch(createAction(IS_LOGIN, false))
+                        dispatch(createAction(IS_LOGIN, false));
                       }}
                     >
                       Đăng Xuất

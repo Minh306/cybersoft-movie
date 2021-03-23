@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router";
+import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
 import createAction from "redux/Actions";
 import { SET_REDIRECT } from "redux/Constants/UserConstants";
@@ -20,7 +20,6 @@ export default function Signup() {
     soDt: "",
     maNhom: "GP01",
   });
-  console.log(isRedirect);
   const handleChange = (e) => {
     e.preventDefault();
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,7 +35,7 @@ export default function Signup() {
     if (isRedirect === true) {
       return history.push("/login");
     }
-  }, [isRedirect]);
+  }, [isRedirect, dispatch, history]);
 
   return (
     <section className="form-sign-in-up">

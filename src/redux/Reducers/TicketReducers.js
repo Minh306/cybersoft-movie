@@ -1,3 +1,4 @@
+import { CLEAR } from "redux/Constants/TicketConstants";
 import { BOOKING } from "redux/Constants/TicketConstants";
 import { FETCH_SEAT_LIST } from "redux/Constants/TicketConstants";
 
@@ -22,6 +23,9 @@ const reducer = (state = initialState, { type, payload }) => {
                 selectedList.push(payload.selectedList)
             }
             return { ...state, selectedList: selectedList }
+        case CLEAR:
+            state = { ...state, ...payload }
+            return { ...state };
         default:
             return state
     }

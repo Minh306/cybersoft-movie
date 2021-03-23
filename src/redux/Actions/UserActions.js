@@ -37,15 +37,15 @@ export const login = (form) => {
                 method: "POST",
                 data: form,
             }).then(res => {
-                let maNguoiDung = res.data.maLoaiNguoiDung;
-                if (maNguoiDung !== "QuanTri") {
-                    Swal.fire(
-                        'Oops !!!',
-                        'Bạn không có quyền truy cập vào hệ thống này !!!',
-                        'error'
-                    )
-                    return;
-                }
+                // let maNguoiDung = res.data.maLoaiNguoiDung;
+                // if (maNguoiDung !== "QuanTri") {
+                //     Swal.fire(
+                //         'Oops !!!',
+                //         'Bạn không có quyền truy cập vào hệ thống này !!!',
+                //         'error'
+                //     )
+                //     return;
+                // }
                 // let error = res.status;
                 localStorage.setItem("accessToken", res.data.accessToken);
                 localStorage.setItem("currentUser", JSON.stringify(res.data));
@@ -59,6 +59,31 @@ export const login = (form) => {
             }).catch(err => {
                 // console.log(err);
                 Swal.fire('Opps !!!', 'Tài khoản hoặc mật khẩu không hợp lệ, hãy thử lại !!!', 'error')
+            })
+
+        } catch (err) {
+            // console.log(err);
+        }
+    };
+};
+
+export const getDataUser = (taiKhoan,matKhau) => {
+    return async (dispatch) => {
+        try {
+            await axios({
+                url: 'https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap',
+                method: "POST",
+                data: {
+                    taiKhoan: taiKhoan,
+                    matKhau: matKhau
+                }
+            }).then(res => {
+                localStorage.setItem("accessToken", res.data.accessToken);
+                localStorage.setItem("currentUser", JSON.stringify(res.data));
+                // console.log(res.data);
+                dispatch(createAction(SET_LOGIN, res.data));
+            }).catch(err => {
+                // console.log(err);
             })
 
         } catch (err) {
@@ -134,6 +159,46 @@ export const editUser = (form) => {
 
         } catch (err) {
             Swal.fire('Oops !!!', 'Có lỗi trong quá trình chỉnh sửa, xin hãy kiểm tra lại !!!', 'error')
+        }
+    };
+};
+
+export const editProfile = (form) => {
+    return (dispatch) => {
+        try {
+            const accessToken = localStorage.getItem("accessToken")
+            Swal.fire({
+                title: "Waiting ...",
+                text: "Đang xử lý ...",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false
+            })
+            axios({
+                url:
+                    `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+                method: "PUT",
+                data: form,
+                headers: {
+                    Authorization: `Bearer ` + accessToken,
+                }
+            }).then((res) => {
+                dispatch(createAction(SET_EDITED, true));
+                Swal.fire({
+                    title: 'Yeah !!!',
+                    text: 'Cập Nhật Thông Tin Thành Công !!!',
+                    icon: 'success',
+                    allowOutsideClick: false
+                })
+                dispatch(getDataUser(res.data.taiKhoan, res.data.matKhau))
+                dispatch(fetchDetailUserPage(form.taiKhoan))
+                dispatch(createAction(SET_POPUP, false));
+            }).catch(err => {
+                Swal.fire('Oops !!!', `${err.response.data}`, 'error')
+            })
+
+        } catch (err) {
+            Swal.fire('Oops !!!', 'Có lỗi trong quá trình cập nhật, xin hãy kiểm tra lại !!!', 'error')
         }
     };
 };
@@ -237,7 +302,28 @@ export const fetchDetailUser = (taiKhoan) => {
                 },
             }).then((res) => {
                 Swal.close()
-                dispatch(createAction(FETCH_DETAIL_USER, res.data))
+                dispatch(createAction(FETCH_DETAIL_USER, { detailUser: res.data, isDetail: true }))
+            }).catch(err => {
+                // console.log(err);
+            })
+        } catch (err) {
+            // console.log(err);
+        }
+    }
+}
+
+export const fetchDetailUserPage = (taiKhoan) => {
+    return (dispatch) => {
+        try {
+            axios({
+                url:
+                    `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
+                method: "POST",
+                data: {
+                    taiKhoan,
+                },
+            }).then((res) => {
+                dispatch(createAction(FETCH_DETAIL_USER, { isDetail: true, detailUser: res.data }))
             }).catch(err => {
                 // console.log(err);
             })

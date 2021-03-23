@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import filmStart from "../../../assets/img/film-star.png";
 import filmStarthalf from "../../../assets/img/film-star-half.png";
@@ -11,21 +11,12 @@ import dayjs from "dayjs";
 import createAction from "redux/Actions";
 import { MA_HE_THONG_RAP } from "redux/Constants/MovieConstants";
 import { NGAY_CHIEU_GIO_CHIEU } from "redux/Constants/MovieConstants";
-import {
-  Link,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller,
-} from "react-scroll";
+import { Link } from "react-scroll";
 import { fetchTheaterList1 } from "redux/Actions/MovieTheaterAction";
-import { useHistory } from "react-router";
 import { NavLink } from "react-router-dom";
 import { FETCH_SEAT_LIST } from "redux/Constants/TicketConstants";
 
 export default function Detail(props) {
-  const history = useHistory();
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
   const test = useSelector((state) => state.movieTheaterReducers.test);
   const isCheck = useSelector((state) => state.movieReducers.isCheck);
@@ -45,7 +36,7 @@ export default function Detail(props) {
       createAction(MA_HE_THONG_RAP, { maHeThongRap: "", isCheck: false })
     );
     dispatch(createAction(FETCH_SEAT_LIST, { movieInfor: {}, seatList: [] }));
-  }, []);
+  }, [dispatch, props.match.params.id]);
 
   const selectTheaters = (maHeThongRap) => () => {
     dispatch(
@@ -60,7 +51,7 @@ export default function Detail(props) {
   const renderDate = () => {
     function renderDate(cumRapChieu) {
       if (cumRapChieu != null) {
-        cumRapChieu.map((item, index) => {
+        cumRapChieu.map((item) => {
           let lichChieuPhim = item.lichChieuPhim;
           lichChieuPhim.forEach((item) =>
             data.add(dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD"))
@@ -76,13 +67,13 @@ export default function Detail(props) {
             );
           }
           return output.map((items, index) => {
-
             let active = ngayChieuGioChieu === items ? "active" : "";
             let x = `Thứ ${dayjs(items).day() + 1}`;
             let y = dayjs(items).day() + 1;
             return (
               <li key={index} className="nav-item">
                 <a
+                  
                   className={`date-item ${active}`}
                   value={items}
                   data-toggle="tab"
@@ -110,7 +101,7 @@ export default function Detail(props) {
       return renderDate(cumRapChieu);
     } else if (heThongRapChieu) {
       cumRapChieu = heThongRapChieu.find(
-        (cinema) => cinema.maHeThongRap == maHeThongRap
+        (cinema) => cinema.maHeThongRap === maHeThongRap
       );
       return renderDate(cumRapChieu.cumRapChieu);
     }
@@ -168,7 +159,7 @@ export default function Detail(props) {
                       </p>
                       <p className="film-time">
                         {
-                          test.find((item) => item.maCumRap == items.maCumRap)
+                          test.find((item) => item.maCumRap === items.maCumRap)
                             ?.diaChi
                         }
                       </p>
@@ -195,7 +186,12 @@ export default function Detail(props) {
                                 className="no--padding  col-6 col-sm-3"
                               >
                                 <NavLink
-                                  onClick={() => localStorage.setItem("maHeThongRap", child.maHeThongRap)}
+                                  onClick={() =>
+                                    localStorage.setItem(
+                                      "maHeThongRap",
+                                      child.maHeThongRap
+                                    )
+                                  }
                                   to={`/checkout/${items.maLichChieu}`}
                                   className="schedule-item"
                                 >

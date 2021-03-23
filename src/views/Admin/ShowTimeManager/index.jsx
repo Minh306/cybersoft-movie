@@ -66,11 +66,6 @@ const columns = [
   },
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
 const theme = createMuiTheme({
   palette: {
     primary: green,

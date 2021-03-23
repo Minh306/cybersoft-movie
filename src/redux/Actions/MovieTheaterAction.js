@@ -2,7 +2,7 @@ import axios from "axios";
 import createAction from ".";
 import { FETCH_CINEMA_SYSTEM_LIST } from "redux/Constants/MovieTheaterConstants";
 import { FETCH_THEATERS_LIST } from "redux/Constants/MovieTheaterConstants";
-import { FETCH_MOVIE_SHOWTIME } from "redux/Constants/MovieConstants";
+// import { FETCH_MOVIE_SHOWTIME } from "redux/Constants/MovieConstants";
 import { TEST } from "redux/Constants/MovieTheaterConstants";
 
 export const fetchCinemaSystemList = () => {

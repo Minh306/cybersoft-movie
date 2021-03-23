@@ -278,7 +278,7 @@ header {
   color: #fff;
 }
 
-@media screen and (max-width: 948px) {
+@media screen and (max-width: 959px) {
   .tixNav .navbar-brand {
     margin-right: 1rem;
   }

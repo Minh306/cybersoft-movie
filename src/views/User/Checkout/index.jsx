@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
 import userImg from "../../../assets/img/faces/marc.jpg";
-import bhdCinema from "../../../assets/img/bhd-star-cinema-logo.png";
+import zaloPay from "../../../assets/img/payment-zalo.jpg";
+import visaPay from "../../../assets/img/payment-visa.png";
+import atmPay from "../../../assets/img/payment-atm.png";
+import tienIchPay from "../../../assets/img/payment-payoo.png";
 import screen from "../../../assets/img/screen.png";
 import warning from "../../../assets/img/exclamation.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,8 +15,24 @@ import createAction from "redux/Actions";
 import { BOOKING } from "redux/Constants/TicketConstants";
 import Swal from "sweetalert2";
 import { fetchCinemaSystemList } from "redux/Actions/MovieTheaterAction";
+import Countdown from "react-countdown";
+import { CircularProgress } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { CLEAR } from "redux/Constants/TicketConstants";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
 
 export default function Checkout(props) {
+  const classes = useStyles();
+  const dataLogin = useSelector((state) => state.credential.dataLogin);
   const dispatch = useDispatch();
   const movieInfor = useSelector((state) => state.ticketReducers.movieInfor);
   const seatList = useSelector((state) => state.ticketReducers.seatList);
@@ -21,10 +40,39 @@ export default function Checkout(props) {
     (state) => state.movieTheaterReducers.cinemaSystemList
   );
   const maHTRSelected = localStorage.getItem("maHeThongRap");
-  // console.log(maHTRSelected);
   const selectedList = useSelector(
     (state) => state.ticketReducers.selectedList
   );
+
+  const [minuteTime, setMinuteTime] = useState(Date.now());
+  const [timeClick, setTimeClick] = useState();
+
+  const renderer = (props) => {
+    if (props.completed) {
+      Swal.fire({
+        title: "Oops !!!",
+        text:
+          "Đã Hết Thời Gian Giữ Ghế, Vui Lòng Thực Hiện Đơn Hàng Trong 5 Phút !!!",
+        icon: "warning",
+        confirmButtonText: "Đặt Vé Lại",
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.value) {
+          window.location.reload();
+        } else {
+          window.location.reload();
+        }
+      });
+      return <span>00:00</span>;
+    } else {
+      // Render a countdown
+      return (
+        <span>
+          {props.formatted.minutes}:{props.formatted.seconds}
+        </span>
+      );
+    }
+  };
 
   let format = dayjs(movieInfor?.ngayChieu).format();
   let dayInWeek = new Date(format);
@@ -37,7 +85,7 @@ export default function Checkout(props) {
   };
 
   const renderDayInWeek = () => {
-    if (dayInWeek.getDate() == 0) {
+    if (dayInWeek.getDate() === 0) {
       return `Chủ Nhật ${movieInfor.ngayChieu} - ${movieInfor.gioChieu} - ${movieInfor.tenRap}`;
     } else {
       return `Thứ ${dayInWeek.getDay() + 1} ${movieInfor.ngayChieu} - ${
@@ -57,17 +105,18 @@ export default function Checkout(props) {
         },
       })
     );
+    setTimeClick(Date.now());
   };
 
   const payment = () => {
-    if(selectedList.length === 0){
+    if (selectedList.length === 0) {
       Swal.fire({
-        title: 'Oops !!!',
+        title: "Oops !!!",
         text: `Bạn Chưa Chọn Vé !!!`,
-        icon: 'error',
-        allowOutsideClick: false
-    })
-    }else {
+        icon: "error",
+        allowOutsideClick: false,
+      });
+    } else {
       Swal.fire({
         title: "Xác nhận đặt vé ?",
         text: "Vé đã mua không thể đổi hoặc hoàn tiền !!!",
@@ -101,7 +150,8 @@ export default function Checkout(props) {
   useEffect(() => {
     dispatch(fetchSeatList(props.match.params.id));
     dispatch(fetchCinemaSystemList());
-  }, []);
+    dispatch(createAction(CLEAR, { selectedList: [] }));
+  }, [dispatch, props.match.params.id]);
   return (
     <section className="checkout-wrap">
       {/* Step checkout */}
@@ -118,93 +168,121 @@ export default function Checkout(props) {
         </div>
         <div className="step-user">
           <img src={userImg} className="img step--img" alt="" />
-          <span>Dân MAN</span>
+          <span>{dataLogin.hoTen}</span>
         </div>
       </div>
       {/* End step checkout */}
       {/* all-chairs */}
       <div className="cinema-chairs">
-        {/* <img src={filmbg} className="img--film-bg" alt=""/> */}
-        <div className="film-bg"></div>
-        <div className="cinema-screen">
-          <div className="cinema-screen-info">
-            <div className="info-left">
-              <img src={renderLogo()} className="img img--screen-cinema" alt="" />
-              <div className="screen-title">
-                <p className="name">
-                  <span className="bhd-color">{movieInfor.tenCumRap}</span>
-                </p>
-                <p className="date">Hôm nay - 23:35 - RẠP 7</p>
+        {seatList.length !== 0 ? (
+          <>
+            <div
+              className="film-bg"
+              style={{ backgroundImage: `url('${movieInfor.hinhAnh}')` }}
+            ></div>
+            <div className="cinema-screen">
+              <div className="cinema-screen-info">
+                <div className="info-left">
+                  <img
+                    src={renderLogo()}
+                    className="img img--screen-cinema"
+                    alt=""
+                  />
+                  <div className="screen-title">
+                    <p className="name">
+                      <span className="bhd-color">{movieInfor.tenCumRap}</span>
+                    </p>
+                    <p className="date">
+                      {movieInfor.ngayChieu} - {movieInfor.gioChieu} -{" "}
+                      {movieInfor.tenRap}
+                    </p>
+                  </div>
+                </div>
+                <div className="info-right">
+                  <p>thời gian giữ ghế</p>
+                  <p className="time-delay">
+                    <Countdown
+                      date={
+                        timeClick
+                          ? Number(Date.now() + 300000) -
+                            (Number(timeClick) - Number(minuteTime))
+                          : Date.now() + 300000
+                      }
+                      renderer={renderer}
+                    />
+                  </p>
+                </div>
               </div>
-            </div>
-            <div className="info-right">
-              <p>thời gian giữ ghế</p>
-              <p className="time-delay">03:00</p>
-            </div>
-          </div>
-          <img src={screen} className="img img--screen" alt="" />
-          <div className="seats-wrap">
-            {seatList?.map((seat, index) => {
-              let vip = seat.loaiGhe === "Vip" ? "vip" : "";
-              let isBooked = seat.daDat ? "booked" : "";
-              let disabled = seat.daDat ? true : false;
-              let check = selectedList.findIndex(
-                (selectedSeat) => seat.maGhe === selectedSeat.maGhe
-              );
-              let isBooking = check !== -1 ? "booking" : "";
-              return (
-                <Fragment key={index}>
-                  <button
-                    disabled={disabled}
-                    className={`seat ${vip} ${isBooking} ${isBooked}`}
-                    onClick={booking(
-                      seat.maGhe,
-                      seat.giaVe,
-                      seat.stt,
-                      seat.loaiGhe
-                    )}
-                  >
-                    <span>{isBooked ? "X" : seat.stt}</span>
-                  </button>
-                  {(index + 1) % 16 === 0 ? <br /> : ""}
-                </Fragment>
-              );
-            })}
-          </div>
-          <div className="explain-seats">
-            {/* explain item */}
-            <div className="explain-item">
-              <span className="seat"></span>
-              <p>Ghế thường</p>
-            </div>
-            {/* end explain item */}
-            {/* explain item */}
-            <div className="explain-item">
-              <span className="seat seat-vip"></span>
-              <p>Ghế vip</p>
-            </div>
-            {/* end explain item */}
-            {/* explain item */}
-            {/* <div className="explain-item">
+              <img src={screen} className="img img--screen" alt="" />
+              <div className="seats-wrap">
+                {seatList?.map((seat, index) => {
+                  let vip = seat.loaiGhe === "Vip" ? "vip" : "";
+                  let isBooked = seat.daDat ? "booked" : "";
+                  let disabled = seat.daDat ? true : false;
+                  let check = selectedList.findIndex(
+                    (selectedSeat) => seat.maGhe === selectedSeat.maGhe
+                  );
+                  let isBooking = check !== -1 ? "booking" : "";
+                  return (
+                    <Fragment key={index}>
+                      <button
+                        disabled={disabled}
+                        className={`seat ${vip} ${isBooking} ${isBooked}`}
+                        onClick={booking(
+                          seat.maGhe,
+                          seat.giaVe,
+                          seat.stt,
+                          seat.loaiGhe
+                        )}
+                      >
+                        <span>{isBooked ? "X" : seat.stt}</span>
+                      </button>
+                      {(index + 1) % 16 === 0 ? <br /> : ""}
+                    </Fragment>
+                  );
+                })}
+              </div>
+              <div className="explain-seats">
+                {/* explain item */}
+                <div className="explain-item">
+                  <span className="seat"></span>
+                  <p>Ghế thường</p>
+                </div>
+                {/* end explain item */}
+                {/* explain item */}
+                <div className="explain-item">
+                  <span className="seat seat-vip"></span>
+                  <p>Ghế vip</p>
+                </div>
+                {/* end explain item */}
+                {/* explain item */}
+                {/* <div className="explain-item">
               <span className="seat seat-couple"></span>
               <p>Ghế đôi</p>
             </div> */}
-            {/* end explain item */}
-            {/* explain item */}
-            <div className="explain-item">
-              <span className="seat seat-selected"></span>
-              <p>Ghế đã chọn</p>
+                {/* end explain item */}
+                {/* explain item */}
+                <div className="explain-item">
+                  <span className="seat seat-selected"></span>
+                  <p>Ghế đã chọn</p>
+                </div>
+                {/* end explain item */}
+                {/* explain item */}
+                <div className="explain-item">
+                  <span className="seat seat-on-select"></span>
+                  <p>Ghế đang chọn</p>
+                </div>
+                {/* end explain item */}
+              </div>
             </div>
-            {/* end explain item */}
-            {/* explain item */}
-            <div className="explain-item">
-              <span className="seat seat-on-select"></span>
-              <p>Ghế đang chọn</p>
-            </div>
-            {/* end explain item */}
+          </>
+        ) : (
+          <div className={classes.root}>
+            <CircularProgress />
           </div>
-        </div>
+        )}
       </div>
+
       {/* end all chairs */}
       {/* Checkout Info */}
       <div className="checkout-info-wrap">
@@ -242,6 +320,75 @@ export default function Checkout(props) {
               })}
             </p>
             {/* <p className="total-price">150.000 đ</p> */}
+          </div>
+          <div className="checkout-user">
+            {/* checkout user item */}
+            <div className="checkout-user-item">
+              <label htmlFor="checkout-user-email">E-mail</label>
+              <input
+                type="text"
+                id="checkout-user-email"
+                placeholder="email-user"
+              />
+            </div>
+            {/* end checkout user item */}
+            {/* checkout user item */}
+            <div className="checkout-user-item">
+              <label htmlFor="checkout-user-phone">Phone</label>
+              <input
+                type="text"
+                id="checkout-user-phone"
+                placeholder="phone-user"
+              />
+            </div>
+            {/* end checkout user item */}
+            {/* checkout user item */}
+            <div className="checkout-user-item">
+              <label htmlFor="checkout-user-promotion">Mã giảm giá</label>
+              <input
+                type="text"
+                id="checkout-user-promotion"
+                placeholder="Nhập tại đây..."
+              />
+              <button className="btn btn-apply">Áp dụng</button>
+            </div>
+            {/* end checkout user item */}
+          </div>
+
+          <div className="checkout-payments">
+            <h3>Hình thức thanh toán</h3>
+            <div className="payment-methods">
+              {/* Method item */}
+              <div className="payment-method-item">
+                <input type="radio" name="method" />
+                <img src={zaloPay} className="img img--payment" alt="" />
+                <p className="payment-intro">Thanh toán qua ZaloPay</p>
+              </div>
+              {/* end Method item */}
+              {/* Method item */}
+              <div className="payment-method-item">
+                <input type="radio" name="method" />
+                <img src={visaPay} className="img img--payment" alt="" />
+                <p className="payment-intro">Visa, Master, JCB</p>
+              </div>
+              {/* end Method item */}
+              {/* Method item */}
+              <div className="payment-method-item">
+                <input type="radio" name="method" />
+                <img src={atmPay} className="img img--payment" alt="" />
+                <p className="payment-intro">Thẻ ATM nội địa</p>
+              </div>
+              {/* end Method item */}
+              {/* Method item */}
+              <div className="payment-method-item">
+                <input type="radio" name="method" />
+                <img src={tienIchPay} className="img img--payment" alt="" />
+                <p className="payment-intro">
+                  Thanh toán tại cửa hàng tiện ích
+                </p>
+              </div>
+              {/* end Method item */}
+            </div>
           </div>
           <div className="book-ticket">
             <div className="book-note">
