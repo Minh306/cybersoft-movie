@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-light tixNav">
-        <a className="navbar-brand" href="#logo">
+        <a className="navbar-brand" onClick={() => history.push("/")}>
           <img src={webLogo} alt="logo" />
         </a>
         <button

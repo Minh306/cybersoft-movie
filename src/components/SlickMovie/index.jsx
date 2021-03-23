@@ -64,6 +64,7 @@ export default function SlickMovie(props) {
 
   const renderMovie = () => {
     return data.map((items, index) => {
+      let url = items.trailer.substring(30);
       return (
         <div key={index} className="item-wrap">
           <div className="movie-item">
@@ -82,7 +83,7 @@ export default function SlickMovie(props) {
                       src={playVid}
                       onClick={() => {
                         setOpen(true);
-                        setTrailer(items.trailer);
+                        setTrailer(url);
                       }}
                       alt="play trialer"
                     />
