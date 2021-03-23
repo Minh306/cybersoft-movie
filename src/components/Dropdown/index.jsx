@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 export default function Dropdown() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const movieInfor = useSelector((state) => state.movieReducers.movieInfor);
+  const movieInformation = useSelector((state) => state.movieReducers.movieInformation);
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
   const theatersList = useSelector(
     (state) => state.movieTheaterReducers.theatersList
@@ -155,7 +155,7 @@ export default function Dropdown() {
           aria-labelledby="bannerMoviesDropdown"
           x-placement="bottom-start"
         >
-          {movieInfor?.map((name, index) => {
+          {movieInformation?.map((name, index) => {
             return (
               <a
                 

@@ -11,5 +11,5 @@ export const SET_POPUP = "SET_POPUP"
 export const SET_CREATED = "SET_CREATED"
 export const SEARCH_MOVIE = "SEARCH_MOVIE"
 export const SET_LOADED = "SET_LOADED"
-
+export const FETCH_MOVIE_INFORMATION = "FETCH_MOVIE_INFORMATION"
 

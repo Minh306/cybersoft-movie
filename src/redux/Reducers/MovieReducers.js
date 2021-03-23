@@ -1,3 +1,4 @@
+import { FETCH_MOVIE_INFORMATION } from "redux/Constants/MovieConstants";
 import { NGAY_CHIEU_GIO_CHIEU } from "redux/Constants/MovieConstants";
 import {
     SET_LOADED, FETCH_MOVIE_SHOWTIME, SEARCH_MOVIE, SET_EDITED, FETCH_MOVIE_LIST, EDIT_MOVIE, SET_POPUP, SET_CREATED, CREATE_MOVIE, SET_DELETED, MA_HE_THONG_RAP
@@ -5,6 +6,7 @@ import {
 
 const initialState = {
     movieInfor: [],
+    movieInformation: [],
     movieSearch: {},
     selectedMovie: {},
     movieDetail: {},
@@ -25,6 +27,9 @@ const reducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case FETCH_MOVIE_LIST:
             state = { ...state, movieInfor: payload };
+            return { ...state };
+        case FETCH_MOVIE_INFORMATION:
+            state = { ...state, movieInformation: payload };
             return { ...state };
         case FETCH_MOVIE_SHOWTIME:
             state = { ...state, movieDetail: payload };

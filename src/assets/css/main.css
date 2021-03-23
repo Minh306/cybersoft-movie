@@ -156,11 +156,11 @@ header {
   font-size: 14px;
   padding: 0;
   color: #000;
-  transition: all 0.5s;
 }
 
 .tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown) .nav-link:hover {
   color: #fb4226;
+  font-weight: 500;
 }
 
 .tixNav #navbarTixContent .navbar-nav .nav-item:not(.dropdown).active .nav-link {
@@ -276,6 +276,10 @@ header {
 .tixNav #navbarTixContent .navbar-nav .nav-item.dropdown .dropdown-menu.show a:hover {
   background: #60c5ef;
   color: #fff;
+}
+
+.userLogin:hover {
+  font-weight: 500;
 }
 
 @media screen and (max-width: 959px) {

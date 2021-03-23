@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import dayjs from "dayjs";
 
 import createAction from ".";
-import { SET_LOADED, SET_CREATED, FETCH_MOVIE_LIST, FETCH_MOVIE_SHOWTIME, SET_DELETED, SET_EDITED, SET_POPUP } from '../Constants/MovieConstants'
+import { SET_LOADED, SET_CREATED, FETCH_MOVIE_LIST, FETCH_MOVIE_SHOWTIME, SET_DELETED, SET_EDITED, SET_POPUP, FETCH_MOVIE_INFORMATION } from '../Constants/MovieConstants'
 import { DateFormat, TimeFormat } from "redux/Constants/TimeConstants";
 import { FETCH_THEATERS_LIST } from "redux/Constants/MovieTheaterConstants";
 
@@ -15,7 +15,7 @@ export const fetchMovie = () => {
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01`,
                 method: "GET",
             }).then(res => {
-                dispatch(createAction(FETCH_MOVIE_LIST, res.data))
+                dispatch(createAction(FETCH_MOVIE_INFORMATION, res.data))
             }).catch(err => {
                 // console.log(err);
             })
@@ -34,7 +34,7 @@ export const fetchMovieInfo = (page, pageSize) => {
                     `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP01&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
                 method: "GET",
             }).then(res => {
-                res.data.ngayKhoiChieu = dayjs(res.data.ngayKhoiChieu).format("DD/MM/YYYY")
+                // res.data.ngayKhoiChieu = dayjs(res.data.ngayKhoiChieu).format("DD/MM/YYYY")
                 dispatch(createAction(FETCH_MOVIE_LIST, res.data))
             }).catch(err => {
                 // console.log(err);
@@ -183,20 +183,20 @@ export const deleteMovie = (maPhim) => {
                 dispatch(createAction(SET_DELETED, true));
             }).catch(err => {
                 // console.log(err.response?.data);
-                // Swal.fire({
-                //     title: 'Oops !!!',
-                //     text: `${err.response?.data} !!!`,
-                //     icon: 'error',
-                //     allowOutsideClick: false
-                // })
                 Swal.fire({
-                    title: 'Yeah !!!',
-                    text: 'Xoá Phim Thành Công !!!',
-                    icon: 'success',
+                    title: 'Oops !!!',
+                    text: `${err.response?.data} !!!`,
+                    icon: 'error',
                     allowOutsideClick: false
                 })
-                dispatch(createAction(SET_POPUP, false));
-                dispatch(createAction(SET_DELETED, true));
+                // Swal.fire({
+                //     title: 'Yeah !!!',
+                //     text: 'Xoá Phim Thành Công !!!',
+                //     icon: 'success',
+                //     allowOutsideClick: false
+                // })
+                // dispatch(createAction(SET_POPUP, false));
+                // dispatch(createAction(SET_DELETED, true));
             })
         } catch (err) {
             // console.log(err);

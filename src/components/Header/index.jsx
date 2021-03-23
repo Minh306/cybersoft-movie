@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import webLogo from "../../assets/img/web-logo.png";
 import marc from "../../assets/img/faces/marc.jpg";
 import location from "../../assets/img/location-header.png";
@@ -9,6 +9,7 @@ import { Link } from "react-scroll";
 import { useDispatch, useSelector } from "react-redux";
 import createAction from "redux/Actions";
 import { IS_LOGIN } from "redux/Constants/UserConstants";
+import { FETCH_DETAIL_USER } from "redux/Constants/UserConstants";
 
 export default function Header() {
   const history = useHistory();
@@ -25,6 +26,10 @@ export default function Header() {
       disableScroll.off();
     }
   };
+
+  useEffect(() => {
+    dispatch(createAction(FETCH_DETAIL_USER, { isDetail: false }));
+  }, []);
 
   return (
     <header>
@@ -108,14 +113,19 @@ export default function Header() {
                     <NavLink to="/information" style={{ color: "white" }}>
                       Profile
                     </NavLink>
-                    <NavLink to="/admin/user" style={{ color: "white" }}>
-                      System Admin
-                    </NavLink>
+                    {dataLogin.maLoaiNguoiDung === "QuanTri" ? (
+                      <NavLink to="/admin/user" style={{ color: "white" }}>
+                        System Admin
+                      </NavLink>
+                    ) : (
+                      <br />
+                    )}
                     <a
                       style={{ color: "white" }}
                       onClick={() => {
                         localStorage.removeItem("currentUser");
                         localStorage.removeItem("accessToken");
+                        history.push("/")
                         dispatch(createAction(IS_LOGIN, false));
                       }}
                     >

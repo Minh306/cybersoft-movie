@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import playVid from "../../assets/img/play-video.png";
 import filmStar from "../../assets/img/film-star.png";
 import filmStarHalf from "../../assets/img/film-star-half.png";
@@ -13,6 +13,7 @@ import Prearrows from "./PreArrows";
 import createAction from "redux/Actions";
 import { MA_HE_THONG_RAP } from "redux/Constants/MovieConstants";
 import { useDispatch } from "react-redux";
+import ModalVideo from "react-modal-video";
 const settings = {
   className: "filmsOnShowCarrousel",
   centerMode: false,
@@ -48,10 +49,18 @@ const settings = {
 export default function SlickMovie(props) {
   const { data } = props;
   const dispatch = useDispatch();
+  const [isOpen, setOpen] = useState(false);
+  const [trailer, setTrailer] = useState(false);
 
   useEffect(() => {
-    dispatch(createAction(MA_HE_THONG_RAP, {isRender: false, ngayChieuGioChieu: "", maHeThongRap: ""}))
-  })
+    dispatch(
+      createAction(MA_HE_THONG_RAP, {
+        isRender: false,
+        ngayChieuGioChieu: "",
+        maHeThongRap: "",
+      })
+    );
+  });
 
   const renderMovie = () => {
     return data.map((items, index) => {
@@ -69,7 +78,14 @@ export default function SlickMovie(props) {
                     className="btn-play-trailer"
                     data-src="https://www.youtube.com/embed/wuAzIeMx1Ck"
                   >
-                    <img src={playVid} alt="play trialer" />
+                    <img
+                      src={playVid}
+                      onClick={() => {
+                        setOpen(true);
+                        setTrailer(items.trailer);
+                      }}
+                      alt="play trialer"
+                    />
                   </button>
                 </div>
               </div>
@@ -195,6 +211,13 @@ export default function SlickMovie(props) {
           </div>
         </div>
       </div>
+      <ModalVideo
+        channel="youtube"
+        autoplay
+        isOpen={isOpen}
+        videoId={trailer}
+        onClose={() => setOpen(false)}
+      />
     </section>
   );
 }

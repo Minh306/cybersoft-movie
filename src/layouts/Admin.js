@@ -51,6 +51,7 @@ export default function Admin({ ...rest }) {
   const [color, setColor] = React.useState("blue");
   const [fixedClasses, setFixedClasses] = React.useState("dropdown");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const dataLogin = useSelector((state) => state.credential.dataLogin);
 
   const history = useHistory();
   const isLogin = useSelector((state) => state.credential.isLogin);
@@ -98,10 +99,11 @@ export default function Admin({ ...rest }) {
   }, [mainPanel]);
 
   useEffect(() => {
-    if (isLogin === false) {
-      return history.push("/login");
+    if (dataLogin.maLoaiNguoiDung === "KhachHang") {
+      alert("Loại Tài Khoản Không Hợp Lệ Để Vào Hệ Thống !!!")
+      return history.push("/")
     }
-  }, [isLogin, history]);
+  }, [dataLogin, history]);
 
   return (
     <div className={classes.wrapper}>

@@ -63,7 +63,7 @@ export default function MovieTable(props) {
   const handleDeleteMovie = (maPhim) => () => {
     Swal.fire({
       title: "Xác nhận xóa ?",
-      text: "Bạn xem không thể hoàn tác lại tác vụ này !!!",
+      text: "Bạn không thể hoàn tác lại tác vụ này !!!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Xóa",

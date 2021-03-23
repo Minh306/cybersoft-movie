@@ -34,7 +34,7 @@ header {
                     font-size: $fs-14;
                     padding: 0;
                     color: $color-black;
-                    transition: all 0.5s;
+                    // transition: all 0.5s;
                     &:hover {
                         color: $color-bg-4;
                     }
@@ -145,6 +145,7 @@ header {
     }
     
 }
+
 @media screen and (max-width: 959px){
     .tixNav .navbar-brand{
         margin-right: 1rem;

@@ -10,7 +10,7 @@ import SlickMovie from "components/SlickMovie";
 
 export default function Homepage() {
   const dispatch = useDispatch();
-  const movieInfor = useSelector((state) => state.movieReducers.movieInfor);
+  const movieInformation = useSelector((state) => state.movieReducers.movieInformation);
 
   useEffect(() => {
     dispatch(fetchMovie());
@@ -19,7 +19,7 @@ export default function Homepage() {
   return (
     <>
       <Banner />
-      <SlickMovie data={movieInfor}/>
+      <SlickMovie data={movieInformation}/>
       <Cinema />
       <News />
       <TixApp />

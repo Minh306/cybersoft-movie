@@ -3,7 +3,12 @@ import "./index.css";
 import marc from "../../../assets/img/faces/marc.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
-import { Button, TablePagination, Typography } from "@material-ui/core";
+import {
+  Button,
+  CircularProgress,
+  TablePagination,
+  Typography,
+} from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -22,10 +27,22 @@ import { SET_EDITED } from "redux/Constants/UserConstants";
 import { EDIT_USER } from "redux/Constants/UserConstants";
 import createAction from "redux/Actions";
 import PopupUser from "components/Popup/CUUser";
+import { Redirect, useHistory } from "react-router";
+import Swal from "sweetalert2";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
 
 export default function Information() {
   const detailUser = useSelector((state) => state.userReducers.detailUser);
   const dataLogin = useSelector((state) => state.credential.dataLogin);
+  const isLogin = useSelector((state) => state.credential.isLogin);
   const isDetail = useSelector((state) => state.userReducers.isDetail);
   const dispatch = useDispatch();
   const useRowStyles = makeStyles({
@@ -35,7 +52,6 @@ export default function Information() {
       },
     },
   });
-
 
   const handleEdit = () => {
     dispatch(
@@ -127,76 +143,96 @@ export default function Information() {
     );
   }
 
-  return (
-    <section className="profile tix-container">
-      <div className="profile-wrap">
-        {/* Profile info */}
-        <div style={{ textAlign: "center" }}>
-          <Typography style={{ fontWeight: 400 }} variant="h2" gutterBottom>
-            Thông Tin Cá Nhân
-          </Typography>
-        </div>
-        <div className="row">
-          <div className="profile-img col-sm-3">
-            <img src={marc} className="img img-profile" alt="user" />
+  if (isLogin) {
+    return (
+      <section className="profile tix-container">
+        <div className="profile-wrap">
+          {/* Profile info */}
+          <div style={{ textAlign: "center" }}>
+            <Typography style={{ fontWeight: 400 }} variant="h2" gutterBottom>
+              Thông Tin Cá Nhân
+            </Typography>
           </div>
-          <div className="profile-info col-sm-9">
-            <form>
-              {/* Họ tên */}
-              <div className="form-group">
-                <label htmlFor="">Họ tên : </label>
-                <span>{detailUser.hoTen}</span>
+
+          {isDetail === true ? (
+            <div className="row">
+              <div className="profile-img col-sm-3">
+                <img src={marc} className="img img-profile" alt="user" />
               </div>
-              {/* end */}
-              {/* Tên tài khoản */}
-              <div className="form-group">
-                <label htmlFor="">Email : </label>
-                <span>{detailUser.email}</span>
+              <div className="profile-info col-sm-9">
+                <form>
+                  {/* Họ tên */}
+                  <div className="form-group">
+                    <label htmlFor="">Họ tên : </label>
+                    <span>{detailUser.hoTen}</span>
+                  </div>
+                  {/* end */}
+                  {/* Tên tài khoản */}
+                  <div className="form-group">
+                    <label htmlFor="">Email : </label>
+                    <span>{detailUser.email}</span>
+                  </div>
+                  {/* end */}
+                  {/* Tên tài khoản */}
+                  <div className="form-group">
+                    <label htmlFor="">Số Điện Thoại : </label>
+                    <span>{detailUser.soDT}</span>
+                  </div>
+                  {/* end */}
+                  {/* Tên tài khoản */}
+                  {/* end */}
+                  <Button
+                    onClick={handleEdit}
+                    variant="outlined"
+                    color="default"
+                  >
+                    Cập nhật
+                  </Button>
+                </form>
               </div>
-              {/* end */}
-              {/* Tên tài khoản */}
-              <div className="form-group">
-                <label htmlFor="">Số Điện Thoại : </label>
-                <span>{detailUser.soDT}</span>
+            </div>
+          ) : (
+            <div style={{ textAlign: "center" }}>
+              <CircularProgress color="default" />
+            </div>
+          )}
+
+          <div className="profile-history">
+            <h2>LỊCH SỬ ĐẶT VÉ</h2>
+            {isDetail === true ? (
+              <div style={{ height: 500, overflow: "auto" }}>
+                <TableContainer component={Paper}>
+                  <Table aria-label="collapsible table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell />
+                        <TableCell>Mã Vé</TableCell>
+                        <TableCell align="right">Tên Phim</TableCell>
+                        <TableCell align="right">Thời Lượng</TableCell>
+                        <TableCell align="right">Giá Vé</TableCell>
+                        <TableCell align="right">Ngày Đặt Vé</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {detailUser.thongTinDatVe?.map((item, index) => (
+                        <Row key={index} item={item} />
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </div>
-              {/* end */}
-              {/* Tên tài khoản */}
-              {/* end */}
-              <Button onClick={handleEdit} variant="outlined" color="default">
-                Cập nhật
-              </Button>
-            </form>
+            ) : (
+              <div style={{ textAlign: "center" }}>
+                <CircularProgress color="default" />
+              </div>
+            )}
           </div>
+          {/* end profile history */}
         </div>
-        {/* End profile info */}
-        {/* profile history */}
-        <div className="profile-history">
-          <h2>LỊCH SỬ ĐẶT VÉ</h2>
-          <div style={{ height: 500, overflow: "auto" }}>
-            <TableContainer component={Paper}>
-              <Table aria-label="collapsible table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell />
-                    <TableCell>Mã Vé</TableCell>
-                    <TableCell align="right">Tên Phim</TableCell>
-                    <TableCell align="right">Thời Lượng</TableCell>
-                    <TableCell align="right">Giá Vé</TableCell>
-                    <TableCell align="right">Ngày Đặt Vé</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {detailUser.thongTinDatVe?.map((item, index) => (
-                    <Row key={index} item={item} />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        </div>
-        {/* end profile history */}
-      </div>
-      <PopupUser />
-    </section>
-  );
+        <PopupUser />
+      </section>
+    );
+  } else {
+    return <Redirect to="/login" />;
+  }
 }

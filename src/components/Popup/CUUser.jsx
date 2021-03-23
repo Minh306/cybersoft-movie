@@ -206,12 +206,13 @@ export default function PopupUser() {
                       native
                       value={form.maLoaiNguoiDung}
                       required
-                      defaultValue="KhachHang"
+                      defaultValue=""
                       fullWidth
                       name="maLoaiNguoiDung"
                       label="Chọn Loại Tài Khoản"
                       onChange={handleChangeRole}
                     >
+                      <option value="">Chọn Loại Tài Khoản</option>
                       <option value="KhachHang">Khách Hàng</option>
                       <option value="QuanTri">Quản Trị</option>
                     </Select>
