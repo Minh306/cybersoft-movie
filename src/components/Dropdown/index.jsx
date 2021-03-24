@@ -10,9 +10,7 @@ export default function Dropdown() {
   const dispatch = useDispatch();
   const movieInformation = useSelector((state) => state.movieReducers.movieInformation);
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
-  const theatersList = useSelector(
-    (state) => state.movieTheaterReducers.theatersList
-  );
+  const theatersInfor = useSelector((state) => state.movieTheaterReducers.theatersInfor)
 
   const [select, setSelect] = useState({
     maPhim: "",
@@ -69,7 +67,7 @@ export default function Dropdown() {
     let unique = null;
     let output = [];
     if (select.maCumRap) {
-      return theatersList?.map((item) => {
+      return theatersInfor?.map((item) => {
         return item?.cumRapChieu.map((item) => {
           if (item.maCumRap === select.maCumRap) {
             for (let i = 0; i < item.lichChieuPhim.length; i++) {
@@ -108,7 +106,7 @@ export default function Dropdown() {
 
   const renderShowtime = () => {
     if (select.ngayChieu) {
-      return theatersList?.map((item) => {
+      return theatersInfor?.map((item) => {
         return item?.cumRapChieu?.map((child) => {
           if (child.maCumRap === select.maCumRap) {
             return child.lichChieuPhim.map((item, index) => {
@@ -184,8 +182,8 @@ export default function Dropdown() {
           {infor.tenCumRap ? `${infor.tenCumRap}` : "Chọn Rạp"}
         </button>
         <div className="dropdown-menu" aria-labelledby="bannerCinemasDropdown">
-          {theatersList?.map((theatersList) => {
-            return theatersList.cumRapChieu.map((theater, index) => {
+          {theatersInfor?.map((theatersInfor) => {
+            return theatersInfor.cumRapChieu.map((theater, index) => {
               return (
                 <a
                 

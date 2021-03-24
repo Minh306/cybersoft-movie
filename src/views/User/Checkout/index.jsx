@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Checkout(props) {
   const classes = useStyles();
-  const isLogin = useSelector((state) => state.credential.isLogin);
+  // const isLogin = useSelector((state) => state.credential.isLogin);
   const dataLogin = useSelector((state) => state.credential.dataLogin);
   const dispatch = useDispatch();
   const movieInfor = useSelector((state) => state.ticketReducers.movieInfor);
@@ -46,7 +46,7 @@ export default function Checkout(props) {
     (state) => state.ticketReducers.selectedList
   );
 
-  const [minuteTime, setMinuteTime] = useState(Date.now());
+  const [minuteTime] = useState(Date.now());
   const [timeClick, setTimeClick] = useState();
 
   const renderer = (props) => {
@@ -155,7 +155,7 @@ export default function Checkout(props) {
     dispatch(createAction(CLEAR, { selectedList: [] }));
   }, [dispatch, props.match.params.id]);
 
-  if (isLogin) {
+  if (dataLogin) {
     return (
       <section className="checkout-wrap">
         {/* Step checkout */}

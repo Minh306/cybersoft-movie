@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import marc from "../../../assets/img/faces/marc.jpg";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,7 +6,6 @@ import IconButton from "@material-ui/core/IconButton";
 import {
   Button,
   CircularProgress,
-  TablePagination,
   Typography,
 } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,22 +26,11 @@ import { SET_EDITED } from "redux/Constants/UserConstants";
 import { EDIT_USER } from "redux/Constants/UserConstants";
 import createAction from "redux/Actions";
 import PopupUser from "components/Popup/CUUser";
-import { Redirect, useHistory } from "react-router";
-import Swal from "sweetalert2";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > * + *": {
-      marginLeft: theme.spacing(2),
-    },
-  },
-}));
+import { Redirect } from "react-router";
 
 export default function Information() {
   const detailUser = useSelector((state) => state.userReducers.detailUser);
   const dataLogin = useSelector((state) => state.credential.dataLogin);
-  const isLogin = useSelector((state) => state.credential.isLogin);
   const isDetail = useSelector((state) => state.userReducers.isDetail);
   const dispatch = useDispatch();
   const useRowStyles = makeStyles({
@@ -143,7 +131,7 @@ export default function Information() {
     );
   }
 
-  if (isLogin) {
+  if (dataLogin) {
     return (
       <section className="profile tix-container">
         <div className="profile-wrap">

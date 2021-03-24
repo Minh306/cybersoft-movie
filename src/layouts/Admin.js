@@ -54,7 +54,7 @@ export default function Admin({ ...rest }) {
   const dataLogin = useSelector((state) => state.credential.dataLogin);
 
   const history = useHistory();
-  const isLogin = useSelector((state) => state.credential.isLogin);
+  // const isLogin = useSelector((state) => state.credential.isLogin);
   const handleImageClick = image => {
     setImage(image);
   };
