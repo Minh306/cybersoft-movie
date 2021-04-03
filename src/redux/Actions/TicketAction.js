@@ -2,9 +2,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import createAction from ".";
 import { FETCH_SEAT_LIST } from "redux/Constants/TicketConstants";
+import { CLEAR } from "redux/Constants/TicketConstants";
 
 export const bookingTicket = (thongTinVe) => {
-    return async (dispatch) => {
+    return async(dispatch) => {
         try {
             const accessToken = localStorage.getItem("accessToken")
             Swal.fire({
@@ -30,6 +31,7 @@ export const bookingTicket = (thongTinVe) => {
                     allowOutsideClick: false
                 })
                 dispatch(fetchSeatList(thongTinVe.maLichChieu))
+                dispatch(createAction(CLEAR, { selectedList: [] }))
             }).catch((err) => {
                 Swal.fire({
                     title: 'Oops !!!',
@@ -45,7 +47,7 @@ export const bookingTicket = (thongTinVe) => {
 }
 
 export const fetchSeatList = (maLichChieu) => {
-    return async (dispatch) => {
+    return async(dispatch) => {
         try {
             await axios({
                 url: `https://movie0706.cybersoft.edu.vn/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`,

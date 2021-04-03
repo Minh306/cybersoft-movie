@@ -27,6 +27,7 @@
         }
     }
 }
+
 .tixNews {
     .newsTabContent {
         .news-top {
@@ -44,7 +45,7 @@
                 flex: 0 1 30%;
             }
             .news-item {
-                .news-info { 
+                .news-info {
                     .title {
                         height: 51px;
                         margin-bottom: 0px;
@@ -92,7 +93,7 @@
                     p {
                         display: flex;
                         align-items: center;
-                        margin-right: 20px;
+                        margin-right: 20px !important;
                         margin-bottom: 0;
                         cursor: pointer;
                     }
@@ -139,6 +140,7 @@
         }
     }
 }
+
 .tixNews {
     padding-bottom: 30px;
     .showMore {
@@ -163,6 +165,7 @@
         }
     }
 }
+
 @media screen and (max-width: 568px) {
     .tixNews {
         .newsTabContent {
@@ -183,7 +186,7 @@
                     flex: 0 1 100%;
                 }
                 .news-item {
-                    .news-info { 
+                    .news-info {
                         .title {
                             margin-bottom: 0px;
                             padding: 10px 0 5px;

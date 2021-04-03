@@ -76,9 +76,6 @@ export default function Checkout(props) {
     }
   };
 
-  let format = dayjs(movieInfor?.ngayChieu).format();
-  let dayInWeek = new Date(format);
-
   const renderLogo = () => {
     let x = cinemaSystemList.find(
       (maHeThongRap) => maHeThongRap.maHeThongRap === maHTRSelected
@@ -87,12 +84,20 @@ export default function Checkout(props) {
   };
 
   const renderDayInWeek = () => {
-    if (dayInWeek.getDate() === 0) {
-      return `Chủ Nhật ${movieInfor.ngayChieu} - ${movieInfor.gioChieu} - ${movieInfor.tenRap}`;
+    let date = "";
+    let time = "";
+    let newdate = "";
+    let formated = "";
+    if (movieInfor.ngayChieu !== undefined) {
+      date = movieInfor.ngayChieu;
+      time = movieInfor.gioChieu;
+      newdate = date.split("/").reverse().join("/");
+      formated = dayjs(newdate).day();
+    }
+    if (formated === 0) {
+      return `Chủ Nhật ${date} - ${time} - ${movieInfor.tenRap}`;
     } else {
-      return `Thứ ${dayInWeek.getDay() + 1} ${movieInfor.ngayChieu} - ${
-        movieInfor.gioChieu
-      } - ${movieInfor.tenRap}`;
+      return `Thứ ${formated + 1} ${date} - ${time} - ${movieInfor.tenRap}`;
     }
   };
 
