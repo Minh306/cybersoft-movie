@@ -20,8 +20,8 @@ export default function Detail(props) {
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
   const test = useSelector((state) => state.movieTheaterReducers.test);
   const isCheck = useSelector((state) => state.movieReducers.isCheck);
-  const theatersList = useSelector(
-    (state) => state.movieTheaterReducers.theatersList
+  const theatersInfor = useSelector(
+    (state) => state.movieTheaterReducers.theatersInfor
   );
   const isRender = useSelector((state) => state.movieReducers.isRender);
   const ngayChieuGioChieu = useSelector(
@@ -129,7 +129,7 @@ export default function Detail(props) {
   };
 
   const renderTheaters = () => {
-    if (movieDetail && theatersList.length > 0) {
+    if (movieDetail && theatersInfor.length > 0) {
       return movieDetail.heThongRapChieu?.map((child, index) => {
         let active = index === 0 ? "active" : "";
         return (
