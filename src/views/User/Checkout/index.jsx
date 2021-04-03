@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     justifyContent: "center",
+    height: 630,
+    alignItems: "center",
     "& > * + *": {
       marginLeft: theme.spacing(2),
     },
@@ -46,9 +48,9 @@ export default function Checkout(props) {
     (state) => state.ticketReducers.selectedList
   );
 
-  const [minuteTime] = useState(Date.now());
+  const [minuteTime, setMinuteTime] = useState(Date.now());
   const [timeClick, setTimeClick] = useState();
-
+  // const [reset, setReset] = useState(false);
   const renderer = (props) => {
     if (props.completed) {
       Swal.fire({
@@ -142,6 +144,7 @@ export default function Checkout(props) {
               taiKhoanNguoiDung: currentUser.taiKhoan,
             };
             dispatch(bookingTicket(dataPost));
+            // setMinuteTime(Date.now())
           }
           // });
         } else if (
@@ -215,7 +218,7 @@ export default function Checkout(props) {
                       <Countdown
                         date={
                           timeClick
-                            ? Number(Date.now() + 300000) -
+                            ? Number(Date.now() + 301500) -
                               (Number(timeClick) - Number(minuteTime))
                             : Date.now() + 300000
                         }
