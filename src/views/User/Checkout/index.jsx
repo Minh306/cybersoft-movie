@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Checkout(props) {
   const classes = useStyles();
-  // const isLogin = useSelector((state) => state.credential.isLogin);
+  const isLogin = useSelector((state) => state.credential.isLogin);
   const dataLogin = useSelector((state) => state.credential.dataLogin);
   const dispatch = useDispatch();
   const movieInfor = useSelector((state) => state.ticketReducers.movieInfor);
@@ -163,7 +163,7 @@ export default function Checkout(props) {
     dispatch(createAction(CLEAR, { selectedList: [] }));
   }, [dispatch, props.match.params.id]);
 
-  if (dataLogin) {
+  if (isLogin) {
     return (
       <section className="checkout-wrap">
         {/* Step checkout */}
