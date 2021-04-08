@@ -163,7 +163,7 @@ export default function Checkout(props) {
     dispatch(createAction(CLEAR, { selectedList: [] }));
   }, [dispatch, props.match.params.id]);
 
-  if (isLogin) {
+  if (isLogin === true) {
     return (
       <section className="checkout-wrap">
         {/* Step checkout */}
