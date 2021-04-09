@@ -30,6 +30,7 @@ import { Redirect } from "react-router";
 
 export default function Information() {
   const detailUser = useSelector((state) => state.userReducers.detailUser);
+  const isLogin = useSelector((state) => state.credential.isLogin);
   const dataLogin = useSelector((state) => state.credential.dataLogin);
   const isDetail = useSelector((state) => state.userReducers.isDetail);
   const dispatch = useDispatch();
@@ -131,7 +132,7 @@ export default function Information() {
     );
   }
 
-  if (dataLogin) {
+  if (isLogin === true) {
     return (
       <section className="profile tix-container">
         <div className="profile-wrap">

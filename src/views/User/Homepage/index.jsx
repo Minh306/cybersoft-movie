@@ -20,7 +20,7 @@ export default function Homepage() {
     <>
       <Banner />
       <SlickMovie data={movieInformation}/>
-      <Cinema />
+      {/* <Cinema /> */}
       <News />
       <TixApp />
       <Partner />
