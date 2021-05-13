@@ -109,7 +109,7 @@ export default function Admin({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"Cyper Movie"}
+        logoText={"Cybersoft Movie"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

@@ -2,16 +2,16 @@
 
 Quick start options:
 
-- Clone the repo: `git clone https://github.com/Minh306/cyper-movie.git`.
+- Clone the repo: `git clone https://github.com/Minh306/cybersoft-movie.git`.
 - `npm i`
-- [Download from Github](https://github.com/Minh306/cyper-movie).
+- [Download from Github](https://github.com/Minh306/cybersoft-movie).
 
 ## File Structure
 
 Within the download you'll find the following directories and files:
 
 ```
-cyber-movie
+cybersoft-movie
 .
 ├── CHANGELOG.md
 ├── ISSUE_TEMPLATE.md
