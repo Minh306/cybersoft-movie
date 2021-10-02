@@ -53,7 +53,7 @@ export default function Detail(props) {
       if (cumRapChieu != null) {
         cumRapChieu.map((item) => {
           let lichChieuPhim = item.lichChieuPhim;
-          lichChieuPhim.forEach((item) =>
+          return lichChieuPhim.forEach((item) =>
             data.add(dayjs(item.ngayChieuGioChieu).format("YYYY-MM-DD"))
           );
         });
@@ -73,6 +73,7 @@ export default function Detail(props) {
             return (
               <li key={index} className="nav-item">
                 <a
+                  href="/#"
                   className={`date-item ${active}`}
                   value={items}
                   data-toggle="tab"
@@ -110,42 +111,56 @@ export default function Detail(props) {
     if (maHeThongRap === "BHDStar") {
       return (
         <>
-          <span className="common-age-type theater bhd">{tenCumRap.slice(0, 8)}</span>{" "}
-          <span className="theatersName">{tenCumRap.split("BHD Star Cineplex ")}</span>
+          <span className="common-age-type theater bhd">
+            {tenCumRap.slice(0, 8)}
+          </span>{" "}
+          <span className="theatersName">
+            {tenCumRap.split("BHD Star Cineplex ")}
+          </span>
         </>
       );
     } else if (maHeThongRap === "CGV") {
       return (
         <>
-          <span className="common-age-type theater cgv">{tenCumRap.slice(0, 3)}</span>{" "}
+          <span className="common-age-type theater cgv">
+            {tenCumRap.slice(0, 3)}
+          </span>{" "}
           <span className="theatersName">{tenCumRap.split("CGV ")}</span>
         </>
       );
     } else if (maHeThongRap === "CineStar") {
       return (
         <>
-          <span className="common-age-type theater cns">{tenCumRap.slice(0, 3)}</span>{" "}
+          <span className="common-age-type theater cns">
+            {tenCumRap.slice(0, 3)}
+          </span>{" "}
           <span className="theatersName">{tenCumRap.split("CNS ")}</span>
         </>
       );
     } else if (maHeThongRap === "Galaxy") {
       return (
         <>
-          <span className="common-age-type theater glx">{tenCumRap.slice(0, 3)}</span>{" "}
+          <span className="common-age-type theater glx">
+            {tenCumRap.slice(0, 3)}
+          </span>{" "}
           <span className="theatersName">{tenCumRap.split("GLX ")}</span>
         </>
       );
     } else if (maHeThongRap === "LotteCinima") {
       return (
         <>
-          <span className="common-age-type theater lotte">{tenCumRap.slice(0, 5)}</span>{" "}
+          <span className="common-age-type theater lotte">
+            {tenCumRap.slice(0, 5)}
+          </span>{" "}
           <span className="theatersName">{tenCumRap.split("Lotte ")}</span>
         </>
       );
     } else if (maHeThongRap === "MegaGS") {
       return (
         <>
-          <span className="common-age-type theater megags">{tenCumRap.slice(0, 6)}</span>{" "}
+          <span className="common-age-type theater megags">
+            {tenCumRap.slice(0, 6)}
+          </span>{" "}
           <span className="theatersName">{tenCumRap.split("MegaGS ")}</span>
         </>
       );
@@ -260,6 +275,8 @@ export default function Detail(props) {
                                 </NavLink>
                               </div>
                             );
+                          } else {
+                            return null;
                           }
                         })}
                       </div>
@@ -460,7 +477,7 @@ export default function Detail(props) {
                 </div>
               </div>
             </div>
-            
+
             <div className="tab-pane fade" id="book-film-preview">
               <div className="film-preview-wrap">
                 <div className="film-preview-user">

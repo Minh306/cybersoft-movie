@@ -1,5 +1,5 @@
 import Banner from "components/Banner";
-import Cinema from "components/Cinema";
+// import Cinema from "components/Cinema";
 import News from "components/News";
 import TixApp from "components/TixApp";
 import Partner from "components/Partner";

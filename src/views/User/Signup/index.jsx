@@ -18,7 +18,7 @@ export default function Signup() {
     hoTen: "",
     maLoaiNguoiDung: "KhachHang",
     soDt: "",
-    maNhom: "GP01",
+    maNhom: "GP03",
   });
   const handleChange = (e) => {
     e.preventDefault();

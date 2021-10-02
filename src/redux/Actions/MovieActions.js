@@ -12,7 +12,7 @@ export const fetchMovie = () => {
         try {
             await axios({
                 url:
-                    `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP01`,
+                    `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhim?maNhom=GP03`,
                 method: "GET",
             }).then(res => {
                 dispatch(createAction(FETCH_MOVIE_INFORMATION, res.data))
@@ -31,7 +31,7 @@ export const fetchMovieInfo = (page, pageSize) => {
         try {
             await axios({
                 url:
-                    `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP01&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
+                    `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP03&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
                 method: "GET",
             }).then(res => {
                 // res.data.ngayKhoiChieu = dayjs(res.data.ngayKhoiChieu).format("DD/MM/YYYY")

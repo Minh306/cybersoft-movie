@@ -96,7 +96,7 @@ export default function PopupUser() {
     hoTen: "",
     maLoaiNguoiDung: "",
     soDt: "",
-    maNhom: "GP01",
+    maNhom: "GP03",
   });
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function PopupUser() {
       email: selectedUser.email,
       hoTen: selectedUser.hoTen,
       soDt: selectedUser.soDt,
-      maNhom: "GP01",
+      maNhom: "GP03",
       maLoaiNguoiDung: selectedUser.maLoaiNguoiDung,
     });
   }, [selectedUser]);

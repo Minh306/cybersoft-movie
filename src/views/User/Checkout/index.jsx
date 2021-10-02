@@ -48,9 +48,8 @@ export default function Checkout(props) {
     (state) => state.ticketReducers.selectedList
   );
 
-  const [minuteTime, setMinuteTime] = useState(Date.now());
+  const [minuteTime] = useState(Date.now());
   const [timeClick, setTimeClick] = useState();
-  // const [reset, setReset] = useState(false);
   const renderer = (props) => {
     if (props.completed) {
       Swal.fire({

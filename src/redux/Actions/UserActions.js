@@ -8,7 +8,7 @@ export const fetchUserInfo = (page, pageSize) => {
         try {
             await axios({
                 url:
-                    `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=GP01&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
+                    `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=GP03&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
                 method: "GET",
             }).then(res => {
                 dispatch(createAction(FETCH_USER_LIST, res.data))
@@ -337,7 +337,7 @@ export const searchUser = (keyword, page, pageSize) => {
     return async (dispatch) => {
         try {
             await axios({
-                url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDungPhanTrang?MaNhom=GP01&tuKhoa=${keyword}&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
+                url: `https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/TimKiemNguoiDungPhanTrang?MaNhom=GP03&tuKhoa=${keyword}&soTrang=${page}&soPhanTuTrenTrang=${pageSize}`,
                 method: 'GET'
             }).then((res) => {
                 dispatch(createAction(SEARCH_USER, res.data))

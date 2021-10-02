@@ -8,9 +8,13 @@ import Swal from "sweetalert2";
 export default function Dropdown() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const movieInformation = useSelector((state) => state.movieReducers.movieInformation);
+  const movieInformation = useSelector(
+    (state) => state.movieReducers.movieInformation
+  );
   const movieDetail = useSelector((state) => state.movieReducers.movieDetail);
-  const theatersInfor = useSelector((state) => state.movieTheaterReducers.theatersInfor)
+  const theatersInfor = useSelector(
+    (state) => state.movieTheaterReducers.theatersInfor
+  );
 
   const [select, setSelect] = useState({
     maPhim: "",
@@ -49,6 +53,8 @@ export default function Dropdown() {
       return items.cumRapChieu.find((child) => {
         if (child.maCumRap === maCumRap) {
           return localStorage.setItem("maHeThongRap", items.maHeThongRap);
+        } else {
+          return null;
         }
       });
     });
@@ -86,7 +92,7 @@ export default function Dropdown() {
               output = unique.map((item, index) => {
                 return (
                   <a
-                    
+                    href="/#"
                     className="dropdown-item"
                     value={item}
                     key={index}
@@ -98,6 +104,8 @@ export default function Dropdown() {
               });
             }
             return output;
+          } else {
+            return null;
           }
         });
       });
@@ -113,7 +121,7 @@ export default function Dropdown() {
               if (item.ngayChieuGioChieu.indexOf(select.ngayChieu) !== -1) {
                 return (
                   <a
-                    
+                    href="/#"
                     className="dropdown-item"
                     value={item.maLichChieu}
                     key={index}
@@ -125,8 +133,12 @@ export default function Dropdown() {
                     {item.ngayChieuGioChieu.slice(11, 16)}
                   </a>
                 );
+              } else {
+                return null;
               }
             });
+          } else {
+            return null;
           }
         });
       });
@@ -156,7 +168,7 @@ export default function Dropdown() {
           {movieInformation?.map((name, index) => {
             return (
               <a
-                
+                href="/#"
                 className="dropdown-item"
                 value={name.maPhim}
                 key={index}
@@ -186,7 +198,7 @@ export default function Dropdown() {
             return theatersInfor.cumRapChieu.map((theater, index) => {
               return (
                 <a
-                
+                  href="/#"
                   className="dropdown-item"
                   value={theater.maCumRap}
                   key={index}
@@ -249,7 +261,9 @@ export default function Dropdown() {
         </div>
       </div>
       <div className="banner__btn">
-        <a  onClick={handleCheckout}>MUA VÉ NGAY</a>
+        <a href="/#" onClick={handleCheckout}>
+          MUA VÉ NGAY
+        </a>
       </div>
     </div>
   );

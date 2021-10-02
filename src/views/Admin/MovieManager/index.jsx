@@ -16,11 +16,11 @@ import { Box, Button, Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovieInfo } from "redux/Actions/MovieActions";
 import { green } from "@material-ui/core/colors";
-import Pagination from "@material-ui/lab/Pagination";
 import PopupMovie from "components/Popup/CUMovie";
 import createAction from "redux/Actions";
 import { SET_CREATED } from "redux/Constants/MovieConstants";
 import { CREATE_MOVIE } from "redux/Constants/MovieConstants";
+import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
   root: {

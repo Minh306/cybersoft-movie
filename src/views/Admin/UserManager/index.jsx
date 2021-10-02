@@ -16,7 +16,6 @@ import { Box, Button, Grid } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "redux/Actions/UserActions";
 import { green } from "@material-ui/core/colors";
-import Pagination from "@material-ui/lab/Pagination";
 import PopupUser from "components/Popup/CUUser";
 import { CREATE_USER } from "redux/Constants/UserConstants";
 import createAction from "redux/Actions";
@@ -30,6 +29,7 @@ import Buttonn from "components/CustomButtons/Button.js";
 import { searchUser } from "redux/Actions/UserActions";
 import { SET_SEARCH } from "redux/Constants/UserConstants";
 import { FETCH_DETAIL_USER } from "redux/Constants/UserConstants";
+import Pagination from '@material-ui/lab/Pagination';
 // import Swal from "sweetalert2";
 
 const useStyless = makeStyles(styles);

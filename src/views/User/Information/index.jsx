@@ -52,7 +52,7 @@ export default function Information() {
           hoTen: detailUser.hoTen,
           maLoaiNguoiDung: dataLogin.maLoaiNguoiDung,
           soDt: detailUser.soDT,
-          maNhom: "GP01",
+          maNhom: "GP03",
         },
         isPopUp: true,
         typePopUp: "Cập Nhật Thông Tin Cá Nhân",

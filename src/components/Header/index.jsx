@@ -29,12 +29,12 @@ export default function Header() {
 
   useEffect(() => {
     dispatch(createAction(FETCH_DETAIL_USER, { isDetail: false }));
-  }, []);
+  }, [dispatch]);
 
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-light tixNav">
-        <a className="navbar-brand" onClick={() => history.push("/")}>
+        <a href="/#" className="navbar-brand" onClick={() => history.push("/")}>
           <img src={webLogo} alt="logo" />
         </a>
         <button
@@ -106,7 +106,7 @@ export default function Header() {
             <li className="nav-item user">
               {isLogin ? (
                 <>
-                  <a className="nav-link">
+                  <a href="/#" className="nav-link">
                     <img src={marc} alt="user" /> {dataLogin.hoTen}
                   </a>
                   <div className="logout">
@@ -120,7 +120,7 @@ export default function Header() {
                     ) : (
                       <br />
                     )}
-                    <a
+                    <a href="/#"
                       style={{ color: "white" }}
                       onClick={() => {
                         localStorage.removeItem("currentUser");
