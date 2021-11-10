@@ -3,7 +3,7 @@ import React, { createRef, useEffect, useState } from "react";
 // @material-ui/core components
 import Hidden from "@material-ui/core/Hidden";
 import {
-  createMuiTheme,
+  createTheme,
   makeStyles,
   ThemeProvider,
 } from "@material-ui/core/styles";
@@ -66,7 +66,7 @@ const columns = [
   },
 ];
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: green,
   },

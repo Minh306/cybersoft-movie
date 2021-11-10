@@ -200,7 +200,9 @@ export default function SlickMovie(props) {
             role="tabpanel"
             aria-labelledby="home-tab"
           >
-            <Slider {...settings}>{renderMovie()}</Slider>
+            {data != null && data.length > 0 && (
+              <Slider {...settings}>{renderMovie()}</Slider>
+            )}
           </div>
           <div
             className="tab-pane fade"
@@ -208,7 +210,9 @@ export default function SlickMovie(props) {
             role="tabpanel"
             aria-labelledby="profile-tab"
           >
-            <Slider {...settings}>{renderMovie()}</Slider>
+           {data != null && data.length > 0 && (
+              <Slider {...settings}>{renderMovie()}</Slider>
+            )}
           </div>
         </div>
       </div>

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import webLogo from "../../assets/img/web-logo.png";
 import marc from "../../assets/img/faces/marc.jpg";
 import location from "../../assets/img/location-header.png";
 import { NavLink, useHistory } from "react-router-dom";
-import disableScroll from "disable-scroll";
 // import * as Scroll from "react-scroll";
 import { Link } from "react-scroll";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,19 +12,9 @@ import { FETCH_DETAIL_USER } from "redux/Constants/UserConstants";
 
 export default function Header() {
   const history = useHistory();
-  const [scroll, setScroll] = useState(true);
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.credential.isLogin);
   const dataLogin = useSelector((state) => state.credential.dataLogin);
-
-  const handleScroll = () => {
-    setScroll(!scroll);
-    if (scroll) {
-      disableScroll.on();
-    } else {
-      disableScroll.off();
-    }
-  };
 
   useEffect(() => {
     dispatch(createAction(FETCH_DETAIL_USER, { isDetail: false }));
@@ -45,7 +34,7 @@ export default function Header() {
           aria-controls="navbarTixContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
-          onClick={handleScroll}
+          // onClick={handleScroll}
         >
           <span className="navbar-toggler-icon" />
         </button>

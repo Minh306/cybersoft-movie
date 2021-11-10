@@ -28,7 +28,8 @@ export default function Dropdown() {
     tenCumRap: "",
   });
 
-  const handleMovieName = (tenPhim, maPhim) => () => {
+  const handleMovieName = (tenPhim, maPhim) => (e) => {
+    e.preventDefault()
     setInfor({ ...infor, tenPhim: tenPhim, tenCumRap: "" });
     dispatch(fetchMovieDetail(maPhim));
   };
@@ -46,7 +47,8 @@ export default function Dropdown() {
     }
   };
 
-  const handleMovieTheater = (tenCumRap, maCumRap) => () => {
+  const handleMovieTheater = (tenCumRap, maCumRap) => (e) => {
+    e.preventDefault()
     setInfor({ ...infor, tenCumRap: tenCumRap });
     setSelect({ ...select, maCumRap: maCumRap, ngayChieu: "", suat: "" });
     return movieDetail.heThongRapChieu?.find((items) => {
@@ -60,11 +62,13 @@ export default function Dropdown() {
     });
   };
 
-  const handleMovieDay = (ngayChieu) => () => {
+  const handleMovieDay = (ngayChieu) => (e) => {
+    e.preventDefault()
     setSelect({ ...select, ngayChieu: ngayChieu, suat: "" });
   };
 
-  const handleMovieShowtime = (suat, ngayChieuGioChieu) => () => {
+  const handleMovieShowtime = (suat, ngayChieuGioChieu) => (e) => {
+    e.preventDefault()
     setSelect({ ...select, suat: suat, maLichChieu: ngayChieuGioChieu });
   };
 
@@ -261,7 +265,7 @@ export default function Dropdown() {
         </div>
       </div>
       <div className="banner__btn">
-        <a href="/#" onClick={handleCheckout}>
+        <a href="avascript:;" onClick={handleCheckout}>
           MUA VÉ NGAY
         </a>
       </div>
