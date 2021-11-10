@@ -28,10 +28,14 @@ export const bookingTicket = (thongTinVe) => {
                     title: 'Yeah !!!',
                     text: 'Đặt Vé Thành Công !!!',
                     icon: 'success',
-                    allowOutsideClick: false
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
                 })
                 dispatch(fetchSeatList(thongTinVe.maLichChieu))
                 dispatch(createAction(CLEAR, { selectedList: [] }))
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
             }).catch((err) => {
                 Swal.fire({
                     title: 'Oops !!!',

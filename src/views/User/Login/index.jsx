@@ -6,11 +6,14 @@ import "./index.css";
 
 import logoForm from "../../../assets/img/logo-form.png";
 
-export default function SignInSide() {
+export default function SignInSide(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const isLogin = useSelector((state) => state.credential.isLogin);
   const [form, setForm] = useState({ taiKhoan: "", matKhau: "" });
+  const {
+    location: { state },
+  } = props;
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -25,6 +28,9 @@ export default function SignInSide() {
 
   useEffect(() => {
     if (isLogin === true) {
+      if (state.next.pathname) {
+        return history.push(`${state.next.pathname}`);
+      }
       return history.push("/");
     }
   }, [isLogin, history]);
@@ -61,7 +67,7 @@ export default function SignInSide() {
           <button type="submit" className="btn">
             Đăng nhập
           </button>
-          <div style={{textAlign: "center"}}>
+          <div style={{ textAlign: "center" }}>
             <NavLink to="/signup">Chưa Có Tài Khoản ? Đăng Kí</NavLink>
           </div>
         </form>

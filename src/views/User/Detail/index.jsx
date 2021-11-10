@@ -73,7 +73,7 @@ export default function Detail(props) {
             return (
               <li key={index} className="nav-item">
                 <a
-                  href="/#"
+                  href="javascript:void(0)"
                   className={`date-item ${active}`}
                   value={items}
                   data-toggle="tab"

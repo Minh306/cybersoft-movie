@@ -37,8 +37,8 @@ function App() {
             <Switch>
                 <Route path="/login" component={Login} />
                 <Route path="/signup" component={Signup} />
-                <Route path="/checkout/:id" component={Checkout}/>
                 <Route path="/admin" component={Admin} />
+                <Route exact path="/checkout/:id" component={Checkout}/>
                 <UserTemplate exact path="/information" Component={Information} />
                 <UserTemplate exact path="/detail/:id" Component={Detail} />
                 <UserTemplate exact path="/" Component={Homepage} />

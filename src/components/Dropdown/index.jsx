@@ -96,7 +96,7 @@ export default function Dropdown() {
               output = unique.map((item, index) => {
                 return (
                   <a
-                    href="/#"
+                    href="javascript:void(0)"
                     className="dropdown-item"
                     value={item}
                     key={index}
@@ -125,7 +125,7 @@ export default function Dropdown() {
               if (item.ngayChieuGioChieu.indexOf(select.ngayChieu) !== -1) {
                 return (
                   <a
-                    href="/#"
+                    href="javascript:void(0)"
                     className="dropdown-item"
                     value={item.maLichChieu}
                     key={index}
@@ -172,7 +172,7 @@ export default function Dropdown() {
           {movieInformation?.map((name, index) => {
             return (
               <a
-                href="/#"
+                href="javascript:void(0)"
                 className="dropdown-item"
                 value={name.maPhim}
                 key={index}
@@ -202,7 +202,7 @@ export default function Dropdown() {
             return theatersInfor.cumRapChieu.map((theater, index) => {
               return (
                 <a
-                  href="/#"
+                  href="javascript:void(0)"
                   className="dropdown-item"
                   value={theater.maCumRap}
                   key={index}

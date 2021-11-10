@@ -31,13 +31,13 @@ export default function index() {
       <div className="contact-wrap container">
         <div className="contact-item">
           <h4>TIX</h4>
-          <a href="/#" >FAQ</a>
-          <a href="/#" >Brand Guidelines</a>
+          <a href="javascript:void(0)" >FAQ</a>
+          <a href="javascript:void(0)" >Brand Guidelines</a>
         </div>
         <div className="contact-item">
           <h4 className="align">align</h4>
-          <a href="/#" >Thỏa thuận sử dụng</a>
-          <a href="/#" >Chính sách bảo mật</a>
+          <a href="javascript:void(0)" >Thỏa thuận sử dụng</a>
+          <a href="javascript:void(0)" >Chính sách bảo mật</a>
         </div>
         <div className="contact-item contact-partner">
           <h4>ĐỐI TÁC</h4>

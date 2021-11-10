@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-light tixNav">
-        <a href="/#" className="navbar-brand" onClick={() => history.push("/")}>
+        <a href="javascript:void(0)" className="navbar-brand" onClick={() => history.push("/")}>
           <img src={webLogo} alt="logo" />
         </a>
         <button
@@ -95,7 +95,7 @@ export default function Header() {
             <li className="nav-item user">
               {isLogin ? (
                 <>
-                  <a href="/#" className="nav-link">
+                  <a href="javascript:void(0)" className="nav-link">
                     <img src={marc} alt="user" /> {dataLogin.hoTen}
                   </a>
                   <div className="logout">
@@ -109,7 +109,7 @@ export default function Header() {
                     ) : (
                       <br />
                     )}
-                    <a href="/#"
+                    <a href="javascript:void(0)"
                       style={{ color: "white" }}
                       onClick={() => {
                         localStorage.removeItem("currentUser");
